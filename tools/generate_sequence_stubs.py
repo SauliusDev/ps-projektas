@@ -5,10 +5,12 @@ import argparse
 import re
 from pathlib import Path
 
-USECASE_PATTERN = re.compile(r'usecase "([^"]+)"')
+USECASE_PATTERN = re.compile(
+    r'usecase\s+"([^"]+)"(?:\s+as\s+([A-Za-z0-9_]+))?'
+)
 
 
-def parse_usecase_names(use_case_path: Path) -> list[str]:
+def parse_usecase_names(use_case_path: Path) -> list[tuple[str, str | None]]:
     text = use_case_path.read_text(encoding="utf-8")
     return USECASE_PATTERN.findall(text)
 
@@ -41,11 +43,25 @@ ui --> user: Present response
 def expected_paths(root: Path) -> list[tuple[str, Path]]:
     use_case_path = root / "_refs" / "diagrams-new" / "use_case.puml"
     sequence_dir = root / "_refs" / "diagrams-new" / "sequence"
-    names = parse_usecase_names(use_case_path)
-    return [
-        (name, sequence_dir / f"{sanitize_filename(name)}.puml")
-        for name in names
-    ]
+    usecases = parse_usecase_names(use_case_path)
+
+    path_counts: dict[str, int] = {}
+    targets: list[tuple[str, Path]] = []
+    for display_name, alias in usecases:
+        base_name = sanitize_filename(display_name)
+        count = path_counts.get(base_name, 0)
+
+        if count == 0:
+            filename = f"{base_name}.puml"
+        elif alias:
+            filename = f"{base_name}__{sanitize_filename(alias)}.puml"
+        else:
+            filename = f"{base_name}__{count + 1}.puml"
+
+        path_counts[base_name] = count + 1
+        targets.append((display_name, sequence_dir / filename))
+
+    return targets
 
 
 def main() -> int:
