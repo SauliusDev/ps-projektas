@@ -261,6 +261,10 @@ Kelionė (Trip) lifecycle: `[*] → Ateinanti → Aktyvi → Praejusi → Archiv
 
 ## Work Done Session 2026-04-17
 
+- Locked architecture decisions to `_refs/diagrams-new/` as the only source for P2 package/sequence modeling.
+- Added the P2 logical architecture package diagram to the design set.
+- Generated and aligned sequence diagrams per use case against the use case model.
+- Added BCE system class diagram updates aligned with sequence interactions.
 - Audited MagicDraw HTML 2.0 export — found 45 pre-rendered JPG diagrams (1 use case, 1 class, 1 state, 42 activity); no sequence or package diagrams in export
 - Created `_refs/export-images-audit.md` — full inventory table with filename↔diagram name mapping
 - Clarified overall project strategy and pipeline (see Master Strategy above)
