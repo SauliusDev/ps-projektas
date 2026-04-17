@@ -1,0 +1,30 @@
+@startuml activity_Redaguoti_pasiūlymą
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Admin|
+start
+:Pasirinkti pridėjimą;
+|Administratoriaus posistemė|
+:Pateikti redagavimo formą;
+|Admin|
+:Užpildyti redagavimo formą ir patvirtinti;
+|Administratoriaus posistemė|
+:Patikrinti ar įvesti teisingi duomenų tipai;
+:Patiktinti ar pasiūlimas nesidubliuoja sistemoje;
+if () then ([duomenys klaidingi])
+  :Pateikti klaidos pranešimą ir klaidingą duomenų lauką redagavimo formoje;
+else ([else])
+endif
+:Redaguoti pasiūlymą;
+stop
+
+@enduml

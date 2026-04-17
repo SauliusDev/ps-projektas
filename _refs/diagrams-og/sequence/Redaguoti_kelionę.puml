@@ -1,0 +1,90 @@
+@startuml Redaguoti_kelionę
+skinparam style strictuml
+skinparam sequenceArrowThickness 1.5
+skinparam sequenceParticipant underline
+skinparam participant {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+}
+skinparam actor {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+}
+skinparam boundary {
+  BackgroundColor #E8F5E9
+  BorderColor #2E7D32
+}
+skinparam control {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+}
+skinparam entity {
+  BackgroundColor #FFF9C4
+  BorderColor #F57F17
+}
+skinparam database {
+  BackgroundColor #FCE4EC
+  BorderColor #880E4F
+}
+
+title Redaguoti kelionę — sequence diagram
+
+actor Keliautojas as KT
+
+boundary "MainView\n<<boundary>>" as MV
+boundary "TripEditView\n<<boundary>>" as TEV
+boundary "AddressInputView\n<<boundary>>" as AIV
+
+control "TripListController\n<<control>>" as TLC
+control "JourneyController\n<<control>>" as JC
+control "RouteController\n<<control>>" as RC
+
+entity "Trip\n<<entity>>" as Trip
+entity "Route\n<<entity>>" as Route
+entity "Attraction\n<<entity>>" as Attr
+
+database "DB" as DB
+
+== Kelionės pasirinkimas ==
+KT -> MV : redaguoti kelionę
+MV -> TLC : loadTrips(userId)
+TLC -> DB : query(Trip by userId)
+DB --> TLC : tripList
+TLC --> MV : showTrips(tripList)
+KT -> MV : pasirinkti kelionę
+MV -> TEV : open(selectedTrip)
+TEV --> KT : rodyti redagavimo formą
+
+== Lankytinų vietų redagavimas ==
+KT -> TEV : pridėti lankytiną vietą
+TEV -> AIV : openAddressInput()
+AIV --> KT : rodyti adreso formą
+KT -> AIV : įvesti adresą
+AIV -> RC : findAttractions(address)
+RC -> DB : query(Attraction by address)
+DB --> RC : attractionCandidates
+RC --> AIV : attractionCandidates
+AIV --> TEV : attractionSelected
+TEV -> JC : addAttraction(tripId, attractionId)
+JC -> Trip : addAttraction(attractionId)
+Trip --> JC : ok
+
+opt Šalina jau pridėtą vietą
+  KT -> TEV : šalinti lankytiną vietą
+  TEV -> JC : removeAttraction(tripId, attractionId)
+  JC -> Trip : removeAttraction(attractionId)
+  Trip --> JC : ok
+end
+
+== Maršruto perskaičiavimas ir išsaugojimas ==
+KT -> TEV : išsaugoti pakeitimus
+TEV -> JC : saveTripChanges(trip)
+JC -> RC : recalculateRoute(trip)
+RC -> Route : rebuild(trip.attractions)
+Route --> RC : updatedRoute
+RC --> JC : routeUpdated
+JC -> DB : save(trip, route)
+DB --> JC : saved
+JC --> TEV : tripUpdated
+TEV --> KT : kelionė atnaujinta
+@enduml

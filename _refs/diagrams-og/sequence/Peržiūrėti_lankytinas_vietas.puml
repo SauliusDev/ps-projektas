@@ -1,0 +1,64 @@
+@startuml Peržiūrėti_lankytinas_vietas
+skinparam style strictuml
+skinparam sequenceArrowThickness 1.5
+skinparam sequenceParticipant underline
+skinparam participant {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+}
+skinparam actor {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+}
+skinparam boundary {
+  BackgroundColor #E8F5E9
+  BorderColor #2E7D32
+}
+skinparam control {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+}
+skinparam entity {
+  BackgroundColor #FFF9C4
+  BorderColor #F57F17
+}
+skinparam database {
+  BackgroundColor #FCE4EC
+  BorderColor #880E4F
+}
+
+title Peržiūrėti lankytinas vietas — sequence diagram
+
+actor Keliautojas as KT
+
+boundary "AttractionListView\n<<boundary>>" as ALV
+boundary "AttractionDetailsView\n<<boundary>>" as ADV
+boundary "MapView\n<<boundary>>" as MV
+
+control "RouteController\n<<control>>" as RC
+
+entity "Attraction\n<<entity>>" as Attr
+database "DB" as DB
+
+== Sąrašo atidarymas ==
+KT -> ALV : atidaryti lankytinas vietas
+ALV -> RC : getAttractions(city, filters)
+RC -> DB : query(Attraction by city, filters)
+DB --> RC : attractionsData
+RC --> ALV : attractions
+ALV --> KT : rodyti sąrašą
+
+== Vietos detalės ==
+KT -> ALV : pasirinkti vietą
+ALV -> RC : getAttraction(attractionId)
+RC -> Attr : load(attractionId)
+Attr --> RC : attraction
+RC --> ADV : showAttraction(attraction)
+ADV --> KT : rodyti aprašą ir informaciją
+
+opt Peržiūrėti vietą žemėlapyje
+  KT -> ADV : rodyti žemėlapyje
+  ADV -> MV : open(attraction.coordinates)
+  MV --> KT : rodyti vietą žemėlapyje
+end
+@enduml

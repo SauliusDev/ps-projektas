@@ -1,0 +1,40 @@
+@startuml activity_Perziureti_pasiulymus
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Svecias|
+start
+:Pasirinkti pasiulymu perziurejima;
+|Naudotojo posistemė|
+|Svecias|
+if () then ([Nori perziureti pasiulyma])
+  :Pasirinkti pasiulyma;
+|Naudotojo posistemė|
+  :Pateikti pasiulymo detales;
+|Svecias|
+  if () then ([norint issaugot pasiulyma])
+    :Issaugot pasiulyma;
+|Naudotojo posistemė|
+    :Tikrinti ar prisijunges;
+    if () then ([prisijunges])
+      :Pasiulimas pridedamas prie issaugotu;
+    else ([else])
+      :ispejimo langas;
+|Svecias|
+      :Grįžti į pasiūlymų pežiūrą;
+    endif
+  else ([else])
+  endif
+else ([else])
+endif
+stop
+
+@enduml

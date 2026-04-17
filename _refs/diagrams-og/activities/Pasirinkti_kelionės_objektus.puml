@@ -1,0 +1,35 @@
+@startuml activity_Pasirinkti_kelionės_objektus
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Keliautojas|
+start
+:Paspausti sudaryti savo kelionės objektus;
+|Naudotojo posistemė|
+:Gauti kelionės objektus;
+|Google maps|
+:Sužymėti objektus žemėlapyje;
+|Naudotojo posistemė|
+:Rodyti objektų pasirinkimo žemėlapį;
+|Keliautojas|
+:Pasirinkti norimus objektus;
+if () then ([Nori saugoti])
+  :Paspausti saugoti;
+|Naudotojo posistemė|
+  :Išsaugoti pasirinkimus;
+else ([else])
+|Keliautojas|
+  :Paspausti atšaukti;
+endif
+|Naudotojo posistemė|
+stop
+
+@enduml

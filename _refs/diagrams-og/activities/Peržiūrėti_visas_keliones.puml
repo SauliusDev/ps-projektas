@@ -1,0 +1,29 @@
+@startuml activity_Peržiūrėti_visas_keliones
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Admin|
+start
+:Pasirinnkti visų kelionių peržiūrą;
+|Administratoriaus posistemė|
+:Pateikti visų kelionių peržiūros langą;
+|Admin|
+if () then ([nori peržiūrėti lankytiną vietą])
+  :Pasirinkti kelionę;
+|Administratoriaus posistemė|
+  :Pateikti kelionės langą;
+|Admin|
+  :Uždaryti kelionės langą;
+else ([else])
+endif
+stop
+
+@enduml

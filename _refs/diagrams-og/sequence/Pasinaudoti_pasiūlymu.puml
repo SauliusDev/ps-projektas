@@ -1,0 +1,83 @@
+@startuml Pasinaudoti_pasiūlymu
+skinparam style strictuml
+skinparam sequenceArrowThickness 1.5
+skinparam sequenceParticipant underline
+skinparam participant {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+}
+skinparam actor {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+}
+skinparam boundary {
+  BackgroundColor #E8F5E9
+  BorderColor #2E7D32
+}
+skinparam control {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+}
+skinparam entity {
+  BackgroundColor #FFF9C4
+  BorderColor #F57F17
+}
+skinparam database {
+  BackgroundColor #FCE4EC
+  BorderColor #880E4F
+}
+
+title Pasinaudoti pasiūlymu — sequence diagram
+
+actor Keliautojas as KT
+
+boundary "MainView\n<<boundary>>" as MV
+boundary "SavedDealsView\n<<boundary>>" as SDV
+boundary "TripDatePickerView\n<<boundary>>" as TDPV
+
+control "SavedDealsController\n<<control>>" as SDC
+control "TripListController\n<<control>>" as TLC
+control "RouteController\n<<control>>" as RC
+
+entity "SavedDeals\n<<entity>>" as SD
+entity "Deal\n<<entity>>" as Deal
+entity "Trip\n<<entity>>" as Trip
+entity "RouteAttraction\n<<entity>>" as RA
+
+database "DB" as DB
+
+== Išsaugotų pasiūlymų atidarymas ==
+KT -> MV : atidaryti išsaugotus pasiūlymus
+MV -> SDV : open()
+SDV -> SDC : getSavedDeals(userId)
+SDC -> DB : query(SavedDeals by userId)
+DB --> SDC : savedDealsData
+SDC --> SDV : savedDeals
+SDV --> KT : rodyti išsaugotus pasiūlymus
+
+== Pasiūlymo pasirinkimas ==
+KT -> SDV : pasirinkti pasiūlymą
+SDV -> SDC : useDeal(dealId)
+SDC -> Deal : increasePopularity()
+Deal --> SDC : ok
+SDC -> DB : save(dealPopularity)
+DB --> SDC : saved
+
+== Kelionės sukūrimas iš pasiūlymo ==
+SDC --> TDPV : requestDates()
+TDPV --> KT : rodyti datų pasirinkimą
+KT -> TDPV : pasirinkti datas
+TDPV -> TLC : createTripFromDeal(userId, dealId, dates)
+TLC -> Trip : new Trip(dates)
+Trip --> TLC : trip
+TLC -> RC : generateRouteFromDeal(dealId, dates)
+RC -> DB : getDealAttractions(dealId)
+DB --> RC : dealAttractions
+RC -> RA : buildRouteAttractions(dealAttractions)
+RA --> RC : routeAttractions
+RC --> TLC : routeReady
+TLC -> DB : save(trip, route)
+DB --> TLC : saved
+TLC --> SDV : tripCreated
+SDV --> KT : kelionė sukurta
+@enduml

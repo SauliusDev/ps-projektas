@@ -1,0 +1,58 @@
+@startuml activity_Peržiūrėti_keliones
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Keliautojas|
+start
+:Pasirinkti perziureti keliones;
+|Naudotojo posistemė|
+:Pateikti pridetas keliones;
+|Keliautojas|
+if () then ([perziureti pridetas keliones])
+  :Pasirinkti kelione;
+|Naudotojo posistemė|
+  :Rodyti keliones detaliu langa;
+  :Tikrinti keliones busena;
+  if () then ([keliones busena yra praejusi])
+    :Tikrinti ar vartotojas suteike kelionei ivertinima;
+    if () then ([kelione neivertinta])
+      :pateikti galimybe ivertinti kelione;
+|Keliautojas|
+      :Ivertina kelione;
+|Naudotojo posistemė|
+      :Tikrinti ar kelione prideta is pasiulymu;
+      :Jei yra miesto pasiulymuose, prideti pasiulymui ivertinima;
+      :pazymeti kelione kaip ivertinta;
+    else ([else])
+    endif
+  else ([else])
+|Keliautojas|
+    if () then ([norint redaguoti kelione])
+|Naudotojo posistemė|
+    else ([else])
+    endif
+|Keliautojas|
+    stop
+  endif
+|Naudotojo posistemė|
+  :Pateikti galimybe archivuoti arba istrinti praejuse kelione;
+|Keliautojas|
+  if () then ([norint archivuoti kelione])
+|Naudotojo posistemė|
+    :Prideti kelione i keliautojo archyva;
+    :Trinti kelione is pridetu kelioniu ir archivuoti sistemoje;
+  else ([else])
+  endif
+else ([else])
+|Keliautojas|
+endif
+
+@enduml

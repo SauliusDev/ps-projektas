@@ -1,0 +1,30 @@
+@startuml activity_Prisijungti
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Svecias|
+start
+:Pasirinkti prisijungti;
+|Svečio posistemė|
+:Pateikti prisijungimo langą;
+|Svecias|
+:Suvesti prisijungimo duomenis;
+|Svečio posistemė|
+:Validuoti prisijungimo duomenis;
+if () then ([Netinkami duomenys])
+  :Rodyti klaidos pranešimą;
+else ([else])
+endif
+:Sukurti naudotojo sesiją;
+:Pateikti pagrindinį langą;
+stop
+
+@enduml

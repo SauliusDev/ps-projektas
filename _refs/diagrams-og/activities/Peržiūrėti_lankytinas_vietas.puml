@@ -1,0 +1,29 @@
+@startuml activity_Peržiūrėti_lankytinas_vietas
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Admin|
+start
+:Pasirinnkti lankytinų vietų peržiūrą;
+|Administratoriaus posistemė|
+:Pateikti lankytinų vietų peržiūros langą;
+|Admin|
+if () then ([nori peržiūrėti lankytiną vietą])
+  :Pasirinkti lankytiną vietą;
+|Administratoriaus posistemė|
+  :Pateikti lankytiną vietos langą;
+|Admin|
+  :Uždaryti lankytiną vietos langą;
+else ([else])
+endif
+stop
+
+@enduml

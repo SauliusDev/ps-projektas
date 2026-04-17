@@ -1,0 +1,63 @@
+@startuml activity_Sugeneruoti_maisto_planą
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Keliautojas|
+start
+:Pasirinkti generuoti maisto planą;
+|Naudotojo posistemė|
+:Gauti kelionės lankytinų vienų sarašą ir maršrutą;
+:Sujungti visų kelionėje dalyvaujančių vartotojų maisto parinktis;
+if () then ([maisto planas neįmanomas])
+else ([else])
+  :Pasirinkti kitą lankytiną vietą, kuriai reikalinga maisto vieta;
+  if () then ([nuo paskutinio valgymo praėjo pakankamai laiko])
+    :Filtruoti maisto vietas pagal laiką, biudžetą ir parinktis;
+    :Pašalinti jau priskirtas maisto vietas;
+    if () then ([tinkamų kandidatų yra])
+      :Normalizuoti maisto vietų atstumus į nuo 0 iki 10 intervalą;
+      :Priskirti atstumo balą kiekvienai maisto vietai;
+      :Normalizuoti maisto vietų vartotojų įvertinimus į nuo 0 iki 10 intervalą;
+      :Priskirti vartotojų įvertinimo balą kiekvienai maisto vietai;
+      :Normalizuoti maisto vietų parinkčių atitikimą į nuo 0 iki 10 intervalą;
+      :Priskirti parinkčių atitikimo balą kiekvienai maisto vietai;
+      :Normalizuoti laiką nuo paskutinio valgymo į nuo 0 iki 10 intervalą;
+      :Priskirti laiko nuo paskutinio valgymo balą kiekvienai maisto vietai;
+      :Padauginti balus iš balų svorių;
+      :Sudėti visus balus į galutinį įvertinimą kiekvienai maisto vietai;
+      :Išrikiuoti maisto vietas pagal galutinį įvertinimą;
+      :Pasirinkti aukščiausiai įvertintą maisto vietą;
+      :Atnaujinti paskutinio valgymo laiką;
+      :Įrašyti maisto vietą į maisto planą;
+      :Įrašyti maisto vietą į maršrutą po pasirinktos lankytinos vietos;
+      :Priskirti lankytinai vietai maisto vietą;
+      if () then ([maršrute yra kitą lankytina vieta])
+      else ([else])
+        :Pateikti maisto plano langą;
+|Keliautojas|
+        if () then ([nori keisti parinktis ir bandyti vėl])
+        else ([else])
+        endif
+        stop
+      endif
+    else ([else])
+|Naudotojo posistemė|
+      if () then ([nepasiekta maksimalaus dydžio zona])
+        :Išplėsti paieškos zoną;
+      else ([else])
+        :Pateikti langą pranešanti, kad pagal parinktis maisto planas nėra įmanomas;
+      endif
+    endif
+  else ([else])
+  endif
+endif
+
+@enduml
