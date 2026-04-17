@@ -1,0 +1,30 @@
+@startuml Istrinti_meniu
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminMenuView as V
+boundary AdminApi as API
+control FoodController as C
+database FoodRepository as R
+
+ref over A, V, API, C : Perziureti_meniu
+
+A -> V : selectMenu(menuId)
+A -> V : confirmDelete()
+V -> API : DELETE /api/admin/menus/{menuId}
+API -> C : deleteMenu(menuId)
+C -> R : findById(menuId)
+R --> C : menu : Menu
+
+alt [menu found]
+  C -> R : delete(menuId)
+  R --> C : deleted
+  C --> API : success
+  API --> V : 204 No Content
+  V --> A : showSuccess("Meniu ištrintas")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Meniu nerastas")
+end
+@enduml

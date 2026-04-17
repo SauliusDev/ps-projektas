@@ -1,0 +1,33 @@
+@startuml Redaguoti_patiekala
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminMenuView as V
+boundary AdminApi as API
+control FoodController as C
+entity Dish as E
+database FoodRepository as R
+
+ref over A, V, API, C : Perziureti_patiekalus
+
+A -> V : selectDish(dishId)
+A -> V : submitEditForm(name, diet, description)
+V -> API : PUT /api/admin/dishes/{dishId}(name, diet, description)
+API -> C : updateDish(dishId, name, diet, description)
+C -> R : findById(dishId)
+R --> C : dish : Dish
+
+alt [dish found]
+  C -> E : applyUpdates(dish, name, diet, description)
+  E --> C : updated : Dish
+  C -> R : save(updated)
+  R --> C : saved
+  C --> API : updated
+  API --> V : 200 OK { dish }
+  V --> A : showSuccess("Patiekalas atnaujintas")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Patiekalas nerastas")
+end
+@enduml

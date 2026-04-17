@@ -1,0 +1,24 @@
+@startuml Prideti_maisto_vieta
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminFoodView as V
+boundary AdminApi as API
+control FoodController as C
+entity FoodPlace as E
+database FoodRepository as R
+
+ref over A, V, API, C : Perziureti_maisto_vietas
+
+A -> V : openAddFoodPlaceForm()
+A -> V : submitFoodPlaceForm(name, address, city)
+V -> API : POST /api/admin/food-places(name, address, city)
+API -> C : createFoodPlace(name, address, city)
+C -> E : buildFoodPlace(name, address, city)
+E --> C : foodPlace : FoodPlace
+C -> R : save(foodPlace)
+R --> C : saved : FoodPlace
+C --> API : saved
+API --> V : 201 Created { foodPlaceId }
+V --> A : showSuccess("Maisto vieta pridėta")
+@enduml

@@ -1,0 +1,30 @@
+@startuml Perziureti_meniu
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminMenuView as V
+boundary AdminApi as API
+control FoodController as C
+database FoodRepository as R
+
+A -> V : openMenuManager(foodPlaceId)
+V -> API : GET /api/admin/food-places/{foodPlaceId}/menus
+API -> C : listMenus(foodPlaceId)
+C -> R : findMenusByFoodPlace(foodPlaceId)
+R --> C : menus : Menu[]
+C --> API : menus
+API --> V : 200 OK { items : Menu[] }
+V --> A : renderMenusTable(menus)
+
+opt [add menu]
+  ref over A, V, API, C : Prideti_meniu
+end
+
+opt [edit menu]
+  ref over A, V, API, C : Redaguoti_meniu
+end
+
+opt [delete menu]
+  ref over A, V, API, C : Istrinti_meniu
+end
+@enduml

@@ -1,0 +1,36 @@
+@startuml Redaguoti_maisto_plana
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerFoodView as V
+boundary TravelerApi as API
+control FoodController as C
+entity FoodPlan as E
+database TripRepository as R
+
+ref over A, V, API, C : Perziureti_keliones
+
+A -> V : openFoodPlanEditor(tripId)
+V -> API : GET /api/traveler/trips/{tripId}/food-plan
+API -> C : getFoodPlan(tripId)
+C -> R : findFoodPlanByTripId(tripId)
+R --> C : plan : FoodPlan
+C --> API : plan
+API --> V : 200 OK { plan }
+V --> A : renderFoodPlanEditor(plan)
+
+A -> V : submitFoodPlanChanges(changes)
+V -> API : PUT /api/traveler/trips/{tripId}/food-plan(changes)
+API -> C : updateFoodPlan(tripId, changes)
+C -> E : applyChanges(plan, changes)
+E --> C : updatedPlan : FoodPlan
+C -> R : save(updatedPlan)
+R --> C : saved
+C --> API : updatedPlan
+API --> V : 200 OK { plan }
+V --> A : showSuccess("Maisto planas atnaujintas")
+
+opt [update trip after food plan change]
+  ref over A, V, API, C : Redaguoti_kelione
+end
+@enduml

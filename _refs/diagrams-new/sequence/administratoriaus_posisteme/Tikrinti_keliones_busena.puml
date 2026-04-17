@@ -1,0 +1,28 @@
+@startuml Tikrinti_keliones_busena
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminTripsView as V
+boundary AdminApi as API
+control TripQueryController as C
+database TripRepository as R
+
+ref over A, V, API, C : Perziureti_visas_keliones
+
+A -> V : selectTrip(tripId)
+V -> API : GET /api/admin/trips/{tripId}/status
+API -> C : getTripStatus(tripId)
+C -> R : findById(tripId)
+R --> C : trip : Trip
+
+alt [trip found]
+  C -> C : evaluateStatus(trip)
+  C --> API : status : TripStatus
+  API --> V : 200 OK { tripId, status, startDate, endDate }
+  V --> A : renderTripStatusDetail(status)
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Kelionė nerasta")
+end
+@enduml

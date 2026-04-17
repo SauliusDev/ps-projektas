@@ -1,0 +1,30 @@
+@startuml Istrinti_patiekala
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminMenuView as V
+boundary AdminApi as API
+control FoodController as C
+database FoodRepository as R
+
+ref over A, V, API, C : Perziureti_patiekalus
+
+A -> V : selectDish(dishId)
+A -> V : confirmDelete()
+V -> API : DELETE /api/admin/dishes/{dishId}
+API -> C : deleteDish(dishId)
+C -> R : findById(dishId)
+R --> C : dish : Dish
+
+alt [dish found]
+  C -> R : delete(dishId)
+  R --> C : deleted
+  C --> API : success
+  API --> V : 204 No Content
+  V --> A : showSuccess("Patiekalas ištrintas")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Patiekalas nerastas")
+end
+@enduml

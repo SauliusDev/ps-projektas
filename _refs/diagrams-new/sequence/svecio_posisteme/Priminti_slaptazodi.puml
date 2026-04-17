@@ -1,0 +1,32 @@
+@startuml Priminti_slaptazodi
+skinparam style strictuml
+
+actor Svecias as A
+boundary GuestAuthView as V
+boundary GuestApi as API
+control AuthController as C
+database UserRepository as R
+actor "El pasto serveris" as Email
+
+A -> V : enterEmail(email)
+V -> API : POST /api/guest/forgot-password(email)
+API -> C : requestPasswordReset(email)
+C -> R : findByEmail(email)
+R --> C : user : User
+
+alt [user found]
+  C -> C : generateResetToken()
+  C -> Email : sendResetEmail(email, token)
+  Email --> C : sent : Boolean
+  C --> API : success
+else [else]
+  C --> API : success
+end
+
+API --> V : 200 OK
+V --> A : showMessage("Patikrinkite el. paštą")
+
+opt [user clicks reset link]
+  ref over A, V, API, C : Prisijungti
+end
+@enduml

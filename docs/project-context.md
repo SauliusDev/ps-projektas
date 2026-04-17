@@ -68,53 +68,30 @@ Diagrams are built in **two phases with different language requirements:**
 
 ## Master Strategy
 
-### The full pipeline
+### Current practical pipeline (after refs cleanup)
 
 ```
-MagicDraw model (current — incomplete/incorrect)
-        ↓  exported as HTML 2.0 + XML
-Raw export files in _refs/export-source/magic-export/
-        ↓  parsed to LLM-readable PUML
-PUML files in _refs/export-og/  ← LLM source of truth for current model
-        ↓  LLM reads PUML + lecture transcripts + lab context
-Corrected design in _refs/export-fixed/
-        ↓  build the app from corrected PUML
-Working app
-        ↓  team redraws all diagrams in MagicDraw from corrected PUML
-Final MagicDraw model (lecturer grades this)
+Current baseline diagrams: _refs/diagrams-og/
+        ↓  review against lectures + lab rubrics
+Context sources: _refs/context/ + _refs/1st-lab/ + _refs/2nd-lab/
+        ↓  apply fixes/updates
+Updated diagrams: _refs/diagrams-new/
+        ↓  redraw in MagicDraw for defense submissions
+Final graded model
 ```
 
-**Key principle:** PUML files are how the LLM understands and reasons about the model. MagicDraw is only for final submission. The team never hand-writes PUML — they redraw the corrected PUML back into MagicDraw.
+**Key principle:** keep active working material in `_refs/`; keep historical exports and experiments in `_archive/`.
 
-**Sequence and package diagrams are deferred.** They depend on the final app architecture and cannot be created until the tech stack and component boundaries are decided.
+### What is active now
+- `_refs/diagrams-og/` — baseline PlantUML set used as "current model" in this repo.
+- `_refs/diagrams-new/` — updated/fixed PlantUML set (currently focused on phase 1 diagrams).
+- `_refs/context/` — AI-ready lecture material and module/admin references.
+- `_refs/1st-lab/`, `_refs/2nd-lab/` — grading rubrics + report templates.
 
-### Step 1 — Build Context Library ✅ DONE
-All raw course materials converted to clean LLM-injectable markdown:
-- `_refs/formatted/transcripts/lecture-01.md` … `lecture-07.md` — VTT transcripts stripped, translated Lithuanian → English, structured by topic
-- `_refs/formatted/presentations/lecture-00.md` … `lecture-07.md` — PDF slides extracted slide-by-slide, translated, all diagrams described
-- Lab instructions still to be processed (`_refs/1st-lab/`, `_refs/2nd-lab/`)
-
-### Step 2 — Export & Parse Magic UML → PUML ✅ DONE
-- Exported Magic model as HTML 2.0 + XML (`_refs/export-source/magic-export/`)
-- Parsed export → PUML files in `_refs/export-og/` (exact representation of current Magic model)
-- HTML 2.0 export also contains 45 pre-rendered JPG images (MagicDraw's own renders) — see `_refs/export-images-audit.md` for full inventory
-- **Note:** HTML 2.0 export does NOT include sequence or package diagrams — those types were not exported
-
-### Step 3 — Fix & Improve Diagrams (in progress)
-- Read `_refs/export-og/` PUML files as the current model baseline
-- LLM corrects logic errors, missing elements, broken relationships using lecture + lab context
-- Write corrected versions to `_refs/export-fixed/`
-- Track what changed so the team knows what to redraw in MagicDraw
-
-### Step 4 — Implementation
-- Map finalized diagrams to actual code (React + backend TBD)
-- Implementation follows diagrams exactly — BCE layers, controller responsibilities, entity relationships
-- Sequence diagrams authored at this stage (they describe the implementation flow)
-
-### Step 5 — Team Delegation
-- Share corrected PUML files from `_refs/export-fixed/` with team as redraw reference
-- Team recreates them in MagicDraw for submission
-- Team builds UI/design layer
+### What was moved to archive
+- Legacy exports/parsers and large historical bundles moved under `_archive/export-source/`.
+- Older lecture/misc/wireframe folders moved under `_archive/`.
+- `_archive/` is retained for traceability; it is not the primary day-to-day source.
 
 ---
 
@@ -128,10 +105,10 @@ PlantUML renders at different quality levels depending on diagram type:
 | State machine | ✅ Good | PUML render |
 | Class diagram | ⚠️ Messy at scale | Generate Mermaid alongside PUML for human-readable view |
 | Use case diagram | ❌ Poor at 40+ nodes | Use pre-rendered MagicDraw JPG from HTML export as visual reference |
-| Sequence diagrams | TBD — not yet authored | Will be PUML |
-| Package diagram | TBD — not yet authored | Will be PUML |
+| Sequence diagrams | ✅ Available in baseline | `_refs/diagrams-og/sequence/` |
+| Package diagram | ✅ Available in baseline | `_refs/diagrams-og/package/architecture.puml` |
 
-Pre-rendered MagicDraw JPGs are in `_refs/export-source/magic-export/folder html 2.0/html 2.0_files/` — filename-to-diagram mapping is in `_refs/export-images-audit.md`.
+Pre-rendered MagicDraw JPG audit is tracked in `_refs/export-images-audit.md`. The original HTML export sources were moved to `_archive/export-source/magic-export/`.
 
 ---
 
@@ -142,61 +119,42 @@ ps-projektas/
 ├── docs/
 │   └── project-context.md          ← this file — read first
 ├── _refs/
-│   ├── formatted/                  ← ✅ DONE — LLM-ready course material
-│   │   ├── transcripts/
-│   │   │   ├── lecture-01.md       ← Course intro, UML overview, MagicDraw, grading
-│   │   │   ├── lecture-02.md       ← Use case diagrams, actors, «include»/«extend»
-│   │   │   ├── lecture-03.md       ← Activity diagrams, nodes, swimlanes
-│   │   │   ├── lecture-04.md       ← Class diagrams, relationships, cardinality
-│   │   │   ├── lecture-05.md       ← State diagrams, composite/orthogonal, history
-│   │   │   ├── lecture-06.md       ← Package diagrams, BCE/MVC architecture
-│   │   │   └── lecture-07.md       ← Sequence diagrams, lifelines, combined fragments
-│   │   └── presentations/
-│   │       ├── lecture-00.md       ← Course orientation, grading, tool setup
-│   │       ├── lecture-01.md       ← UML intro, taxonomy, Paysera example
-│   │       ├── lecture-02.md       ← Use case diagrams (32 slides)
-│   │       ├── lecture-03.md       ← Activity diagrams (20 slides)
-│   │       ├── lecture-04.md       ← Class diagrams (30 slides)
-│   │       ├── lecture-05.md       ← State machine diagrams (20 slides)
-│   │       ├── lecture-06.md       ← Package diagrams, BCE stereotypes (17 slides)
-│   │       └── lecture-07.md       ← Sequence diagrams (20 slides)
-│   ├── export-source/              ← raw original Magic exports (do not edit)
-│   │   ├── magic-export/           ← original XMI file from MagicDraw
-│   │   └── magic-uml/              ← ✅ parsed Mermaid (exact representation of Magic model)
-│   │       ├── model-summary.md    ← full index of all 200+ named elements
-│   │       ├── use-case/use-case.mmd
-│   │       ├── class/class.mmd
-│   │       ├── package/package.mmd
-│   │       ├── state-machine.mmd
-│   │       ├── sequence/           ← 8 sequence diagrams
-│   │       └── activity/           ← 43 individual activity diagrams
-│   ├── export-og/                  ← older puml outputs (pre-dates XMI parse, mostly superseded)
+│   ├── 1st-lab/                    ← P1 rubric, template, README summary
+│   ├── 2nd-lab/                    ← P2 rubric, template, README summary
+│   ├── context/
+│   │   ├── info/                   ← module description + work rules
+│   │   ├── presentations-llm/      ← lecture-00..07 markdown
+│   │   └── transcripts-lmm/        ← lecture-01..07 markdown
+│   ├── diagrams-og/                ← baseline PlantUML set (active source)
 │   │   ├── activities/
-│   │   ├── class_diagram.puml
-│   │   └── use_case.puml
-│   ├── export-fixed/               ← EMPTY — target for fixed/improved Mermaid diagrams
-│   ├── diagrams-og/                ← current PlantUML mirror used in this repo
-│   │   ├── activities/             ← phase 1 activity diagrams
+│   │   │   ├── svecio_posisteme/png/
+│   │   │   ├── naudotojo_posisteme/png/
+│   │   │   └── administratoriaus_posisteme/png/
 │   │   ├── package/architecture.puml
-│   │   ├── sequence/               ← phase 2 sequence diagrams from project module export
+│   │   ├── sequence/               ← 8 sequence .puml + png renders
 │   │   ├── class_diagram.puml
 │   │   └── use_case.puml
-│   ├── moodle/                     ← course rules, grading info, module description
-│   ├── moodle-presentation-transcripts/  ← original VTT files (Lithuanian)
-│   ├── moodle-presentations/       ← original PDF lecture slides
-│   ├── 1st-lab/                    ← lab 1 report template + instructions (not yet processed)
-│   ├── 2nd-lab/                    ← lab 2 report template + instructions (not yet processed)
-│   └── my-input/info.md            ← owner's project description
+│   ├── diagrams-new/               ← updated/fixed PlantUML set in progress
+│   │   ├── activities/
+│   │   │   ├── svecio_posisteme/png/
+│   │   │   ├── naudotojo_posisteme/png/
+│   │   │   └── administratoriaus_posisteme/png/
+│   │   ├── class_diagram.puml
+│   │   └── use_case.puml
+│   └── export-images-audit.md      ← mapping for MagicDraw-exported JPG diagrams
 ├── _notes/
 │   ├── todo.md
 │   └── personal-insights.md
 └── _archive/
-    └── uml/                        ← prior sequence diagram work (Mermaid + PlantUML)
+    ├── export-source/              ← historical exports, parsers, and generated artifacts
+    ├── lectures/ misc/ quick-04-14-lec/
+    ├── uml/                        ← prior sequence diagram work
+    └── use case/ wireframes/       ← older design material
 ```
 
 ---
 
-## What's In the Magic Model (from XMI parse)
+## What's In the Magic Model (from archived XMI parse snapshot)
 
 ### Actors (12 total)
 - **Keliautojas** (Traveler) — inherits from Naudotojas
@@ -208,13 +166,13 @@ ps-projektas/
 - + project-model equivalents of the above
 
 ### Use Cases (43 total across 3 subsystems)
-Organized into Admin, User (Naudotojas/Keliautojas), and Guest subsystems. Full list in `_refs/export-source/magic-uml/model-summary.md`.
+Organized into Admin, User (Naudotojas/Keliautojas), and Guest subsystems. Full list in `_archive/export-source/magic-uml/model-summary.md`.
 
 ### Classes (51 total)
-17 domain entity classes + frontend controllers/views + project model classes. Full class diagram with typed attributes, operations, and 74 associations in `_refs/export-source/magic-uml/class/class.mmd`.
+17 domain entity classes + frontend controllers/views + project model classes. Full class diagram with typed attributes, operations, and 74 associations in `_archive/export-source/magic-uml/class/class.mmd`.
 
 ### Activities (48)
-43 named activity diagrams (one per use case approximately). Individual files in `_refs/export-source/magic-uml/activity/`.
+43 named activity diagrams (one per use case approximately). Individual files in `_archive/export-source/magic-uml/activity/`.
 
 ### Sequence Diagrams (8)
 Including: Peržiūrėti pasiūlymus (Browse Deals) with 7 lifelines (Guest → Deals/MainView/DealController/Deal/SavedDealsController/UserController).
@@ -261,26 +219,24 @@ Kelionė (Trip) lifecycle: `[*] → Ateinanti → Aktyvi → Praejusi → Archiv
 
 ## Work Done Session 2026-04-17
 
-- Audited MagicDraw HTML 2.0 export — found 45 pre-rendered JPG diagrams (1 use case, 1 class, 1 state, 42 activity); no sequence or package diagrams in export
-- Created `_refs/export-images-audit.md` — full inventory table with filename↔diagram name mapping
-- Clarified overall project strategy and pipeline (see Master Strategy above)
-- Updated this project-context.md with current state and rendering quality notes
-- Regenerated all 8 sequence diagrams in `_refs/diagrams-og/sequence/` using the lecture-style PlantUML format (BCE lifeline stereotypes, consistent skinparams, section blocks, and combined fragments)
+- Audited MagicDraw HTML 2.0 export — found 45 pre-rendered JPG diagrams (1 use case, 1 class, 1 state, 42 activity); no sequence or package diagrams in that export.
+- Created `_refs/export-images-audit.md` — full inventory table with filename↔diagram name mapping.
+- Regenerated all 8 sequence diagrams in `_refs/diagrams-og/sequence/` using the lecture-style PlantUML format.
+- Consolidated active references under `_refs/` and moved large historical material to `_archive/`.
+- Updated this `project-context.md` to reflect the new `_refs` + `_archive` layout.
 
 ## Work Done Session 2026-04-16
 
 - Created this `docs/project-context.md` file
-- Processed all 7 VTT lecture transcripts → `_refs/formatted/transcripts/` (Lithuanian → English, timestamped stripped, topic-structured)
-- Processed all 8 PDF presentations → `_refs/formatted/presentations/` (slide-by-slide, fully translated)
-- Parsed full Magic UML XMI export (6MB, 75,964 lines) → 58 Mermaid files in `_refs/export-source/magic-uml/`
-- Deleted `parse_html_export.py`, `parse_xmi.py`, `__pycache__` from `export-og/`
-- Folder structure clarified: `export-source/` (raw + parsed originals), `export-og/` (old puml), `export-fixed/` (target for fixed diagrams)
+- Processed all 7 VTT lecture transcripts → `_refs/context/transcripts-lmm/` (Lithuanian → English, timestamped stripped, topic-structured).
+- Processed all 8 PDF presentations → `_refs/context/presentations-llm/` (slide-by-slide, fully translated).
+- Parsed full Magic UML XMI export and generated intermediate artifacts (now preserved in `_archive/export-source/`).
+- Historical parser outputs and legacy export folders moved from active refs into `_archive/`.
 
 ## Immediate Next Steps
 
-1. Process lab instructions (`_refs/1st-lab/`, `_refs/2nd-lab/`) → formatted md
-2. Review PUML diagrams in `_refs/export-og/` for correctness against lecture requirements
-3. Fix diagrams → write corrected versions to `_refs/export-fixed/`
-4. For use case + class diagrams: generate human-readable Mermaid alongside the corrected PUML
-5. Decide on tech stack for implementation (React confirmed for frontend, backend TBD)
-6. Author sequence and package diagrams once architecture is settled
+1. Continue reviewing `_refs/diagrams-og/` against lecture + lab rubric rules.
+2. Keep applying fixes in `_refs/diagrams-new/` (activity/use-case/class first, then package/sequence as needed).
+3. Normalize naming/consistency between `diagrams-og` and `diagrams-new`.
+4. Finalize tech stack details for implementation mapping (frontend confirmed, backend still open).
+5. Prepare redraw-ready package for MagicDraw submission from the stabilized PlantUML set.

@@ -1,0 +1,34 @@
+@startuml Pasirinkti_specifines_parinktis
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerTripsView as V
+boundary TravelerApi as API
+control TripCreationController as C
+entity Preferences as E
+database TripRepository as R
+
+A -> V : openTripOptions(tripId)
+V -> API : GET /api/traveler/preferences
+API -> C : getPreferences(travelerId)
+C -> R : findPreferences(travelerId)
+R --> C : prefs : Preferences
+C --> API : prefs
+API --> V : 200 OK { preferences }
+V --> A : renderOptionsForm(prefs)
+
+A -> V : submitOptions(budget, tripType, diet, city)
+V -> API : PUT /api/traveler/trips/{tripId}/options(budget, tripType, diet, city)
+API -> C : applyTripOptions(tripId, budget, tripType, diet, city)
+C -> E : updatePreferences(prefs, budget, tripType, diet, city)
+E --> C : updatedPrefs : Preferences
+C -> R : save(updatedPrefs)
+R --> C : saved
+C --> API : success
+API --> V : 200 OK
+V --> A : showSuccess("Parinktys išsaugotos")
+
+opt [continue to trip creation]
+  ref over A, V, API, C : Kurti_kelione
+end
+@enduml

@@ -1,37 +1,36 @@
+# Shared Gemini Instructions
 
-# General
+Use `.claude/` as the canonical project context source.
 
-## Context Loading
+Read:
 
-Read these first when starting work on this project:
+- `.claude/CLAUDE.md`
+- `.claude/rules/` in full
+- `docs/project-context.md`
+- `_refs/1st-lab/`
+- `_refs/2nd-lab/`
 
-- `docs/project-context.md` — project summary, goals, current state
-- `_refs/1st-lab/` — 1st lab instructions and materials
-- `_refs/2nd-lab/` — 2nd lab instructions and materials
+Shared rules:
 
-## Rules
+- `.claude/skills/` is the canonical shared skill library for this repository.
+- Treat `.claude/rules/` as the full shared rules directory. Read all relevant files there, including any rules added later.
+- `_notes/todo.md` is read-only and must never be edited, reformatted, or cleaned up.
+- When the user references a lab, assignment, or Moodle content, check `_refs/` before asking.
+- `docs/project-context.md` is the source of truth for project scope and completed work. Keep it in sync when major work finishes.
 
-- `_notes/todo.md` is a personal scratchpad. **Read-only** — never edit, reformat, or "clean up". Use it as reference only.
-- When the user references a lab, assignment, or moodle content, check `_refs/` before asking.
-- `docs/project-context.md` is the source of truth for project scope and completed work — keep it in sync when major work finishes.
+Diagram requirements:
 
-## Diagram Format
+- Use PlantUML (`.puml`) for all UML diagrams.
+- Working diagram files live in `_refs/export-og/`.
+- Fixed versions go in `_refs/export-fixed/`.
+- Source XML exports live in `_refs/export-source/`.
+- Use `-->`, `.>` with `<<include>>` / `<<extend>>`, `--|>`, and `<|--` as required by the project conventions.
+- Phase 1 diagrams use Lithuanian names.
+- Phase 2 diagrams use English.
 
-All UML diagrams in this project use **PlantUML** (`.puml` files) — not Mermaid.
+Activity diagram decision nodes:
 
-- Working diagram files live in `_refs/export-og/` (exact representation of the current Magic model)
-- Fixed/improved versions go in `_refs/export-fixed/`
-- Source XML exports from MagicDraw are in `_refs/export-source/`
-- When generating, fixing, or discussing any diagram (use case, class, activity, sequence, state, package), always produce PlantUML syntax
-- PlantUML relationships: `-->` for associations, `.>` with `<<include>>` / `<<extend>>` for UC relationships, `--|>` for generalization, `<|--` for inheritance in class diagrams
-- Phase 1 diagrams (use case, activity, state, class) keep Lithuanian names; Phase 2 diagrams (package, sequence) use English
-
-# Magic systems module specifics
-
-## Activity Diagram Decision Nodes (university requirement)
-
-- Decision diamond must be **empty** — no question text inside: `if () then ([label])`
-- The **"yes" branch** label describes the action/condition being taken, in square brackets: `([nori keisti])`
-- The **"else" branch** is always labeled `([else])` — never write the negative condition (e.g. not `(ne)`, not `(nori keisti)`)
-- PlantUML syntax: `if () then ([positive action]) ... else ([else]) ... endif`
-
+- Leave decision diamonds empty.
+- Use a positive branch label in square brackets.
+- Use `([else])` for the else branch.
+- Never write the negative condition on the else branch.

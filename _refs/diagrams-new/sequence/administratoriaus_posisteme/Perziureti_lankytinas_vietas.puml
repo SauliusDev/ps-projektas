@@ -1,0 +1,30 @@
+@startuml Perziureti_lankytinas_vietas
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminPlacesView as V
+boundary AdminApi as API
+control PlacesController as C
+database PlaceRepository as R
+
+A -> V : openPlacesManager()
+V -> API : GET /api/admin/places
+API -> C : listPlaces()
+C -> R : findAll()
+R --> C : places : Place[]
+C --> API : places
+API --> V : 200 OK { items : Place[] }
+V --> A : renderPlacesTable(places)
+
+opt [add place]
+  ref over A, V, API, C : Prideti_lankytina_vieta
+end
+
+opt [edit place]
+  ref over A, V, API, C : Redaguoti_lankytina_vieta
+end
+
+opt [delete place]
+  ref over A, V, API, C : Istrinti_lankytina_vieta
+end
+@enduml

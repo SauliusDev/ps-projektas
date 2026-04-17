@@ -1,0 +1,23 @@
+@startuml Perziureti_kelia_zemelapy
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerMapView as V
+boundary TravelerApi as API
+control RouteController as C
+database TripRepository as R
+actor "Google maps" as GM
+
+ref over A, V, API, C : Perziureti_keliones
+
+A -> V : openTripMap(tripId)
+V -> API : GET /api/traveler/trips/{tripId}/route
+API -> C : getRoute(tripId)
+C -> R : findRouteByTripId(tripId)
+R --> C : route : Route
+C -> GM : getMapView(route.waypoints)
+GM --> C : mapData : MapData
+C --> API : mapData
+API --> V : 200 OK { mapData }
+V --> A : renderMap(mapData)
+@enduml

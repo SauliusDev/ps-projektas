@@ -1,0 +1,16 @@
+@startuml Atsijungti
+skinparam style strictuml
+
+actor Naudotojas as A
+boundary TravelerTripsView as V
+boundary TravelerApi as API
+control AuthController as C
+
+A -> V : clickLogout()
+V -> API : POST /api/traveler/logout
+API -> C : logout(token)
+C -> C : invalidateToken(token)
+C --> API : success
+API --> V : 200 OK
+V --> A : navigateToGuestHome()
+@enduml

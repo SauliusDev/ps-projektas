@@ -1,0 +1,84 @@
+@startuml Architecture_P2
+skinparam packageStyle rectangle
+left to right direction
+
+package "Frontend" <<boundary>> as FE {
+  package "GuestViews" as GV
+  package "TravelerViews" as TV
+  package "AdminViews" as AV
+}
+
+package "BackendAPI" <<boundary>> as BAPI {
+  package "GuestApi" as GA
+  package "TravelerApi" as TA
+  package "AdminApi" as AA
+}
+
+package "Application" <<control>> as APP {
+  package "Auth" as Auth
+  package "Trips" as Trips
+  package "Deals" as Deals
+  package "Places" as Places
+  package "Food" as Food
+  package "Users" as Users
+  package "RouteManagement" as RM
+}
+
+package "Domain" <<entity>> as DOM {
+  package "User" as EU
+  package "Trip" as ET
+  package "Route" as ER
+  package "Deal" as ED
+  package "Place" as EP
+  package "FoodPlace" as EFP
+  package "FoodPlan" as EFN
+  package "Preferences" as EPR
+  package "Menu" as EM
+  package "Dish" as EDI
+  package "Group" as EG
+}
+
+package "Infrastructure" as INF {
+  package "Persistence" as PERS
+  package "GoogleMapsGateway" as GMG
+  package "EmailGateway" as EGW
+}
+
+GV ..> GA
+TV ..> TA
+AV ..> AA
+
+GA ..> Auth
+GA ..> Deals
+
+TA ..> Trips
+TA ..> RM
+TA ..> Places
+TA ..> Food
+TA ..> Deals
+TA ..> Users
+
+AA ..> Deals
+AA ..> Places
+AA ..> Food
+AA ..> Trips
+AA ..> Users
+
+Auth ..> DOM
+Trips ..> DOM
+Deals ..> DOM
+Places ..> DOM
+Food ..> DOM
+Users ..> DOM
+RM ..> DOM
+
+Auth ..> INF
+Trips ..> INF
+Deals ..> INF
+Places ..> INF
+Food ..> INF
+Users ..> INF
+RM ..> INF
+
+INF ..> DOM
+@enduml

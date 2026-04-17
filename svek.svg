@@ -1,7 +1,0 @@
-Warning: table size too small for content
-in label of graph cluster6
-Warning: table size too small for content
-in label of graph cluster15
-Warning: table size too small for content
-in label of graph cluster33
-Assertion failed: (LIST_SIZE(&arr) == (size_t)agnnodes(sg)), function fixLabelOrder, file mincross.c, line 275.
