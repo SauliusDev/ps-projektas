@@ -4,14 +4,19 @@ skinparam style strictuml
 title Redaguoti profilį (preferences)
 
 actor "User" as user
-boundary "TravelerTripsView" as ui
-control "UsersController" as usersController
-entity "Preferences" as preferences
+boundary "UI Boundary" as ui
+control "Application Control" as app
+entity "Domain Entity" as entity
 
 user -> ui: Request Redaguoti profilį (preferences)
-ui -> usersController: Forward request
-usersController -> preferences: Execute business operation
-preferences --> usersController: Return operation result
-usersController --> ui: Build response
+ui -> app: Forward request
+app -> entity: Execute business operation
+entity --> app: Return operation result
+
+opt Optional related flow
+  ref over ui, app : Included/extended use case interaction
+end
+
+app --> ui: Build response
 ui --> user: Present response
 @enduml

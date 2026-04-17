@@ -4,14 +4,19 @@ skinparam style strictuml
 title Priminti slaptažodį
 
 actor "User" as user
-boundary "GuestDealsView" as ui
-control "AuthController" as authController
-entity "User" as authUser
+boundary "UI Boundary" as ui
+control "Application Control" as app
+entity "Domain Entity" as entity
 
 user -> ui: Request Priminti slaptažodį
-ui -> authController: Forward request
-authController -> authUser: Execute business operation
-authUser --> authController: Return operation result
-authController --> ui: Build response
+ui -> app: Forward request
+app -> entity: Execute business operation
+entity --> app: Return operation result
+
+opt Optional related flow
+  ref over ui, app : Included/extended use case interaction
+end
+
+app --> ui: Build response
 ui --> user: Present response
 @enduml

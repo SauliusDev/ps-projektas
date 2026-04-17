@@ -4,14 +4,19 @@ skinparam style strictuml
 title Pridėti meniu
 
 actor "User" as user
-boundary "AdminDashboardView" as ui
-control "FoodController" as foodController
-entity "FoodPlan" as foodPlan
+boundary "UI Boundary" as ui
+control "Application Control" as app
+entity "Domain Entity" as entity
 
 user -> ui: Request Pridėti meniu
-ui -> foodController: Forward request
-foodController -> foodPlan: Execute business operation
-foodPlan --> foodController: Return operation result
-foodController --> ui: Build response
+ui -> app: Forward request
+app -> entity: Execute business operation
+entity --> app: Return operation result
+
+opt Optional related flow
+  ref over ui, app : Included/extended use case interaction
+end
+
+app --> ui: Build response
 ui --> user: Present response
 @enduml

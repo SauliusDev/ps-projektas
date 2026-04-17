@@ -13,3 +13,10 @@ Source plan: `docs/superpowers/specs/2026-04-17-travel-system-architecture-desig
 - [x] Reply messages are present for synchronous calls (except allowed UI navigation case).
 - [x] `alt` fragments include an `[else]` branch.
 - [x] Controllers are split by feature responsibility and kept consistent across package, sequence, and class diagrams.
+
+## Current check results
+
+- `rg -c 'usecase\s+"' _refs/diagrams-new/use_case.puml` -> `41`
+- `ls _refs/diagrams-new/sequence/*.puml | wc -l` -> `41`
+- `rg 'ref|alt|opt' _refs/diagrams-new/sequence/*.puml | wc -l` -> `84`
+
