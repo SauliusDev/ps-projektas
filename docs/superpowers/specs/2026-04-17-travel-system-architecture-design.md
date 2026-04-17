@@ -6,6 +6,9 @@ For P2, the project needs a coherent logical architecture package diagram, seque
 
 The current use case model is split by actor subsystems (Guest, User, Admin). This design keeps that split for requirements/UI perspective, but defines a cleaner implementation architecture for backend and sequence modeling.
 
+**Modeling source of truth for this design:** `_refs/diagrams-new/` only.  
+`_refs/diagrams-og/` is explicitly out of scope for architecture and sequence decisions.
+
 ## Chosen Approach
 
 **Recommended and selected:** React frontend + Python FastAPI backend + PostgreSQL, implemented as a **modular monolith** with strict BCE/layered dependencies.
@@ -113,7 +116,7 @@ Controller granularity policy:
 - Do not force one controller per tiny action.
 - Split controllers by feature responsibility and lifecycle (example: `TripCreationController`, `TripEditController`, `TripQueryController`, `DealController`, `UserController`, `RouteController`).
 - Keep controller methods aligned with sequence messages and avoid dumping unrelated logic into one class.
-- Start from already-modeled controllers and evolve incrementally.
+- Define controller set from `diagrams-new` use case/activity responsibilities and keep it consistent across package, sequence, and class diagrams.
 
 ## Mapping Existing Subsystems to Feature Split
 
@@ -122,18 +125,6 @@ Controller granularity policy:
 - **Admin subsystem use cases** mostly map to `AdminApi` boundary + same feature modules (`Deals`, `Places`, `Food`, `Trips`, `Users`) with admin permissions.
 
 This keeps traceability to existing diagrams while producing cleaner implementation architecture.
-
-## Existing Diagram Baseline (Alignment)
-
-Current sequence diagrams already use this controller baseline:
-- `TripListController`
-- `JourneyController`
-- `RouteController`
-- `DealController`
-- `SavedDealsController`
-- `UserController`
-
-These should be kept as the initial controller set for P2. Add new controllers only when one of these becomes overloaded, and keep naming consistent with existing sequence/class model.
 
 ## Error Handling Design
 
