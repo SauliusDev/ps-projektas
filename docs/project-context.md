@@ -270,6 +270,7 @@ Kelionė (Trip) lifecycle: `[*] → Ateinanti → Aktyvi → Praejusi → Archiv
 - Clarified overall project strategy and pipeline (see Master Strategy above)
 - Updated this project-context.md with current state and rendering quality notes
 - Regenerated all 8 sequence diagrams in `_refs/diagrams-og/sequence/` using the lecture-style PlantUML format (BCE lifeline stereotypes, consistent skinparams, section blocks, and combined fragments)
+- Implementation status clarified: current branch is scaffold-level (mainly read/list and in-memory flows); PostgreSQL-backed CRUD remains planned for the next execution cycle.
 
 ## Work Done Session 2026-04-16
 

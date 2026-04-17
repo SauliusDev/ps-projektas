@@ -15,6 +15,8 @@ The current use case model is split by actor subsystems (Guest, User, Admin). Th
 
 This is the lowest-risk option for same-day delivery while keeping strong alignment with P2 grading criteria.
 
+**Implementation status (current branch):** target architecture remains React + FastAPI + PostgreSQL, but the current codebase is scaffold-level with mostly read/list flows and in-memory behavior. Full PostgreSQL-backed CRUD is planned for the next execution cycle.
+
 ## Architecture Overview
 
 ### 1. Frontend (Boundary layer)

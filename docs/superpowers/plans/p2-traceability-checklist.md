@@ -8,7 +8,7 @@ Source plan: `docs/superpowers/specs/2026-04-17-travel-system-architecture-desig
 - [x] Every sequence diagram follows BCE flow: actor -> boundary -> control -> entity/infrastructure.
 - [x] Every sequence message maps to an existing class operation.
 - [x] Every sender/receiver pair in sequences has a corresponding class relationship.
-- [x] Use case `<<include>>` / `<<extend>>` relations are represented in sequences with `ref` / `opt` / `alt` fragments.
+- [ ] Use case `<<include>>` / `<<extend>>` relations are represented in sequences with `ref` / `opt` / `alt` fragments.
 - [x] Combined fragments include covered lifelines.
 - [x] Reply messages are present for synchronous calls (except allowed UI navigation case).
 - [x] `alt` fragments include an `[else]` branch.
@@ -19,3 +19,4 @@ Source plan: `docs/superpowers/specs/2026-04-17-travel-system-architecture-desig
 - `rg -c 'usecase\s+"' _refs/diagrams-new/use_case.puml` -> `41`
 - `ls _refs/diagrams-new/sequence/*.puml | wc -l` -> `41`
 - `rg 'ref|alt|opt' _refs/diagrams-new/sequence/*.puml | wc -l` -> `7`
+- Coverage note: use case `<<include>>`/`<<extend>>` links currently count `33`, while sequence fragment mentions (`ref|alt|opt`) are `7` (~21%), so mapping is still incomplete.
