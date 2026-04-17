@@ -76,6 +76,15 @@ Application controllers depend on interfaces/ports and call infrastructure throu
    - Boundary -> Entity direct calls
    - Actor -> Control direct calls
    - Boundary -> Boundary chaining for business flow
+5. Ensure the package diagram structure and the actual Magic model tree are identical (same packages, same class placement), because this is checked in defense.
+
+## Magic Transition Rules (Requirements -> Design)
+
+1. Run model transformation from requirements model to design model.
+2. Keep transformed use cases, actors, entity classes, and packages; remove transformed activity/state/signal artifacts not needed in design.
+3. Keep the auto-generated `«edition»` traceability package (do not delete it).
+4. Convert transformed use cases into **collaborations** so sequence diagrams are created under the correct collaboration elements with maintained trace links.
+5. Use English names in design model classes/attributes/operations (aligned with implementation naming).
 
 ## Sequence Diagram Pattern (for all use cases)
 
@@ -90,6 +99,14 @@ Mandatory consistency:
 - Every operation called in sequence must exist in class diagram.
 - Every sender/receiver class pair in sequence must have a class relationship.
 - Include/extend from use cases must appear as `ref` / `opt` / `alt` in sequence.
+- Combined fragments must include covered lifelines ("Covered By" in Magic).
+
+Additional sequence constraints from lecture rules:
+- Actors do not get operations; actor-facing messages can be free-text labels.
+- Reply messages are required for all synchronous calls except UI navigation between windows/views.
+- `alt` should include an `[else]` branch for complete logic coverage.
+- `loop` should use either a guard condition or iteration count (not both together).
+- Recommended lifeline order: actor -> boundary -> control -> entity -> external actor (far right).
 
 ## Mapping Existing Subsystems to Feature Split
 
