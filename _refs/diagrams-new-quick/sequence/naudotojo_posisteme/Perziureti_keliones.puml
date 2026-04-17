@@ -1,0 +1,23 @@
+@startuml Perziureti_keliones
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerTripsView as V
+boundary TravelerApi as API
+control TripQueryController as C
+entity Trip as E
+
+A -> V : openTripsPage()
+V -> API : GET /api/traveler/trips
+API -> C : listTrips(travelerId)
+C -> E : findByTravelerId(travelerId)
+E --> C : trips : Trip[]
+C --> API : trips : Trip[]
+API --> V : 200 OK { items : Trip[] }
+V --> A : renderTripsList(trips)
+
+opt [user selects a trip]
+  A -> V : selectTrip(tripId)
+  V --> A : navigateToTripDetail(tripId)
+end
+@enduml

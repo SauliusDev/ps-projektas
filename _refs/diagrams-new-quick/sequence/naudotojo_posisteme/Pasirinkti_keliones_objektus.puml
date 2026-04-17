@@ -1,0 +1,29 @@
+@startuml Pasirinkti_keliones_objektus
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerRouteView as V
+boundary TravelerApi as API
+control PlacesController as C
+entity Place as E
+actor "Google maps" as GM
+
+A -> V : searchPlaces(city, category)
+V -> API : GET /api/traveler/places(city, category)
+API -> C : searchPlaces(city, category)
+C -> GM : searchNearby(city, category)
+GM --> C : results : Place[]
+C -> E : findByCityAndCategory(city, category)
+E --> C : localPlaces : Place[]
+C -> C : mergeAndRank(results, localPlaces)
+C --> API : places : Place[]
+API --> V : 200 OK { items : Place[] }
+V --> A : renderPlacesList(places)
+
+A -> V : selectPlaces(selectedIds)
+V --> A : addToTripRoute(selectedIds)
+
+opt [confirm selection and build route]
+  ref over A, V, API, C : Sudaryti_marsruta
+end
+@enduml

@@ -1,0 +1,32 @@
+@startuml Redaguoti_profili
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerProfileView as V
+boundary TravelerApi as API
+control UsersController as C
+entity User as EU
+entity Preferences as EP
+
+A -> V : openProfilePage()
+V -> API : GET /api/traveler/profile
+API -> C : getProfile(travelerId)
+C -> EU : findById(travelerId)
+EU --> C : user : User
+C -> EP : findByTravelerId(travelerId)
+EP --> C : prefs : Preferences
+C --> API : user, prefs
+API --> V : 200 OK { user, preferences }
+V --> A : renderProfileForm(user, prefs)
+
+A -> V : submitProfileChanges(budget, diet, city, tripType)
+V -> API : PUT /api/traveler/profile(budget, diet, city, tripType)
+API -> C : updateProfile(travelerId, budget, diet, city, tripType)
+C -> EP : update(prefs, budget, diet, city, tripType)
+EP --> C : updatedPrefs : Preferences
+C -> EP : save(updatedPrefs)
+EP --> C : saved
+C --> API : success
+API --> V : 200 OK
+V --> A : showSuccess("Profilis atnaujintas")
+@enduml

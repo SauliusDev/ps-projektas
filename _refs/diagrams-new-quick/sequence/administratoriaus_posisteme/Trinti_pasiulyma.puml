@@ -1,0 +1,30 @@
+@startuml Trinti_pasiulyma
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminDealsView as V
+boundary AdminApi as API
+control DealController as C
+entity DealRepository as R
+
+ref over A, V, API, C : Perziureti_pasiulymus_Admin
+
+A -> V : selectDeal(dealId)
+A -> V : confirmDelete()
+V -> API : DELETE /api/admin/deals/{dealId}
+API -> C : deleteDeal(dealId)
+C -> R : findById(dealId)
+R --> C : deal : Deal
+
+alt [deal found]
+  C -> R : delete(dealId)
+  R --> C : deleted
+  C --> API : success
+  API --> V : 204 No Content
+  V --> A : showSuccess("Pasiūlymas ištrintas")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Pasiūlymas nerastas")
+end
+@enduml

@@ -1,0 +1,22 @@
+@startuml Architecture_P2
+skinparam packageStyle rectangle
+left to right direction
+
+package "Frontend" {
+  package "Main" {
+    package "View"
+    package "Controls"
+    View ..> Controls
+  }
+}
+
+package "Backend" {
+  package "Controls" as BackendControls {
+    package "Admin"
+    package "Main" as BackendMain
+  }
+  package "Models"
+}
+
+Frontend ..> Backend
+@enduml

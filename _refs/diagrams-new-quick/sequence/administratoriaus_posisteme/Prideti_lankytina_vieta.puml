@@ -1,0 +1,23 @@
+@startuml Prideti_lankytina_vieta
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminPlacesView as V
+boundary AdminApi as API
+control PlacesController as C
+entity Place as E
+
+ref over A, V, API, C : Perziureti_lankytinas_vietas
+
+A -> V : openAddPlaceForm()
+A -> V : submitPlaceForm(name, address, city, type, description)
+V -> API : POST /api/admin/places(name, address, city, type, description)
+API -> C : createPlace(name, address, city, type, description)
+C -> E : create(name, address, city, type, description)
+E --> C : place : Place
+C -> E : save(place)
+E --> C : savedPlace : Place
+C --> API : savedPlace
+API --> V : 201 Created { placeId }
+V --> A : showSuccess("Lankytina vieta pridėta")
+@enduml

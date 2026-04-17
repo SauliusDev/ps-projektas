@@ -1,0 +1,34 @@
+@startuml Kurti_kelione
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerTripsView as V
+boundary TravelerApi as API
+control TripCreationController as C
+entity Trip as E
+
+A -> V : openNewTripForm()
+V -> API : POST /api/traveler/trips(title, city, startDate, endDate)
+API -> C : createTrip(title, city, startDate, endDate, travelerId)
+C -> E : create(title, city, startDate, endDate, travelerId)
+E --> C : trip : Trip
+
+ref over C, E : Sujungti_dvieju_keliautoju_parinktis
+
+ref over C, E : Prideti_drauga_kaip_keliautoja
+
+ref over C, E : Sudaryti_marsruta
+
+C -> E : save(trip)
+E --> C : savedTrip : Trip
+C --> API : savedTrip
+API --> V : 201 Created { tripId }
+
+opt [navigate to trip detail]
+  ref over A, V, API, C : Perziureti_keliones
+end
+
+opt [generate food plan]
+  ref over A, V, API, C : Sugeneruoti_maisto_plana
+end
+@enduml

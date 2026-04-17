@@ -1,0 +1,33 @@
+@startuml Frontend
+skinparam packageStyle rectangle
+
+package "Frontend" {
+  package "Main" {
+    package "View" <<boundary>> {
+      package "TripList"
+      package "MainView"
+      package "SavedDeals"
+      package "AddressInputView"
+      package "Deals"
+      package "TripEditView"
+      package "CreateJourneyView"
+      package "TutorialView"
+      package "AddFriendView"
+      package "JourneyParamsView"
+      package "JourneyOverviewView"
+      package "ErrorView"
+    }
+
+    package "Controls" <<control>> {
+      package "TripListController"
+      package "SavedDealsController"
+      package "UserController"
+      package "DealController"
+      package "JourneyController"
+      package "RouteController"
+    }
+
+    View ..> Controls
+  }
+}
+@enduml

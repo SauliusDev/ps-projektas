@@ -1,0 +1,29 @@
+@startuml Sujungti_dvieju_keliautoju_parinktis
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerTripsView as V
+boundary TravelerApi as API
+control TripCreationController as C
+entity Preferences as EP
+entity Group as EG
+
+A -> V : requestMergePreferences(tripId)
+V -> API : POST /api/traveler/trips/{tripId}/merge-preferences
+API -> C : mergeGroupPreferences(tripId)
+C -> EG : findByTripId(tripId)
+EG --> C : group : Group
+
+loop [for each traveler in group]
+  C -> EP : findByTravelerId(traveler.id)
+  EP --> C : prefs : Preferences
+end
+
+C -> EP : merge(allPrefs)
+EP --> C : merged : Preferences
+C -> EP : save(merged)
+EP --> C : saved
+C --> API : merged
+API --> V : 200 OK { mergedPreferences }
+V --> A : showMergedPreferences(merged)
+@enduml

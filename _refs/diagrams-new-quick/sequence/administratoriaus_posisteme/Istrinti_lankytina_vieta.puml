@@ -1,0 +1,30 @@
+@startuml Istrinti_lankytina_vieta
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminPlacesView as V
+boundary AdminApi as API
+control PlacesController as C
+entity PlaceRepository as R
+
+ref over A, V, API, C : Perziureti_lankytinas_vietas
+
+A -> V : selectPlace(placeId)
+A -> V : confirmDelete()
+V -> API : DELETE /api/admin/places/{placeId}
+API -> C : deletePlace(placeId)
+C -> R : findById(placeId)
+R --> C : place : Place
+
+alt [place found]
+  C -> R : delete(placeId)
+  R --> C : deleted
+  C --> API : success
+  API --> V : 204 No Content
+  V --> A : showSuccess("Lankytina vieta ištrinta")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Lankytina vieta nerasta")
+end
+@enduml

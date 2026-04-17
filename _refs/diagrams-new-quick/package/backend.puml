@@ -1,0 +1,31 @@
+@startuml Backend
+skinparam packageStyle rectangle
+
+package "Backend" {
+  package "Controls" <<control>> as BackendControls {
+    package "Admin" as ControlAdmin
+    package "Main" as ControlMain
+  }
+
+  package "Models" <<entity>> {
+    package "Admin" as ModelAdmin
+    package "Deal"
+    package "Dish"
+    package "FoodPlan"
+    package "Group"
+    package "Menu"
+    package "Preferences"
+    package "Route"
+    package "RouteAttraction"
+    package "RouteFoodPlace"
+    package "RoutePlace"
+    package "Traveler"
+    package "Trip"
+    package "User"
+    package "VisitedPlace"
+    package "Dieta"
+  }
+
+  BackendControls ..> Models
+}
+@enduml

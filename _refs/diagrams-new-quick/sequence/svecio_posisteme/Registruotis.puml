@@ -1,0 +1,29 @@
+@startuml Registruotis
+skinparam style strictuml
+
+actor Svecias as A
+boundary GuestAuthView as V
+boundary GuestApi as API
+control AuthController as C
+entity User as E
+
+A -> V : fillRegistrationForm(name, email, password)
+V -> API : POST /api/guest/register(name, email, password)
+API -> C : register(name, email, password)
+C -> E : findByEmail(email)
+E --> C : existing : User
+
+alt [email already taken]
+  C --> API : ConflictError
+  API --> V : 409 Conflict
+  V --> A : showError("El. paštas jau naudojamas")
+else [else]
+  C -> E : create(name, email, password)
+  E --> C : newUser : User
+  C -> E : save(newUser)
+  E --> C : savedUser : User
+  C --> API : savedUser
+  API --> V : 201 Created { userId }
+  V --> A : navigateToLogin()
+end
+@enduml

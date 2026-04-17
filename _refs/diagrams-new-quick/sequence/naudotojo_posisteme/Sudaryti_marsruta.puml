@@ -1,0 +1,27 @@
+@startuml Sudaryti_marsruta
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerRouteView as V
+boundary TravelerApi as API
+control RouteController as C
+entity Route as E
+actor "Google maps" as GM
+
+A -> V : openRouteBuilder(tripId)
+V -> API : POST /api/traveler/trips/{tripId}/route(places)
+API -> C : buildRoute(tripId, places)
+C -> GM : getOptimizedRoute(places)
+GM --> C : routeData : RouteData
+C -> E : create(tripId, routeData)
+E --> C : route : Route
+C -> E : save(route)
+E --> C : savedRoute : Route
+C --> API : savedRoute
+API --> V : 201 Created { route }
+V --> A : renderRouteOnMap(route)
+
+opt [save and update trip]
+  ref over A, V, API, C : Redaguoti_kelione
+end
+@enduml

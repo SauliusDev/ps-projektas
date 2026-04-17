@@ -1,0 +1,30 @@
+@startuml Sugeneruoti_maisto_plana
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerFoodView as V
+boundary TravelerApi as API
+control FoodController as C
+entity FoodPlan as FP
+entity Trip as E
+
+A -> V : requestFoodPlan(tripId)
+V -> API : POST /api/traveler/trips/{tripId}/food-plan
+API -> C : generateFoodPlan(tripId, travelerId)
+C -> E : findById(tripId)
+E --> C : trip : Trip
+
+alt [trip found]
+  C -> FP : create(trip.preferences, trip.route)
+  FP --> C : plan : FoodPlan
+  C -> FP : save(plan)
+  FP --> C : savedPlan : FoodPlan
+  C --> API : savedPlan
+  API --> V : 201 Created { plan }
+  V --> A : renderFoodPlan(plan)
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Kelionė nerasta")
+end
+@enduml

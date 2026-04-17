@@ -1,0 +1,40 @@
+@startuml Redaguoti_kelione
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerTripsView as V
+boundary TravelerApi as API
+control TripEditController as C
+entity Trip as E
+
+ref over A, V, API, C : Perziureti_keliones
+
+A -> V : selectTrip(tripId)
+A -> V : submitEditForm(title, startDate, endDate)
+V -> API : PUT /api/traveler/trips/{tripId}(title, startDate, endDate)
+API -> C : updateTrip(tripId, title, startDate, endDate)
+C -> E : findById(tripId)
+E --> C : trip : Trip
+
+alt [trip found]
+  C -> E : update(trip, title, startDate, endDate)
+  E --> C : updatedTrip : Trip
+  C -> E : save(updatedTrip)
+  E --> C : savedTrip : Trip
+  C --> API : savedTrip
+  API --> V : 200 OK { trip }
+  V --> A : showSuccess("Kelionė atnaujinta")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Kelionė nerasta")
+end
+
+opt [edit route after trip update]
+  ref over A, V, API, C : Sudaryti_marsruta
+end
+
+opt [edit food plan after trip update]
+  ref over A, V, API, C : Redaguoti_maisto_plana
+end
+@enduml

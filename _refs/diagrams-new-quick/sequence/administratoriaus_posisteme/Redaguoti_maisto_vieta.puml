@@ -1,0 +1,33 @@
+@startuml Redaguoti_maisto_vieta
+skinparam style strictuml
+
+actor Admin as A
+boundary AdminFoodView as V
+boundary AdminApi as API
+control FoodController as C
+entity FoodPlace as E
+entity FoodRepository as R
+
+ref over A, V, API, C : Perziureti_maisto_vietas
+
+A -> V : selectFoodPlace(foodPlaceId)
+A -> V : submitEditForm(name, address, city)
+V -> API : PUT /api/admin/food-places/{foodPlaceId}(name, address, city)
+API -> C : updateFoodPlace(foodPlaceId, name, address, city)
+C -> R : findById(foodPlaceId)
+R --> C : foodPlace : FoodPlace
+
+alt [food place found]
+  C -> E : applyUpdates(foodPlace, name, address, city)
+  E --> C : updated : FoodPlace
+  C -> R : save(updated)
+  R --> C : saved
+  C --> API : updated
+  API --> V : 200 OK { foodPlace }
+  V --> A : showSuccess("Maisto vieta atnaujinta")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Maisto vieta nerasta")
+end
+@enduml

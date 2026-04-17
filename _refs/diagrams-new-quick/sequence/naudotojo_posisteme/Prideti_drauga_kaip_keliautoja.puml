@@ -1,0 +1,31 @@
+@startuml Prideti_drauga_kaip_keliautoja
+skinparam style strictuml
+
+actor Keliautojas as A
+boundary TravelerTripsView as V
+boundary TravelerApi as API
+control TripCreationController as C
+entity User as EU
+entity Group as EG
+
+A -> V : openAddFriendDialog(tripId)
+A -> V : enterFriendEmail(email)
+V -> API : POST /api/traveler/trips/{tripId}/travelers(email)
+API -> C : addTraveler(tripId, email)
+C -> EU : findByEmail(email)
+EU --> C : friend : User
+
+alt [friend found]
+  C -> EG : addMember(tripId, friend)
+  EG --> C : group : Group
+  C -> EG : save(group)
+  EG --> C : saved
+  C --> API : success
+  API --> V : 200 OK { group }
+  V --> A : showSuccess("Draugas pridėtas")
+else [else]
+  C --> API : NotFoundError
+  API --> V : 404 Not Found
+  V --> A : showError("Naudotojas nerastas")
+end
+@enduml
