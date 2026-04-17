@@ -2,28 +2,29 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerRouteView as V
-boundary TravelerApi as API
-control PlacesController as C
-entity Place as E
 actor "Google maps" as GM
+boundary AddressInputView as V
+control RouteController as FEC
+control "RouteController" as BEC
+entity RoutePlace as E
 
 A -> V : searchPlaces(city, category)
-V -> API : GET /api/traveler/places(city, category)
-API -> C : searchPlaces(city, category)
-C -> GM : searchNearby(city, category)
-GM --> C : results : Place[]
-C -> E : findByCityAndCategory(city, category)
-E --> C : localPlaces : Place[]
-C -> C : mergeAndRank(results, localPlaces)
-C --> API : places : Place[]
-API --> V : 200 OK { items : Place[] }
-V --> A : renderPlacesList(places)
+V -> FEC : findPlaces(city, category)
+FEC -> BEC : findPlaces(city, category)
+BEC -> GM : searchNearby(city, category)
+GM --> BEC : places
+BEC -> E : findAll(tripId)
+E --> BEC : savedPlaces : RoutePlace[]
+BEC --> FEC : places
+FEC --> V : render(places, savedPlaces)
+V --> A : showPlacesList(places)
 
-A -> V : selectPlaces(selectedIds)
-V --> A : addToTripRoute(selectedIds)
-
-opt [confirm selection and build route]
-  ref over A, V, API, C : Sudaryti_marsruta
-end
+A -> V : selectPlace(placeId)
+V -> FEC : addPlace(tripId, placeId)
+FEC -> BEC : addPlaceToTrip(tripId, placeId)
+BEC -> E : save(tripId, placeId)
+E --> BEC : routePlace : RoutePlace
+BEC --> FEC : ok
+FEC --> V : placeAdded()
+V --> A : showPlaceSelected(placeId)
 @enduml

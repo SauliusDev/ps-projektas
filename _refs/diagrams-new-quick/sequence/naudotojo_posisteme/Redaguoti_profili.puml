@@ -2,31 +2,27 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerProfileView as V
-boundary TravelerApi as API
-control UsersController as C
-entity User as EU
-entity Preferences as EP
+boundary MainView as V
+control UserController as FEC
+control "UserController" as BEC
+entity Preferences as E
 
-A -> V : openProfilePage()
-V -> API : GET /api/traveler/profile
-API -> C : getProfile(travelerId)
-C -> EU : findById(travelerId)
-EU --> C : user : User
-C -> EP : findByTravelerId(travelerId)
-EP --> C : prefs : Preferences
-C --> API : user, prefs
-API --> V : 200 OK { user, preferences }
-V --> A : renderProfileForm(user, prefs)
+A -> V : openProfileSettings()
+V -> FEC : loadProfile(travelerId)
+FEC -> BEC : findProfile(travelerId)
+BEC -> E : findByTraveler(travelerId)
+E --> BEC : prefs : Preferences
+BEC --> FEC : prefs : Preferences
+FEC --> V : render(prefs)
 
-A -> V : submitProfileChanges(budget, diet, city, tripType)
-V -> API : PUT /api/traveler/profile(budget, diet, city, tripType)
-API -> C : updateProfile(travelerId, budget, diet, city, tripType)
-C -> EP : update(prefs, budget, diet, city, tripType)
-EP --> C : updatedPrefs : Preferences
-C -> EP : save(updatedPrefs)
-EP --> C : saved
-C --> API : success
-API --> V : 200 OK
+A -> V : submitProfileChanges(diet, interests, budget)
+V -> FEC : updateProfile(travelerId, diet, interests, budget)
+FEC -> BEC : updatePreferences(travelerId, diet, interests, budget)
+BEC -> E : findByTraveler(travelerId)
+E --> BEC : prefs : Preferences
+BEC -> E : save(updatedPrefs)
+E --> BEC : prefs : Preferences
+BEC --> FEC : prefs : Preferences
+FEC --> V : profileUpdated(prefs)
 V --> A : showSuccess("Profilis atnaujintas")
 @enduml

@@ -2,28 +2,27 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerTripsView as V
-boundary TravelerApi as API
-control TripCreationController as C
-entity Preferences as EP
-entity Group as EG
+boundary JourneyParamsView as V
+control JourneyController as FEC
+control "JourneyController" as BEC
+entity Preferences as E
 
-A -> V : requestMergePreferences(tripId)
-V -> API : POST /api/traveler/trips/{tripId}/merge-preferences
-API -> C : mergeGroupPreferences(tripId)
-C -> EG : findByTripId(tripId)
-EG --> C : group : Group
+A -> V : openMergePrefsView(tripId)
+V -> FEC : loadTravelers(tripId)
+FEC -> BEC : getTravelers(tripId)
+BEC -> E : findAllByTrip(tripId)
+E --> BEC : prefs : Preferences[]
+BEC --> FEC : prefs : Preferences[]
+FEC --> V : render(prefs)
 
-loop [for each traveler in group]
-  C -> EP : findByTravelerId(traveler.id)
-  EP --> C : prefs : Preferences
-end
-
-C -> EP : merge(allPrefs)
-EP --> C : merged : Preferences
-C -> EP : save(merged)
-EP --> C : saved
-C --> API : merged
-API --> V : 200 OK { mergedPreferences }
+A -> V : confirmMerge()
+V -> FEC : mergePreferences(tripId)
+FEC -> BEC : mergePreferences(tripId)
+BEC -> E : findAllByTrip(tripId)
+E --> BEC : allPrefs : Preferences[]
+BEC -> E : save(mergedPrefs)
+E --> BEC : merged : Preferences
+BEC --> FEC : merged : Preferences
+FEC --> V : mergeComplete(merged)
 V --> A : showMergedPreferences(merged)
 @enduml

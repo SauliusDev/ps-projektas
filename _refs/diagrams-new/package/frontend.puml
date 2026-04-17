@@ -1,0 +1,30 @@
+@startuml Frontend
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Frontend" {
+  package "Views" {
+    class TripListView <<boundary>>
+    class MainView <<boundary>>
+    class SavedDealsView <<boundary>>
+    class AddressInputView <<boundary>>
+    class DealsView <<boundary>>
+    class TripEditView <<boundary>>
+    class CreateJourneyView <<boundary>>
+    class TutorialView <<boundary>>
+    class AddFriendView <<boundary>>
+    class JourneyParamsView <<boundary>>
+    class JourneyOverviewView <<boundary>>
+    class ErrorView <<boundary>>
+  }
+
+  package "Controllers" {
+    class TripListController <<control>>
+    class SavedDealsController <<control>>
+    class UserController <<control>>
+    class DealController <<control>>
+    class JourneyController <<control>>
+    class RouteController <<control>>
+  }
+}
+@enduml

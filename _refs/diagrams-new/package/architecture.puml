@@ -1,63 +1,16 @@
 @startuml Architecture_P2
-skinparam style strictuml
+skinparam packageStyle rectangle
 left to right direction
 
-package "Frontend <<boundary>>" {
-  package "GuestViews"
-  package "TravelerViews"
-  package "AdminViews"
+package "Frontend" {
+  [Views] as FEViews
+  [Controllers] as FEControllers
 }
 
-package "Backend API <<boundary>>" {
-  package "GuestApi"
-  package "TravelerApi"
-  package "AdminApi"
+package "Backend" {
+  [Controllers] as BEControllers
+  [Models] as BEModels
 }
 
-package "Application <<control>>" {
-  package "Auth"
-  package "Trips"
-  package "Deals"
-  package "Places"
-  package "Food"
-  package "Users"
-}
-
-package "Domain <<entity>>" {
-  rectangle "User" as User <<class>>
-  rectangle "Admin" as Admin <<class>>
-  rectangle "Traveler" as Traveler <<class>>
-  rectangle "Trip" as Trip <<class>>
-  rectangle "Route" as Route <<class>>
-  rectangle "RouteAttraction" as RouteAttraction <<class>>
-  rectangle "RouteFoodPlace" as RouteFoodPlace <<class>>
-  rectangle "Deal" as Deal <<class>>
-  rectangle "FoodPlan" as FoodPlan <<class>>
-  rectangle "Preferences" as Preferences <<class>>
-  rectangle "Menu" as Menu <<class>>
-  rectangle "Dish" as Dish <<class>>
-  rectangle "VisitedPlace" as VisitedPlace <<class>>
-  rectangle "Group" as Group <<class>>
-}
-
-package "Infrastructure" {
-  package "Persistence"
-  package "GoogleMapsGateway"
-  package "EmailGateway"
-}
-
-"GuestViews" ..> "GuestApi"
-"TravelerViews" ..> "TravelerApi"
-"AdminViews" ..> "AdminApi"
-"GuestApi" ..> "Auth"
-"GuestApi" ..> "Deals"
-"TravelerApi" ..> "Trips"
-"TravelerApi" ..> "Places"
-"TravelerApi" ..> "Food"
-"AdminApi" ..> "Deals"
-"AdminApi" ..> "Places"
-"AdminApi" ..> "Users"
-"Application <<control>>" ..> "Domain <<entity>>"
-"Application <<control>>" ..> "Infrastructure"
-"Infrastructure" ..> "Domain <<entity>>"
+Frontend ..> Backend
 @enduml

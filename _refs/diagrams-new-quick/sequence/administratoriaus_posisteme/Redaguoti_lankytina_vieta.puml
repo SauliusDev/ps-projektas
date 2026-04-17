@@ -2,31 +2,22 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminPlacesView as V
-boundary AdminApi as API
-control PlacesController as C
-entity Place as E
+boundary MainView as V
+control RouteController as FEC
+control PlaceController as BEC
+entity RoutePlace as E
 
-ref over A, V, API, C : Perziureti_lankytinas_vietas
+ref over A, V, FEC, BEC : Perziureti_lankytinas_vietas
 
-A -> V : selectPlace(placeId)
-A -> V : submitEditForm(name, address, city, type, description)
-V -> API : PUT /api/admin/places/{placeId}(name, address, city, type, description)
-API -> C : updatePlace(placeId, name, address, city, type, description)
-C -> E : findById(placeId)
-E --> C : place : Place
-
-alt [place found]
-  C -> E : update(place, name, address, city, type, description)
-  E --> C : updatedPlace : Place
-  C -> E : save(updatedPlace)
-  E --> C : saved
-  C --> API : updatedPlace
-  API --> V : 200 OK { place }
-  V --> A : showSuccess("Lankytina vieta atnaujinta")
-else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Lankytina vieta nerasta")
-end
+A -> V : openEditPlaceForm(placeId)
+A -> V : submitChanges(name, address, type, description)
+V -> FEC : updatePlace(placeId, name, address, type, description)
+FEC -> BEC : updatePlace(placeId, name, address, type, description)
+BEC -> E : findById(placeId)
+E --> BEC : place : RoutePlace
+BEC -> E : save(updatedPlace)
+E --> BEC : place : RoutePlace
+BEC --> FEC : place : RoutePlace
+FEC --> V : placeUpdated(place)
+V --> A : showSuccess("Lankytina vieta atnaujinta")
 @enduml

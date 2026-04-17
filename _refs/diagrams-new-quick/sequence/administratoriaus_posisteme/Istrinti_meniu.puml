@@ -2,29 +2,22 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminMenuView as V
-boundary AdminApi as API
-control FoodController as C
-entity FoodRepository as R
+boundary MainView as V
+control JourneyController as FEC
+control FoodController as BEC
+entity Menu as E
 
-ref over A, V, API, C : Perziureti_meniu
+ref over A, V, FEC, BEC : Perziureti_meniu
 
 A -> V : selectMenu(menuId)
 A -> V : confirmDelete()
-V -> API : DELETE /api/admin/menus/{menuId}
-API -> C : deleteMenu(menuId)
-C -> R : findById(menuId)
-R --> C : menu : Menu
-
-alt [menu found]
-  C -> R : delete(menuId)
-  R --> C : deleted
-  C --> API : success
-  API --> V : 204 No Content
-  V --> A : showSuccess("Meniu ištrintas")
-else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Meniu nerastas")
-end
+V -> FEC : deleteMenu(menuId)
+FEC -> BEC : deleteMenu(menuId)
+BEC -> E : findById(menuId)
+E --> BEC : menu : Menu
+BEC -> E : delete(menuId)
+E --> BEC : ok
+BEC --> FEC : ok
+FEC --> V : menuDeleted()
+V --> A : showSuccess("Meniu ištrintas")
 @enduml

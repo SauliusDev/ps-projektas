@@ -2,32 +2,22 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminDealsView as V
-boundary AdminApi as API
-control DealController as C
+boundary DealsView as V
+control DealController as FEC
+control "DealController" as BEC
 entity Deal as E
-entity DealRepository as R
 
-ref over A, V, API, C : Perziureti_pasiulymus_Admin
+ref over A, V, FEC, BEC : Perziureti_pasiulymus
 
-A -> V : selectDeal(dealId)
-A -> V : submitEditForm(title, discount, popularity, rating)
-V -> API : PUT /api/admin/deals/{dealId}(title, discount, popularity, rating)
-API -> C : updateDeal(dealId, title, discount, popularity, rating)
-C -> R : findById(dealId)
-R --> C : deal : Deal
-
-alt [deal found]
-  C -> E : applyUpdates(deal, title, discount, popularity, rating)
-  E --> C : updated : Deal
-  C -> R : save(updated)
-  R --> C : saved
-  C --> API : updated
-  API --> V : 200 OK { deal }
-  V --> A : showSuccess("Pasiūlymas atnaujintas")
-else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Pasiūlymas nerastas")
-end
+A -> V : openEditDealForm(dealId)
+A -> V : submitChanges(title, discount, expiry)
+V -> FEC : updateDeal(dealId, title, discount, expiry)
+FEC -> BEC : updateDeal(dealId, title, discount, expiry)
+BEC -> E : findById(dealId)
+E --> BEC : deal : Deal
+BEC -> E : save(updatedDeal)
+E --> BEC : deal : Deal
+BEC --> FEC : deal : Deal
+FEC --> V : dealUpdated(deal)
+V --> A : showSuccess("Pasiūlymas atnaujintas")
 @enduml

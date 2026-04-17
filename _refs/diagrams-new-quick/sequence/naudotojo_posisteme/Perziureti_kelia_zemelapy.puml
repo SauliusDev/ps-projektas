@@ -2,22 +2,22 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerMapView as V
-boundary TravelerApi as API
-control RouteController as C
-entity Route as E
 actor "Google maps" as GM
+boundary JourneyOverviewView as V
+control RouteController as FEC
+control "RouteController" as BEC
+entity Route as E
 
-ref over A, V, API, C : Perziureti_keliones
+ref over A, V, FEC, BEC : Perziureti_keliones
 
-A -> V : openTripMap(tripId)
-V -> API : GET /api/traveler/trips/{tripId}/route
-API -> C : getRoute(tripId)
-C -> E : findByTripId(tripId)
-E --> C : route : Route
-C -> GM : getMapView(route.waypoints)
-GM --> C : mapData : MapData
-C --> API : mapData
-API --> V : 200 OK { mapData }
-V --> A : renderMap(mapData)
+A -> V : openMapView(tripId)
+V -> FEC : loadRoute(tripId)
+FEC -> BEC : findByTrip(tripId)
+BEC -> E : findByTripId(tripId)
+E --> BEC : route : Route
+BEC -> GM : renderMap(route)
+GM --> BEC : mapUrl
+BEC --> FEC : route, mapUrl
+FEC --> V : render(route, mapUrl)
+V --> A : showMap(mapUrl)
 @enduml

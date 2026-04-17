@@ -2,31 +2,29 @@
 skinparam style strictuml
 
 actor Svecias as A
-boundary GuestAuthView as V
-boundary GuestApi as API
-control AuthController as C
-entity User as E
 actor "El pasto serveris" as Email
+boundary MainView as V
+control UserController as FEC
+control AuthController as BEC
+entity User as E
 
 A -> V : enterEmail(email)
-V -> API : POST /api/guest/forgot-password(email)
-API -> C : requestPasswordReset(email)
-C -> E : findByEmail(email)
-E --> C : user : User
+V -> FEC : forgotPassword(email)
+FEC -> BEC : initiatePasswordReset(email)
+BEC -> E : findByEmail(email)
+E --> BEC : user : User
 
 alt [user found]
-  C -> C : generateResetToken()
-  C -> Email : sendResetEmail(email, token)
-  Email --> C : sent : Boolean
-  C --> API : success
+  BEC -> E : save(resetToken, expiry)
+  E --> BEC : ok
+  BEC -> Email : sendResetEmail(email, resetToken)
+  Email --> BEC : sent
+  BEC --> FEC : ok
+  FEC --> V : showConfirmation()
+  V --> A : showMessage("Laiškas išsiųstas")
 else [else]
-  C --> API : success
-end
-
-API --> V : 200 OK
-V --> A : showMessage("Patikrinkite el. paštą")
-
-opt [user clicks reset link]
-  ref over A, V, API, C : Prisijungti
+  BEC --> FEC : NotFoundError
+  FEC --> V : showError()
+  V --> A : showError("Naudotojas nerastas")
 end
 @enduml

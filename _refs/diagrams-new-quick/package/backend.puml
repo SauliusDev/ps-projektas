@@ -1,31 +1,39 @@
 @startuml Backend
 skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+hide circle
 
 package "Backend" {
-  package "Controls" <<control>> as BackendControls {
-    package "Admin" as ControlAdmin
-    package "Main" as ControlMain
+  package "Controllers" as BEControllers {
+    class AuthController <<control>>
+    class TripController <<control>>
+    class JourneyController <<control>>
+    class DealController <<control>>
+    class RouteController <<control>>
+    class PlaceController <<control>>
+    class FoodController <<control>>
+    class UserController <<control>>
+    class AdminController <<control>>
   }
 
-  package "Models" <<entity>> {
-    package "Admin" as ModelAdmin
-    package "Deal"
-    package "Dish"
-    package "FoodPlan"
-    package "Group"
-    package "Menu"
-    package "Preferences"
-    package "Route"
-    package "RouteAttraction"
-    package "RouteFoodPlace"
-    package "RoutePlace"
-    package "Traveler"
-    package "Trip"
-    package "User"
-    package "VisitedPlace"
-    package "Dieta"
+  package "Models" as BEModels {
+    class Admin <<entity>>
+    class Deal <<entity>>
+    class Dish <<entity>>
+    class FoodPlan <<entity>>
+    class Group <<entity>>
+    class Menu <<entity>>
+    class Preferences <<entity>>
+    class Route <<entity>>
+    class RouteAttraction <<entity>>
+    class RouteFoodPlace <<entity>>
+    class RoutePlace <<entity>>
+    class Traveler <<entity>>
+    class Trip <<entity>>
+    class User <<entity>>
+    class VisitedPlace <<entity>>
+    class Dieta <<entity>>
   }
 
-  BackendControls ..> Models
 }
 @enduml

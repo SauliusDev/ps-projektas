@@ -2,23 +2,20 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminDealsView as V
-boundary AdminApi as API
-control DealController as C
+boundary DealsView as V
+control DealController as FEC
+control "DealController" as BEC
 entity Deal as E
-entity DealRepository as R
 
-ref over A, V, API, C : Perziureti_pasiulymus_Admin
+ref over A, V, FEC, BEC : Perziureti_pasiulymus
 
 A -> V : openCreateDealForm()
-A -> V : submitDealForm(title, discount, popularity, rating)
-V -> API : POST /api/admin/deals(title, discount, popularity, rating)
-API -> C : createDeal(title, discount, popularity, rating)
-C -> E : buildDeal(title, discount, popularity, rating)
-E --> C : deal : Deal
-C -> R : save(deal)
-R --> C : saved : Deal
-C --> API : saved
-API --> V : 201 Created { dealId }
+A -> V : submitDealForm(title, discount, expiry, placeId)
+V -> FEC : createDeal(title, discount, expiry, placeId)
+FEC -> BEC : createDeal(title, discount, expiry, placeId)
+BEC -> E : save(title, discount, expiry, placeId)
+E --> BEC : deal : Deal
+BEC --> FEC : deal : Deal
+FEC --> V : dealCreated(deal)
 V --> A : showSuccess("Pasiūlymas sukurtas")
 @enduml

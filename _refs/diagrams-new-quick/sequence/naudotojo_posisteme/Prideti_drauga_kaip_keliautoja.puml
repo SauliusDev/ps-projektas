@@ -2,30 +2,32 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerTripsView as V
-boundary TravelerApi as API
-control TripCreationController as C
-entity User as EU
-entity Group as EG
+boundary AddFriendView as V
+control UserController as FEC
+control "UserController" as BEC
+entity Traveler as E
 
-A -> V : openAddFriendDialog(tripId)
+A -> V : openAddFriendForm(tripId)
 A -> V : enterFriendEmail(email)
-V -> API : POST /api/traveler/trips/{tripId}/travelers(email)
-API -> C : addTraveler(tripId, email)
-C -> EU : findByEmail(email)
-EU --> C : friend : User
+V -> FEC : findFriend(email)
+FEC -> BEC : findUserByEmail(email)
+BEC -> E : findByEmail(email)
+E --> BEC : traveler : Traveler
 
 alt [friend found]
-  C -> EG : addMember(tripId, friend)
-  EG --> C : group : Group
-  C -> EG : save(group)
-  EG --> C : saved
-  C --> API : success
-  API --> V : 200 OK { group }
+  BEC --> FEC : traveler : Traveler
+  FEC --> V : showFriendPreview(traveler)
+  A -> V : confirmAdd()
+  V -> FEC : addToTrip(tripId, travelerId)
+  FEC -> BEC : addTravelerToTrip(tripId, travelerId)
+  BEC -> E : save(tripId, travelerId)
+  E --> BEC : ok
+  BEC --> FEC : ok
+  FEC --> V : friendAdded()
   V --> A : showSuccess("Draugas pridėtas")
 else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
+  BEC --> FEC : NotFoundError
+  FEC --> V : showError()
   V --> A : showError("Naudotojas nerastas")
 end
 @enduml

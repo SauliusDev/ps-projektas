@@ -2,32 +2,22 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminMenuView as V
-boundary AdminApi as API
-control FoodController as C
+boundary MainView as V
+control JourneyController as FEC
+control FoodController as BEC
 entity Menu as E
-entity FoodRepository as R
 
-ref over A, V, API, C : Perziureti_meniu
+ref over A, V, FEC, BEC : Perziureti_meniu
 
-A -> V : selectMenu(menuId)
-A -> V : submitEditForm(type)
-V -> API : PUT /api/admin/menus/{menuId}(type)
-API -> C : updateMenu(menuId, type)
-C -> R : findById(menuId)
-R --> C : menu : Menu
-
-alt [menu found]
-  C -> E : applyUpdates(menu, type)
-  E --> C : updated : Menu
-  C -> R : save(updated)
-  R --> C : saved
-  C --> API : updated
-  API --> V : 200 OK { menu }
-  V --> A : showSuccess("Meniu atnaujintas")
-else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Meniu nerastas")
-end
+A -> V : openEditMenuForm(menuId)
+A -> V : submitChanges(name, description)
+V -> FEC : updateMenu(menuId, name, description)
+FEC -> BEC : updateMenu(menuId, name, description)
+BEC -> E : findById(menuId)
+E --> BEC : menu : Menu
+BEC -> E : save(updatedMenu)
+E --> BEC : menu : Menu
+BEC --> FEC : menu : Menu
+FEC --> V : menuUpdated(menu)
+V --> A : showSuccess("Meniu atnaujintas")
 @enduml

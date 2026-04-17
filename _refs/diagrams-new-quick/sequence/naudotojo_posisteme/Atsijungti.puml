@@ -2,15 +2,19 @@
 skinparam style strictuml
 
 actor Naudotojas as A
-boundary TravelerTripsView as V
-boundary TravelerApi as API
-control AuthController as C
+boundary MainView as V
+control UserController as FEC
+control AuthController as BEC
+entity User as E
 
 A -> V : clickLogout()
-V -> API : POST /api/traveler/logout
-API -> C : logout(token)
-C -> C : invalidateToken(token)
-C --> API : success
-API --> V : 200 OK
-V --> A : navigateToGuestHome()
+V -> FEC : logout()
+FEC -> BEC : invalidateSession(token)
+BEC -> E : findByToken(token)
+E --> BEC : user : User
+BEC -> E : clearToken(user)
+E --> BEC : ok
+BEC --> FEC : ok
+FEC --> V : sessionCleared()
+V --> A : navigateToLogin()
 @enduml

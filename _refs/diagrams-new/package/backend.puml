@@ -1,0 +1,39 @@
+@startuml Backend
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Backend" {
+  package "Controllers" as BEControllers {
+    class AuthController <<control>>
+    class TripController <<control>>
+    class JourneyController <<control>>
+    class DealController <<control>>
+    class RouteController <<control>>
+    class PlaceController <<control>>
+    class FoodController <<control>>
+    class UserController <<control>>
+    class AdminController <<control>>
+  }
+
+  package "Models" as BEModels {
+    class Admin <<entity>>
+    class Deal <<entity>>
+    class Dish <<entity>>
+    class FoodPlan <<entity>>
+    class Group <<entity>>
+    class Menu <<entity>>
+    class Preferences <<entity>>
+    class Route <<entity>>
+    class RouteAttraction <<entity>>
+    class RouteFoodPlace <<entity>>
+    class RoutePlace <<entity>>
+    class Traveler <<entity>>
+    class Trip <<entity>>
+    class User <<entity>>
+    class VisitedPlace <<entity>>
+    class Dieta <<entity>>
+  }
+
+  BEControllers ..> BEModels
+}
+@enduml

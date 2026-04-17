@@ -2,20 +2,19 @@
 skinparam style strictuml
 
 actor Svecias as A
-boundary GuestDealsView as V
-boundary GuestApi as API
-control DealsController as C
+boundary DealsView as V
+control DealController as FEC
+control "DealController" as BEC
 entity Deal as E
 
 A -> V : openDealsPage()
-V -> API : GET /api/guest/deals
-API -> C : listDeals()
-C -> E : findAll()
-E --> C : deals : Deal[]
-
-ref over C, E : Rekomenduoti_pasiulymus
-
-C --> API : deals : Deal[]
-API --> V : 200 OK { items : Deal[] }
-V --> A : renderDeals(deals)
+V -> FEC : loadDeals()
+FEC -> BEC : findAll()
+BEC -> E : findAll()
+E --> BEC : deals : Deal[]
+BEC -> E : recommendDeals(deals)
+E --> BEC : recommended : Deal[]
+BEC --> FEC : deals : Deal[]
+FEC --> V : render(deals)
+V --> A : showDeals(deals)
 @enduml

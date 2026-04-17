@@ -26,6 +26,31 @@ All UML diagrams in this project use **PlantUML** (`.puml` files) — not Mermai
 - PlantUML relationships: `-->` for associations, `.>` with `<<include>>` / `<<extend>>` for UC relationships, `--|>` for generalization, `<|--` for inheritance in class diagrams
 - Phase 1 diagrams (use case, activity, state, class) keep Lithuanian names; Phase 2 diagrams (package, sequence) use English
 
+## Diagram Validation (REQUIRED before marking work done)
+
+After writing or editing any `.puml` file, **always** validate it renders without errors:
+
+```bash
+plantuml -tpng -o /tmp/puml_check <file.puml>
+# Then check the output PNG for syntax error images:
+strings /tmp/puml_check/<name>.png | grep -qi "syntax\|error" && echo "ERROR" || echo "OK"
+```
+
+To validate a whole directory at once:
+```bash
+find <dir> -name "*.puml" | while read f; do
+  plantuml -tpng -o /tmp/puml_check "$f" 2>/dev/null
+  png="/tmp/puml_check/$(basename ${f%.puml}).png"
+  strings "$png" 2>/dev/null | grep -qi "syntax\|error" && echo "ERROR: $f" || echo "OK: $f"
+done
+```
+
+**Important notes:**
+- Sequence diagrams use PlantUML's built-in renderer — no external dependency
+- Package and class diagrams require **Graphviz** (`dot`). If `dot` is missing from PATH, run `brew link graphviz`
+- Do not report diagrams as done until the validation passes
+- After batch-writing files via bash, the VSCode PlantUML extension may show stale "No valid diagram found" errors from cached old renders. Fix: `Ctrl+Shift+P → Developer: Reload Window`
+
 # Magic systems module specifics
 
 ## Activity Diagram Decision Nodes (university requirement)

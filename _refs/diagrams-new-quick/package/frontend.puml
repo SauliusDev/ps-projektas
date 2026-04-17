@@ -1,33 +1,31 @@
 @startuml Frontend
 skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+hide circle
 
 package "Frontend" {
-  package "Main" {
-    package "View" <<boundary>> {
-      package "TripList"
-      package "MainView"
-      package "SavedDeals"
-      package "AddressInputView"
-      package "Deals"
-      package "TripEditView"
-      package "CreateJourneyView"
-      package "TutorialView"
-      package "AddFriendView"
-      package "JourneyParamsView"
-      package "JourneyOverviewView"
-      package "ErrorView"
-    }
+  package "Views" {
+    class TripListView <<boundary>>
+    class MainView <<boundary>>
+    class SavedDealsView <<boundary>>
+    class AddressInputView <<boundary>>
+    class DealsView <<boundary>>
+    class TripEditView <<boundary>>
+    class CreateJourneyView <<boundary>>
+    class TutorialView <<boundary>>
+    class AddFriendView <<boundary>>
+    class JourneyParamsView <<boundary>>
+    class JourneyOverviewView <<boundary>>
+    class ErrorView <<boundary>>
+  }
 
-    package "Controls" <<control>> {
-      package "TripListController"
-      package "SavedDealsController"
-      package "UserController"
-      package "DealController"
-      package "JourneyController"
-      package "RouteController"
-    }
-
-    View ..> Controls
+  package "Controllers" {
+    class TripListController <<control>>
+    class SavedDealsController <<control>>
+    class UserController <<control>>
+    class DealController <<control>>
+    class JourneyController <<control>>
+    class RouteController <<control>>
   }
 }
 @enduml

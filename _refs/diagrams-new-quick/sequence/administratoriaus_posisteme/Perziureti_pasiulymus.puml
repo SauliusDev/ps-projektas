@@ -1,30 +1,18 @@
-@startuml Perziureti_pasiulymus_Admin
+@startuml Perziureti_pasiulymus_admin
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminDealsView as V
-boundary AdminApi as API
-control DealController as C
-entity DealRepository as R
+boundary DealsView as V
+control DealController as FEC
+control "DealController" as BEC
+entity Deal as E
 
-A -> V : openDealsManager()
-V -> API : GET /api/admin/deals
-API -> C : listDeals()
-C -> R : findAll()
-R --> C : deals : Deal[]
-C --> API : deals
-API --> V : 200 OK { items : Deal[] }
-V --> A : renderDealsTable(deals)
-
-opt [create deal]
-  ref over A, V, API, C : Sukurti_pasiulyma
-end
-
-opt [edit deal]
-  ref over A, V, API, C : Redaguoti_pasiulyma
-end
-
-opt [delete deal]
-  ref over A, V, API, C : Trinti_pasiulyma
-end
+A -> V : openDealsManagement()
+V -> FEC : loadAllDeals()
+FEC -> BEC : findAll()
+BEC -> E : findAll()
+E --> BEC : deals : Deal[]
+BEC --> FEC : deals : Deal[]
+FEC --> V : render(deals)
+V --> A : showDealsList(deals)
 @enduml

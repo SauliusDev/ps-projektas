@@ -2,32 +2,22 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminMenuView as V
-boundary AdminApi as API
-control FoodController as C
+boundary MainView as V
+control JourneyController as FEC
+control FoodController as BEC
 entity Dish as E
-entity FoodRepository as R
 
-ref over A, V, API, C : Perziureti_patiekalus
+ref over A, V, FEC, BEC : Perziureti_patiekalus
 
-A -> V : selectDish(dishId)
-A -> V : submitEditForm(name, diet, description)
-V -> API : PUT /api/admin/dishes/{dishId}(name, diet, description)
-API -> C : updateDish(dishId, name, diet, description)
-C -> R : findById(dishId)
-R --> C : dish : Dish
-
-alt [dish found]
-  C -> E : applyUpdates(dish, name, diet, description)
-  E --> C : updated : Dish
-  C -> R : save(updated)
-  R --> C : saved
-  C --> API : updated
-  API --> V : 200 OK { dish }
-  V --> A : showSuccess("Patiekalas atnaujintas")
-else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Patiekalas nerastas")
-end
+A -> V : openEditDishForm(dishId)
+A -> V : submitChanges(name, description, price)
+V -> FEC : updateDish(dishId, name, description, price)
+FEC -> BEC : updateDish(dishId, name, description, price)
+BEC -> E : findById(dishId)
+E --> BEC : dish : Dish
+BEC -> E : save(updatedDish)
+E --> BEC : dish : Dish
+BEC --> FEC : dish : Dish
+FEC --> V : dishUpdated(dish)
+V --> A : showSuccess("Patiekalas atnaujintas")
 @enduml

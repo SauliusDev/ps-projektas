@@ -2,29 +2,22 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminDealsView as V
-boundary AdminApi as API
-control DealController as C
-entity DealRepository as R
+boundary DealsView as V
+control DealController as FEC
+control "DealController" as BEC
+entity Deal as E
 
-ref over A, V, API, C : Perziureti_pasiulymus_Admin
+ref over A, V, FEC, BEC : Perziureti_pasiulymus
 
 A -> V : selectDeal(dealId)
 A -> V : confirmDelete()
-V -> API : DELETE /api/admin/deals/{dealId}
-API -> C : deleteDeal(dealId)
-C -> R : findById(dealId)
-R --> C : deal : Deal
-
-alt [deal found]
-  C -> R : delete(dealId)
-  R --> C : deleted
-  C --> API : success
-  API --> V : 204 No Content
-  V --> A : showSuccess("Pasiūlymas ištrintas")
-else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Pasiūlymas nerastas")
-end
+V -> FEC : deleteDeal(dealId)
+FEC -> BEC : deleteDeal(dealId)
+BEC -> E : findById(dealId)
+E --> BEC : deal : Deal
+BEC -> E : delete(dealId)
+E --> BEC : ok
+BEC --> FEC : ok
+FEC --> V : dealDeleted()
+V --> A : showSuccess("Pasiūlymas ištrintas")
 @enduml

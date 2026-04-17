@@ -2,26 +2,35 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerTripsView as V
-boundary TravelerApi as API
-control DealsController as C
+boundary SavedDealsView as V
+control SavedDealsController as FEC
+control DealController as BEC
 entity Deal as E
 
-A -> V : openDeal(dealId)
-V -> API : GET /api/traveler/deals/{dealId}
-API -> C : getDeal(dealId)
-C -> E : findById(dealId)
-E --> C : deal : Deal
+A -> V : openSavedDeals()
+V -> FEC : loadSavedDeals(travelerId)
+FEC -> BEC : findSavedByTraveler(travelerId)
+BEC -> E : findSavedByTraveler(travelerId)
+E --> BEC : deals : Deal[]
+BEC --> FEC : deals : Deal[]
+FEC --> V : render(deals)
+V --> A : showSavedDeals(deals)
 
-alt [deal found and active]
-  C -> E : applyToTraveler(deal, travelerId)
-  E --> C : result : DealApplication
-  C --> API : result
-  API --> V : 200 OK { discount }
-  V --> A : showDealApplied(discount)
+A -> V : useDeal(dealId)
+V -> FEC : redeemDeal(dealId, travelerId)
+FEC -> BEC : redeemDeal(dealId, travelerId)
+BEC -> E : findById(dealId)
+E --> BEC : deal : Deal
+
+alt [deal valid]
+  BEC -> E : save(deal, redeemed=true)
+  E --> BEC : ok
+  BEC --> FEC : redemptionCode
+  FEC --> V : showRedemptionCode(redemptionCode)
+  V --> A : showCode(redemptionCode)
 else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Pasiūlymas nebegalimas")
+  BEC --> FEC : InvalidDealError
+  FEC --> V : showError()
+  V --> A : showError("Pasiūlymas nebegalioja")
 end
 @enduml

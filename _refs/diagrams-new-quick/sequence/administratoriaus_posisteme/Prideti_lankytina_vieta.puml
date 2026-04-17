@@ -2,22 +2,20 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminPlacesView as V
-boundary AdminApi as API
-control PlacesController as C
-entity Place as E
+boundary MainView as V
+control RouteController as FEC
+control PlaceController as BEC
+entity RoutePlace as E
 
-ref over A, V, API, C : Perziureti_lankytinas_vietas
+ref over A, V, FEC, BEC : Perziureti_lankytinas_vietas
 
 A -> V : openAddPlaceForm()
 A -> V : submitPlaceForm(name, address, city, type, description)
-V -> API : POST /api/admin/places(name, address, city, type, description)
-API -> C : createPlace(name, address, city, type, description)
-C -> E : create(name, address, city, type, description)
-E --> C : place : Place
-C -> E : save(place)
-E --> C : savedPlace : Place
-C --> API : savedPlace
-API --> V : 201 Created { placeId }
+V -> FEC : addPlace(name, address, city, type, description)
+FEC -> BEC : createPlace(name, address, city, type, description)
+BEC -> E : save(name, address, city, type, description)
+E --> BEC : place : RoutePlace
+BEC --> FEC : place : RoutePlace
+FEC --> V : placeAdded(place)
 V --> A : showSuccess("Lankytina vieta pridėta")
 @enduml

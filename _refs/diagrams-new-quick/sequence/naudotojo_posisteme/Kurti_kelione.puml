@@ -2,33 +2,33 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerTripsView as V
-boundary TravelerApi as API
-control TripCreationController as C
+boundary TripEditView as V
+control TripListController as FEC
+control TripController as BEC
 entity Trip as E
 
 A -> V : openNewTripForm()
-V -> API : POST /api/traveler/trips(title, city, startDate, endDate)
-API -> C : createTrip(title, city, startDate, endDate, travelerId)
-C -> E : create(title, city, startDate, endDate, travelerId)
-E --> C : trip : Trip
+A -> V : submitTripForm(title, city, startDate, endDate)
+V -> FEC : createTrip(title, city, startDate, endDate)
+FEC -> BEC : createTrip(title, city, startDate, endDate, travelerId)
+BEC -> E : save(title, city, startDate, endDate, travelerId)
+E --> BEC : trip : Trip
+BEC --> FEC : trip : Trip
+FEC --> V : tripCreated(trip)
 
-ref over C, E : Sujungti_dvieju_keliautoju_parinktis
-
-ref over C, E : Prideti_drauga_kaip_keliautoja
-
-ref over C, E : Sudaryti_marsruta
-
-C -> E : save(trip)
-E --> C : savedTrip : Trip
-C --> API : savedTrip
-API --> V : 201 Created { tripId }
-
-opt [navigate to trip detail]
-  ref over A, V, API, C : Perziureti_keliones
+opt [add friend]
+  ref over A, V, FEC, BEC : Prideti_drauga_kaip_keliautoja
 end
+
+opt [set journey params]
+  ref over A, V, FEC, BEC : Pasirinkti_specifines_parinktis
+end
+
+ref over A, V, FEC, BEC : Sudaryti_marsruta
 
 opt [generate food plan]
-  ref over A, V, API, C : Sugeneruoti_maisto_plana
+  ref over A, V, FEC, BEC : Sugeneruoti_maisto_plana
 end
+
+V --> A : navigateToTripDetail(trip)
 @enduml

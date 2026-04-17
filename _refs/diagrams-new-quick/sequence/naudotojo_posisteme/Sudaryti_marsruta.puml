@@ -2,26 +2,20 @@
 skinparam style strictuml
 
 actor Keliautojas as A
-boundary TravelerRouteView as V
-boundary TravelerApi as API
-control RouteController as C
-entity Route as E
 actor "Google maps" as GM
+boundary AddressInputView as V
+control RouteController as FEC
+control "RouteController" as BEC
+entity Route as E
 
-A -> V : openRouteBuilder(tripId)
-V -> API : POST /api/traveler/trips/{tripId}/route(places)
-API -> C : buildRoute(tripId, places)
-C -> GM : getOptimizedRoute(places)
-GM --> C : routeData : RouteData
-C -> E : create(tripId, routeData)
-E --> C : route : Route
-C -> E : save(route)
-E --> C : savedRoute : Route
-C --> API : savedRoute
-API --> V : 201 Created { route }
-V --> A : renderRouteOnMap(route)
-
-opt [save and update trip]
-  ref over A, V, API, C : Redaguoti_kelione
-end
+A -> V : enterStartAddress(address)
+V -> FEC : buildRoute(tripId, startAddress)
+FEC -> BEC : generateRoute(tripId, startAddress)
+BEC -> GM : requestRoute(startAddress, waypoints)
+GM --> BEC : routeData
+BEC -> E : save(tripId, routeData)
+E --> BEC : route : Route
+BEC --> FEC : route : Route
+FEC --> V : render(route)
+V --> A : showRouteOnMap(route)
 @enduml

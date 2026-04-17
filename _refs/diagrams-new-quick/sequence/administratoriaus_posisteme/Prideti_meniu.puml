@@ -2,23 +2,20 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminMenuView as V
-boundary AdminApi as API
-control FoodController as C
+boundary MainView as V
+control JourneyController as FEC
+control FoodController as BEC
 entity Menu as E
-entity FoodRepository as R
 
-ref over A, V, API, C : Perziureti_meniu
+ref over A, V, FEC, BEC : Perziureti_meniu
 
-A -> V : openAddMenuForm()
-A -> V : submitMenuForm(type, foodPlaceId)
-V -> API : POST /api/admin/food-places/{foodPlaceId}/menus(type)
-API -> C : createMenu(foodPlaceId, type)
-C -> E : buildMenu(foodPlaceId, type)
-E --> C : menu : Menu
-C -> R : save(menu)
-R --> C : saved : Menu
-C --> API : saved
-API --> V : 201 Created { menuId }
+A -> V : openAddMenuForm(foodPlaceId)
+A -> V : submitMenuForm(name, description, foodPlaceId)
+V -> FEC : addMenu(name, description, foodPlaceId)
+FEC -> BEC : createMenu(name, description, foodPlaceId)
+BEC -> E : save(name, description, foodPlaceId)
+E --> BEC : menu : Menu
+BEC --> FEC : menu : Menu
+FEC --> V : menuAdded(menu)
 V --> A : showSuccess("Meniu pridėtas")
 @enduml

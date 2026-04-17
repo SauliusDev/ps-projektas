@@ -2,29 +2,21 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminFoodView as V
-boundary AdminApi as API
-control FoodController as C
-entity FoodRepository as R
+boundary MainView as V
+control JourneyController as FEC
+control FoodController as BEC
+entity RouteFoodPlace as E
 
-ref over A, V, API, C : Perziureti_maisto_vietas
+ref over A, V, FEC, BEC : Perziureti_maisto_vietas
 
-A -> V : selectFoodPlace(foodPlaceId)
+A -> V : selectFoodPlace(placeId)
 A -> V : confirmDelete()
-V -> API : DELETE /api/admin/food-places/{foodPlaceId}
-API -> C : deleteFoodPlace(foodPlaceId)
-C -> R : findById(foodPlaceId)
-R --> C : foodPlace : FoodPlace
-
-alt [food place found]
-  C -> R : delete(foodPlaceId)
-  R --> C : deleted
-  C --> API : success
-  API --> V : 204 No Content
-  V --> A : showSuccess("Maisto vieta ištrinta")
-else [else]
-  C --> API : NotFoundError
-  API --> V : 404 Not Found
-  V --> A : showError("Maisto vieta nerasta")
-end
+V -> FEC : deleteFoodPlace(placeId)
+FEC -> BEC : deleteFoodPlace(placeId)
+BEC -> E : findById(placeId)
+BEC -> E : delete(placeId)
+E --> BEC : ok
+BEC --> FEC : ok
+FEC --> V : placeDeleted()
+V --> A : showSuccess("Maisto vieta ištrinta")
 @enduml

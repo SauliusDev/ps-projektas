@@ -2,29 +2,17 @@
 skinparam style strictuml
 
 actor Admin as A
-boundary AdminMenuView as V
-boundary AdminApi as API
-control FoodController as C
-entity FoodRepository as R
+boundary MainView as V
+control JourneyController as FEC
+control FoodController as BEC
+entity Dish as E
 
-A -> V : openDishManager(menuId)
-V -> API : GET /api/admin/menus/{menuId}/dishes
-API -> C : listDishes(menuId)
-C -> R : findDishesByMenu(menuId)
-R --> C : dishes : Dish[]
-C --> API : dishes
-API --> V : 200 OK { items : Dish[] }
-V --> A : renderDishesTable(dishes)
-
-opt [add dish]
-  ref over A, V, API, C : Prideti_patiekala
-end
-
-opt [edit dish]
-  ref over A, V, API, C : Redaguoti_patiekala
-end
-
-opt [delete dish]
-  ref over A, V, API, C : Istrinti_patiekala
-end
+A -> V : openDishManagement()
+V -> FEC : loadDishes()
+FEC -> BEC : findAllDishes()
+BEC -> E : findAll()
+E --> BEC : dishes : Dish[]
+BEC --> FEC : dishes : Dish[]
+FEC --> V : render(dishes)
+V --> A : showDishList(dishes)
 @enduml
