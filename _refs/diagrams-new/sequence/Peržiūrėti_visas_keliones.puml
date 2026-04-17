@@ -1,0 +1,17 @@
+@startuml
+skinparam style strictuml
+
+title Peržiūrėti visas keliones
+
+actor "User" as user
+boundary "UI Boundary" as ui
+control "Application Control" as app
+entity "Domain Entity" as entity
+
+user -> ui: Request Peržiūrėti visas keliones
+ui -> app: Forward request
+app -> entity: Execute business operation
+entity --> app: Return operation result
+app --> ui: Build response
+ui --> user: Present response
+@enduml
