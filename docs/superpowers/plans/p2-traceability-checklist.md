@@ -18,5 +18,4 @@ Source plan: `docs/superpowers/specs/2026-04-17-travel-system-architecture-desig
 
 - `rg -c 'usecase\s+"' _refs/diagrams-new/use_case.puml` -> `41`
 - `ls _refs/diagrams-new/sequence/*.puml | wc -l` -> `41`
-- `rg 'ref|alt|opt' _refs/diagrams-new/sequence/*.puml | wc -l` -> `84`
-
+- `rg 'ref|alt|opt' _refs/diagrams-new/sequence/*.puml | wc -l` -> `7`

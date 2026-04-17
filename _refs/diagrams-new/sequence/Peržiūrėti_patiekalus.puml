@@ -4,19 +4,14 @@ skinparam style strictuml
 title Peržiūrėti patiekalus
 
 actor "User" as user
-boundary "UI Boundary" as ui
-control "Application Control" as app
-entity "Domain Entity" as entity
+boundary "AdminDashboardView" as ui
+control "FoodController" as foodController
+entity "FoodPlan" as foodPlan
 
 user -> ui: Request Peržiūrėti patiekalus
-ui -> app: Forward request
-app -> entity: Execute business operation
-entity --> app: Return operation result
-
-opt Optional related flow
-  ref over ui, app : Included/extended use case interaction
-end
-
-app --> ui: Build response
+ui -> foodController: Forward request
+foodController -> foodPlan: Execute business operation
+foodPlan --> foodController: Return operation result
+foodController --> ui: Build response
 ui --> user: Present response
 @enduml

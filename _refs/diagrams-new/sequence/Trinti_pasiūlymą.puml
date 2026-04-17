@@ -4,19 +4,14 @@ skinparam style strictuml
 title Trinti pasiūlymą
 
 actor "User" as user
-boundary "UI Boundary" as ui
-control "Application Control" as app
-entity "Domain Entity" as entity
+boundary "AdminDashboardView" as ui
+control "DealsController" as dealsController
+entity "Deal" as deal
 
 user -> ui: Request Trinti pasiūlymą
-ui -> app: Forward request
-app -> entity: Execute business operation
-entity --> app: Return operation result
-
-opt Optional related flow
-  ref over ui, app : Included/extended use case interaction
-end
-
-app --> ui: Build response
+ui -> dealsController: Forward request
+dealsController -> deal: Execute business operation
+deal --> dealsController: Return operation result
+dealsController --> ui: Build response
 ui --> user: Present response
 @enduml

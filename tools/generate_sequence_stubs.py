@@ -34,11 +34,6 @@ user -> ui: Request {usecase_name}
 ui -> app: Forward request
 app -> entity: Execute business operation
 entity --> app: Return operation result
-
-opt Optional related flow
-  ref over ui, app : Included/extended use case interaction
-end
-
 app --> ui: Build response
 ui --> user: Present response
 @enduml
