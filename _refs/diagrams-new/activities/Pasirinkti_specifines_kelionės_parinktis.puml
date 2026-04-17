@@ -1,0 +1,41 @@
+@startuml activity_Pasirinkti_specifines_kelionės_parinktis
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Naudotojo posistemė|
+start
+:Pateikti kelionės pasirinkimų formą;
+|Keliautojas|
+:Pasirinkti transporto tipus;
+:Nustatyti kelionės
+biudžetą;
+:Pasirinkti lankytinų vietų skaičių;
+:Pasirinkti kelionės starto/pabaigos laiką;
+if () then ([kelionės trūkmė>1d.])
+|Naudotojo posistemė|
+  :Rodyti apgyvendinimo vietos tipų pasirinktį;
+|Keliautojas|
+  :Pasirinkti apgyvendinimo 
+tipus;
+else ([else])
+endif
+:Pareikti formą;
+|Naudotojo posistemė|
+:Validuoti formos pasirinktis;
+if () then ([Duomenis tinkami])
+else ([else])
+  :Rodyti klaidos pranešimą;
+endif
+:Išsaugoti pasirinktus
+kelionės duomenis;
+stop
+
+@enduml

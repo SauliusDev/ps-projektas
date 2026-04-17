@@ -1,0 +1,24 @@
+@startuml activity_Peržiūrėti_pasiūlymus
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Admin|
+start
+:Pasirinnkti pasiūlymų peržiūrą;
+|Administratoriaus posistemė|
+:Pateikti pasiūlymų peržiūros langą;
+|Admin|
+if () then ([nori pridėti])
+else ([else])
+endif
+stop
+
+@enduml

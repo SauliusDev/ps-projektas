@@ -1,0 +1,40 @@
+@startuml activity_Prideti_drauga_kaip_keliautoja
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Naudotojo posistemė|
+start
+:Pateikti pasirinkima gauti koda arba ivesti koda;
+|Keliautojas|
+if () then ([norint but pridetam])
+  :Pasirinkti gauti koda;
+|Naudotojo posistemė|
+  :Generuoti unikalu koda;
+  :Pateikti koda;
+else ([else])
+|Keliautojas|
+  :Pasirinkti ivesti koda;
+|Naudotojo posistemė|
+  :Pateikti draugo kodo ivedimo langa;
+|Keliautojas|
+  :Ivesti draugo koda;
+|Naudotojo posistemė|
+  :Tikrinamas kodas su kitais keliautojais;
+  if () then ([kodas sutampa su kito keliautojo])
+  else ([else])
+    :Parodyti klaidos pranesima;
+  endif
+  :Drauga pridedeti kaip keliautoja;
+endif
+|Keliautojas|
+stop
+
+@enduml

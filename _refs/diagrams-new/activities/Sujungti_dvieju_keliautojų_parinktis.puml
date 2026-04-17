@@ -1,0 +1,62 @@
+@startuml activity_Sujungti_dvieju_keliautojų_parinktis
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Naudotojo posistemė|
+start
+:Pateikti dvieju keliautoju parinkciu langa;
+:Tikrinti ar datos vienodos;
+if () then ([vienodos])
+else ([else])
+  :Pateikti kitos datos parinkti;
+|Keliautojas|
+  :Pasirinkti bendra data;
+endif
+|Naudotojo posistemė|
+:Patikrinti ar transporto priemones vienodos;
+if () then ([nevienodos])
+  :Ispeti ar tikrai nori skirtingu transporto priemoniu;
+|Keliautojas|
+  if () then ([keisti])
+    :Pasirinkti kita transporto priemone;
+|Naudotojo posistemė|
+    :Keisti transporto priemones parinkti;
+  else ([else])
+  endif
+else ([else])
+endif
+:Tikrinti keliautoju biudzeta;
+if () then ([biudzeto skirtumas<100])
+else ([else])
+  :Pateikti ispejima del didelio biudzeto skirtumo;
+|Keliautojas|
+  :Pasirinkti ar keisti biudzeta;
+  if () then ([keisti])
+|Naudotojo posistemė|
+    :Pateikti biudzeto keitima;
+|Keliautojas|
+    :Keisti biudzeta;
+|Naudotojo posistemė|
+    :Tikrinti ar <10;
+    if () then ([<10])
+    else ([else])
+      :Pateikti blogu duomenu ispejima;
+    endif
+  else ([else])
+  endif
+  :Keisti minimalu biudzeta kaip biudzeto parinkti;
+  :Keisti lankytinu vietu kieki i abieju vidurki;
+  :Prideti kito keliautojo papildomas ir prioritetines parinktis;
+  stop
+endif
+:Rasti minimaliausia biudzeta;
+
+@enduml

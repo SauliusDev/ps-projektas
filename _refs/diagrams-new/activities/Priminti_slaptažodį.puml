@@ -1,0 +1,32 @@
+@startuml activity_Priminti_slaptažodį
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Svecias|
+start
+:Pasirinkti priminti slaptažodį;
+|Svečio posistemė|
+:Rodyti slaptažodžio priminimo pasirinkimus;
+|Svecias|
+:Pasirinkti priminimo parinktį ir įvesti duomenis;
+|Svečio posistemė|
+:Validuoti paskyros egzistavimą;
+if () then ([taip])
+  :Rodyti paskyros neradimo pranešimą;
+else ([else])
+endif
+|El pasto serveris|
+:Nusiųsti slaptažodžio priminimo laišką;
+|Svečio posistemė|
+:Rodyti sėkmingo priminimo išsiuntimo pranešimą;
+stop
+
+@enduml

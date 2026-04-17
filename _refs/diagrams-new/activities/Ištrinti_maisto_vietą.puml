@@ -1,0 +1,24 @@
+@startuml activity_Ištrinti_maisto_vietą
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Admin|
+start
+:Pasirinkti trinimą;
+|Administratoriaus posistemė|
+:Pateikti žymėjimo sąrašą;
+|Admin|
+:Pažymėti maisto vietas trinimui ir patvirtinti;
+|Administratoriaus posistemė|
+:Ištrinti maisto vietas;
+stop
+
+@enduml

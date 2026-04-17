@@ -1,0 +1,29 @@
+@startuml activity_Peržiūrėti_maisto_vietas
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Admin|
+start
+:Pasirinnkti maisto vietų peržiūrą;
+|Administratoriaus posistemė|
+:Pateikti maisto vietų peržiūros langą;
+|Admin|
+if () then ([nori peržiūrėti lankytiną vietą])
+  :Pasirinkti maisto vietą;
+|Administratoriaus posistemė|
+  :Pateikti maisto vietos langą;
+|Admin|
+  :Uždaryti maisto vietos langą;
+else ([else])
+endif
+stop
+
+@enduml

@@ -1,0 +1,143 @@
+@startuml use_case
+!pragma layout smetana
+skinparam style strictuml
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+}
+skinparam actor {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+}
+
+left to right direction
+
+actor "Admin" as Admin
+actor "El pasto serveris" as El_pasto_serveris
+actor "Google maps" as Google_maps
+actor "Keliautojas" as Keliautojas
+actor "Naudotojas" as Naudotojas
+actor "Svecias" as Svecias
+
+Keliautojas --|> Naudotojas
+Admin --|> Naudotojas
+
+rectangle "Svečio posistemė" {
+  usecase "Peržiūrėti pasiūlymus" as UC_Svecias_Perziureti_pasiulymus
+  usecase "Priminti slaptažodį" as UC_Priminti_slaptazodi
+  usecase "Prisijungti" as UC_Prisijungti
+  usecase "Registruotis" as UC_Registruotis
+  usecase "Rekomenduoti pasiūlymus" as UC_Rekomenduoti_pasiulymus
+}
+
+rectangle "Naudotojo posistemė" {
+  usecase "Atsijungti" as UC_Atsijungti
+  usecase "Kurti kelione" as UC_Kurti_kelione
+  usecase "Pasinaudoti pasiūlymu" as UC_Pasinaudoti_pasiulymu
+  usecase "Pasirinkti kelionės objektus" as UC_Pasirinkti_keliones_objektus
+  usecase "Pasirinkti specifines keliones parinktis" as UC_Pasirinkti_specifines_keliones_parinktis
+  usecase "Peržiūrėti keliones" as UC_Perziureti_keliones
+  usecase "Peržiūrėti kelią žemėlapy" as UC_Perziureti_kelia_zemelapy
+  usecase "Prideti drauga kaip keliautoja" as UC_Prideti_drauga_kaip_keliautoja
+  usecase "Redaguoti kelionę" as UC_Redaguoti_kelione
+  usecase "Redaguoti maisto plana" as UC_Redaguoti_maisto_plana
+  usecase "Redaguoti profilį (preferences)" as UC_Redaguoti_profili_preferences
+  usecase "Sudaryti maršruta" as UC_Sudaryti_marsruta
+  usecase "Sugeneruoti maisto planą" as UC_Sugeneruoti_maisto_plana
+  usecase "Sujungti dvieju keliautojų parinktis" as UC_Sujungti_dvieju_keliautoju_parinktis
+}
+
+rectangle "Administratoriaus posistemė" {
+  usecase "Ištrinti lankytiną vietą" as UC_Istrinti_lankytina_vieta
+  usecase "Ištrinti maisto vietą" as UC_Istrinti_maisto_vieta
+  usecase "Ištrinti meniu" as UC_Istrinti_meniu
+  usecase "Ištrinti patiekalą" as UC_Istrinti_patiekala
+  usecase "Peržiūrėti lankytinas vietas" as UC_Perziureti_lankytinas_vietas
+  usecase "Peržiūrėti maisto vietas" as UC_Perziureti_maisto_vietas
+  usecase "Peržiūrėti meniu" as UC_Perziureti_meniu
+  usecase "Peržiūrėti pasiūlymus" as UC_Admin_Perziureti_pasiulymus
+  usecase "Peržiūrėti patiekalus" as UC_Perziureti_patiekalus
+  usecase "Peržiūrėti visas keliones" as UC_Perziureti_visas_keliones
+  usecase "Pridėti lankytiną vietą" as UC_Prideti_lankytina_vieta
+  usecase "Pridėti maisto vietą" as UC_Prideti_maisto_vieta
+  usecase "Pridėti meniu" as UC_Prideti_meniu
+  usecase "Pridėti patiekalą" as UC_Prideti_patiekala
+  usecase "Redaguoti lankytinas vietą" as UC_Redaguoti_lankytinas_vieta
+  usecase "Redaguoti maisto vietą" as UC_Redaguoti_maisto_vieta
+  usecase "Redaguoti meniu" as UC_Redaguoti_meniu
+  usecase "Redaguoti pasiūlymą" as UC_Redaguoti_pasiulyma
+  usecase "Redaguoti patiekala" as UC_Redaguoti_patiekala
+  usecase "Sukurti pasiūlymą" as UC_Sukurti_pasiulyma
+  usecase "Tikrinti keliones busena" as UC_Tikrinti_keliones_busena
+  usecase "Trinti pasiūlymą" as UC_Trinti_pasiulyma
+}
+
+Google_maps --> UC_Pasirinkti_keliones_objektus
+Google_maps --> UC_Sudaryti_marsruta
+Google_maps --> UC_Perziureti_kelia_zemelapy
+El_pasto_serveris --> UC_Priminti_slaptazodi
+
+Svecias --> UC_Svecias_Perziureti_pasiulymus
+Svecias --> UC_Prisijungti
+Svecias --> UC_Registruotis
+
+Naudotojas --> UC_Atsijungti
+
+Keliautojas --> UC_Perziureti_keliones
+Keliautojas --> UC_Perziureti_kelia_zemelapy
+Keliautojas --> UC_Pasinaudoti_pasiulymu
+Keliautojas --> UC_Redaguoti_profili_preferences
+
+Admin --> UC_Registruotis
+Admin --> UC_Prisijungti
+Admin --> UC_Perziureti_keliones
+Admin --> UC_Perziureti_lankytinas_vietas
+Admin --> UC_Perziureti_visas_keliones
+Admin --> UC_Perziureti_patiekalus
+Admin --> UC_Admin_Perziureti_pasiulymus
+Admin --> UC_Perziureti_maisto_vietas
+Admin --> UC_Perziureti_meniu
+
+UC_Svecias_Perziureti_pasiulymus .> UC_Rekomenduoti_pasiulymus : <<include>>
+UC_Priminti_slaptazodi .> UC_Prisijungti : <<extend>>
+
+UC_Kurti_kelione .> UC_Sudaryti_marsruta : <<include>>
+UC_Kurti_kelione .> UC_Sujungti_dvieju_keliautoju_parinktis : <<include>>
+UC_Kurti_kelione .> UC_Prideti_drauga_kaip_keliautoja : <<include>>
+
+UC_Sugeneruoti_maisto_plana .> UC_Kurti_kelione : <<extend>>
+UC_Sugeneruoti_maisto_plana .> UC_Redaguoti_kelione : <<extend>>
+UC_Sudaryti_marsruta .> UC_Redaguoti_kelione : <<extend>>
+UC_Kurti_kelione .> UC_Perziureti_keliones : <<extend>>
+UC_Perziureti_kelia_zemelapy .> UC_Perziureti_keliones : <<extend>>
+UC_Redaguoti_kelione .> UC_Perziureti_keliones : <<extend>>
+UC_Prideti_drauga_kaip_keliautoja .> UC_Kurti_kelione : <<extend>>
+UC_Pasirinkti_specifines_keliones_parinktis .> UC_Kurti_kelione : <<extend>>
+UC_Sujungti_dvieju_keliautoju_parinktis .> UC_Kurti_kelione : <<extend>>
+UC_Pasirinkti_keliones_objektus .> UC_Kurti_kelione : <<extend>>
+UC_Redaguoti_maisto_plana .> UC_Redaguoti_kelione : <<extend>>
+UC_Redaguoti_maisto_plana .> UC_Perziureti_keliones : <<extend>>
+
+UC_Prideti_lankytina_vieta .> UC_Perziureti_lankytinas_vietas : <<extend>>
+UC_Istrinti_lankytina_vieta .> UC_Perziureti_lankytinas_vietas : <<extend>>
+UC_Redaguoti_lankytinas_vieta .> UC_Perziureti_lankytinas_vietas : <<extend>>
+
+UC_Prideti_patiekala .> UC_Perziureti_patiekalus : <<extend>>
+UC_Istrinti_patiekala .> UC_Perziureti_patiekalus : <<extend>>
+UC_Redaguoti_patiekala .> UC_Perziureti_patiekalus : <<extend>>
+
+UC_Prideti_maisto_vieta .> UC_Perziureti_maisto_vietas : <<extend>>
+UC_Istrinti_maisto_vieta .> UC_Perziureti_maisto_vietas : <<extend>>
+UC_Redaguoti_maisto_vieta .> UC_Perziureti_maisto_vietas : <<extend>>
+
+UC_Prideti_meniu .> UC_Perziureti_meniu : <<extend>>
+UC_Istrinti_meniu .> UC_Perziureti_meniu : <<extend>>
+UC_Redaguoti_meniu .> UC_Perziureti_meniu : <<extend>>
+
+UC_Redaguoti_pasiulyma .> UC_Admin_Perziureti_pasiulymus : <<extend>>
+UC_Trinti_pasiulyma .> UC_Admin_Perziureti_pasiulymus : <<extend>>
+UC_Sukurti_pasiulyma .> UC_Admin_Perziureti_pasiulymus : <<extend>>
+UC_Tikrinti_keliones_busena .> UC_Perziureti_visas_keliones : <<extend>>
+
+@enduml

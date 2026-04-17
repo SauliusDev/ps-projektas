@@ -1,0 +1,30 @@
+@startuml activity_Pridėti_lankytiną_vietą
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Admin|
+start
+:Pasirinkti pridėjimą;
+|Administratoriaus posistemė|
+:Pateikti pridėjimo formą;
+|Admin|
+:Užpildyti pridėjimo formą ir patvirtinti;
+|Administratoriaus posistemė|
+:Patikrinti ar įvesti teisingi duomenų tipai;
+:Patiktinti ar lankytina vieta nesidubliuoja sistemoje;
+if () then ([duomenis tinkami])
+else ([else])
+  :Pateikti klaidos pranešimą ir klaidingą duomenų lauką pridėjimo formoje;
+endif
+:Pridėti lankytiną vietą;
+stop
+
+@enduml

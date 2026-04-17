@@ -1,0 +1,25 @@
+@startuml activity_Peržiūrėti_kelią_žemėlapy
+skinparam style strictuml
+skinparam swimlane {
+  BorderColor #555
+}
+skinparam activity {
+  BackgroundColor #FFFDE7
+  BorderColor #F9A825
+  DiamondBackgroundColor #E3F2FD
+  DiamondBorderColor #1565C0
+}
+
+|Keliautojas|
+start
+:Pasirinkti „Peržiūrėti kelią žemėlapyje";
+|Naudotojo posistemė|
+:Gauti kelionės maršruto duomenis iš DB;
+|Google maps|
+:Sugeneruoti maršrutą
+žemėlapyje;
+|Naudotojo posistemė|
+:Rodyti žemėlapį su pažymėtu maršrutu;
+stop
+
+@enduml
