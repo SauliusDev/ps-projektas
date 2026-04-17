@@ -5,13 +5,13 @@ title Tikrinti keliones busena
 
 actor "User" as user
 boundary "UI Boundary" as ui
-control "Application Control" as app
-entity "Domain Entity" as entity
+control "TripsController" as tripsController
+entity "Trip" as trip
 
 user -> ui: Request Tikrinti keliones busena
-ui -> app: Forward request
-app -> entity: Execute business operation
-entity --> app: Return operation result
-app --> ui: Build response
+ui -> tripsController: Forward request
+tripsController -> trip: Execute business operation
+trip --> tripsController: Return operation result
+tripsController --> ui: Build response
 ui --> user: Present response
 @enduml
