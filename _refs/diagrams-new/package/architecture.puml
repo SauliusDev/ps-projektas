@@ -24,12 +24,12 @@ package "Application <<control>>" {
 }
 
 package "Domain <<entity>>" {
-  class User
-  class Trip
-  class Route
-  class Deal
-  class FoodPlan
-  class Preferences
+  rectangle "User" as User <<class>>
+  rectangle "Trip" as Trip <<class>>
+  rectangle "Route" as Route <<class>>
+  rectangle "Deal" as Deal <<class>>
+  rectangle "FoodPlan" as FoodPlan <<class>>
+  rectangle "Preferences" as Preferences <<class>>
 }
 
 package "Infrastructure" {
