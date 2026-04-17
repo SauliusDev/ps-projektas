@@ -91,8 +91,8 @@ Application controllers depend on interfaces/ports and call infrastructure throu
 Canonical flow:
 1. `Actor -> FrontendView <<boundary>>`
 2. `FrontendView -> ApiController <<boundary>>`
-3. `ApiController -> UseCaseController <<control>>`
-4. `UseCaseController -> Entity/Repository/Gateway <<entity/infrastructure>>`
+3. `ApiController -> FeatureController <<control>>`
+4. `FeatureController -> Entity/Repository/Gateway <<entity/infrastructure>>`
 5. Replies return in reverse order (except allowed UI-navigation exception from lecture notes)
 
 Mandatory consistency:
@@ -107,6 +107,12 @@ Additional sequence constraints from lecture rules:
 - `alt` should include an `[else]` branch for complete logic coverage.
 - `loop` should use either a guard condition or iteration count (not both together).
 - Recommended lifeline order: actor -> boundary -> control -> entity -> external actor (far right).
+
+Controller granularity policy:
+- Do not use one global controller for everything.
+- Do not force one controller per tiny action.
+- Split controllers by feature responsibility and lifecycle (example: `TripCreationController`, `TripEditController`, `TripQueryController`, `DealController`, `UserController`, `RouteController`).
+- Keep controller methods aligned with sequence messages and avoid dumping unrelated logic into one class.
 
 ## Mapping Existing Subsystems to Feature Split
 
