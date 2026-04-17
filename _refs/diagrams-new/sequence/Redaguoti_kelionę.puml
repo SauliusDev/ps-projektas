@@ -4,7 +4,7 @@ skinparam style strictuml
 title Redaguoti kelionę
 
 actor "User" as user
-boundary "UI Boundary" as ui
+boundary "TravelerTripsView" as ui
 control "TripsController" as tripsController
 entity "Trip" as trip
 

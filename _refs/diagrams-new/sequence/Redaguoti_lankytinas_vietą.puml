@@ -4,14 +4,14 @@ skinparam style strictuml
 title Redaguoti lankytinas vietą
 
 actor "User" as user
-boundary "UI Boundary" as ui
-control "TripsController" as tripsController
-entity "Trip" as trip
+boundary "AdminDashboardView" as ui
+control "PlacesController" as placesController
+entity "RouteAttraction" as routeAttraction
 
 user -> ui: Request Redaguoti lankytinas vietą
-ui -> tripsController: Forward request
-tripsController -> trip: Execute business operation
-trip --> tripsController: Return operation result
-tripsController --> ui: Build response
+ui -> placesController: Forward request
+placesController -> routeAttraction: Execute business operation
+routeAttraction --> placesController: Return operation result
+placesController --> ui: Build response
 ui --> user: Present response
 @enduml

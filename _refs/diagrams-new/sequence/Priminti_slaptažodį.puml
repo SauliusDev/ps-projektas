@@ -4,14 +4,14 @@ skinparam style strictuml
 title Priminti slaptažodį
 
 actor "User" as user
-boundary "UI Boundary" as ui
-control "TripsController" as tripsController
-entity "Trip" as trip
+boundary "GuestDealsView" as ui
+control "AuthController" as authController
+entity "User" as authUser
 
 user -> ui: Request Priminti slaptažodį
-ui -> tripsController: Forward request
-tripsController -> trip: Execute business operation
-trip --> tripsController: Return operation result
-tripsController --> ui: Build response
+ui -> authController: Forward request
+authController -> authUser: Execute business operation
+authUser --> authController: Return operation result
+authController --> ui: Build response
 ui --> user: Present response
 @enduml

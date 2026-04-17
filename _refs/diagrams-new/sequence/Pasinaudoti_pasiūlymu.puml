@@ -4,14 +4,14 @@ skinparam style strictuml
 title Pasinaudoti pasiūlymu
 
 actor "User" as user
-boundary "UI Boundary" as ui
-control "TripsController" as tripsController
-entity "Trip" as trip
+boundary "TravelerTripsView" as ui
+control "DealsController" as dealsController
+entity "Deal" as deal
 
 user -> ui: Request Pasinaudoti pasiūlymu
-ui -> tripsController: Forward request
-tripsController -> trip: Execute business operation
-trip --> tripsController: Return operation result
-tripsController --> ui: Build response
+ui -> dealsController: Forward request
+dealsController -> deal: Execute business operation
+deal --> dealsController: Return operation result
+dealsController --> ui: Build response
 ui --> user: Present response
 @enduml

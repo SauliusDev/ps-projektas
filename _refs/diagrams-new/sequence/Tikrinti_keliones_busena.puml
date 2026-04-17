@@ -4,7 +4,7 @@ skinparam style strictuml
 title Tikrinti keliones busena
 
 actor "User" as user
-boundary "UI Boundary" as ui
+boundary "AdminDashboardView" as ui
 control "TripsController" as tripsController
 entity "Trip" as trip
 
