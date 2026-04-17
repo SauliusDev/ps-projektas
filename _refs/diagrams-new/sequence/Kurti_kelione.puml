@@ -1,0 +1,17 @@
+@startuml
+skinparam style strictuml
+
+title Kurti kelione
+
+actor "User" as user
+boundary "TravelerTripsView" as ui
+control "TripsController" as tripsController
+entity "Trip" as trip
+
+user -> ui: Request Kurti kelione
+ui -> tripsController: Forward request
+tripsController -> trip: Execute business operation
+trip --> tripsController: Return operation result
+tripsController --> ui: Build response
+ui --> user: Present response
+@enduml

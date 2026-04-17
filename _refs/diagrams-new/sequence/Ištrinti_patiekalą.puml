@@ -1,0 +1,17 @@
+@startuml
+skinparam style strictuml
+
+title Ištrinti patiekalą
+
+actor "User" as user
+boundary "AdminDashboardView" as ui
+control "FoodController" as foodController
+entity "FoodPlan" as foodPlan
+
+user -> ui: Request Ištrinti patiekalą
+ui -> foodController: Forward request
+foodController -> foodPlan: Execute business operation
+foodPlan --> foodController: Return operation result
+foodController --> ui: Build response
+ui --> user: Present response
+@enduml

@@ -219,11 +219,17 @@ Kelionė (Trip) lifecycle: `[*] → Ateinanti → Aktyvi → Praejusi → Archiv
 
 ## Work Done Session 2026-04-17
 
-- Audited MagicDraw HTML 2.0 export — found 45 pre-rendered JPG diagrams (1 use case, 1 class, 1 state, 42 activity); no sequence or package diagrams in that export.
-- Created `_refs/export-images-audit.md` — full inventory table with filename↔diagram name mapping.
-- Regenerated all 8 sequence diagrams in `_refs/diagrams-og/sequence/` using the lecture-style PlantUML format.
+- Locked architecture decisions to `_refs/diagrams-new/` as the only source for P2 package/sequence modeling.
+- Added the P2 logical architecture package diagram to the design set.
+- Generated and aligned sequence diagrams per use case against the use case model.
+- Added BCE system class diagram updates aligned with sequence interactions.
+- Audited MagicDraw HTML 2.0 export — found 45 pre-rendered JPG diagrams (1 use case, 1 class, 1 state, 42 activity); no sequence or package diagrams in export
+- Created `_refs/export-images-audit.md` — full inventory table with filename↔diagram name mapping
+- Clarified overall project strategy and pipeline (see Master Strategy above)
+- Updated this project-context.md with current state and rendering quality notes
+- Regenerated all 8 sequence diagrams in `_refs/diagrams-og/sequence/` using the lecture-style PlantUML format (BCE lifeline stereotypes, consistent skinparams, section blocks, and combined fragments)
 - Consolidated active references under `_refs/` and moved large historical material to `_archive/`.
-- Updated this `project-context.md` to reflect the new `_refs` + `_archive` layout.
+- Implementation status clarified: current branch is scaffold-level (mainly read/list and in-memory flows); PostgreSQL-backed CRUD remains planned for the next execution cycle.
 
 ## Work Done Session 2026-04-16
 

@@ -1,0 +1,17 @@
+@startuml
+skinparam style strictuml
+
+title Pridėti lankytiną vietą
+
+actor "User" as user
+boundary "AdminDashboardView" as ui
+control "PlacesController" as placesController
+entity "RouteAttraction" as routeAttraction
+
+user -> ui: Request Pridėti lankytiną vietą
+ui -> placesController: Forward request
+placesController -> routeAttraction: Execute business operation
+routeAttraction --> placesController: Return operation result
+placesController --> ui: Build response
+ui --> user: Present response
+@enduml

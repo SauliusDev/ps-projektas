@@ -1,0 +1,17 @@
+@startuml
+skinparam style strictuml
+
+title Redaguoti pasiūlymą
+
+actor "User" as user
+boundary "AdminDashboardView" as ui
+control "DealsController" as dealsController
+entity "Deal" as deal
+
+user -> ui: Request Redaguoti pasiūlymą
+ui -> dealsController: Forward request
+dealsController -> deal: Execute business operation
+deal --> dealsController: Return operation result
+dealsController --> ui: Build response
+ui --> user: Present response
+@enduml

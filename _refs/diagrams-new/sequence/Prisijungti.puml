@@ -1,0 +1,20 @@
+@startuml
+skinparam style strictuml
+
+title Prisijungti
+
+actor "User" as user
+boundary "GuestDealsView" as ui
+control "AuthController" as authController
+entity "User" as authUser
+
+user -> ui: Request Prisijungti
+opt User forgot password
+  ref over user, ui, authController : Priminti_slaptažodį
+end
+ui -> authController: Forward request
+authController -> authUser: Execute business operation
+authUser --> authController: Return operation result
+authController --> ui: Build response
+ui --> user: Present response
+@enduml
