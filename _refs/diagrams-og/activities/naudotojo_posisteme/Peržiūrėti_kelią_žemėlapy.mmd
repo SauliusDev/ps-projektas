@@ -1,0 +1,30 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  b0032a5f_d78a_40f9_ab35_1e85ff0de3f4((( ))):::terminal
+  n_9f4987a0_d410_4137_9f0c_ee1fc8d59e91(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    c6087288_baff_47e8_a922_9c8cc63a1369["Gauti kelionės maršruto duomenis iš DB"]:::action
+    n_315feb38_b696_4c01_8256_6e0253dee394["Rodyti žemėlapį su pažymėtu maršrutu"]:::action
+  end
+
+  subgraph Google_maps["Google maps"]
+    direction TB
+    c679878b_f141_4bf8_b31c_797c1e0eaa4b["Sugeneruoti maršrutą žemėlapyje"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_6e9203be_a0fb_4f15_b494_a38ce3342d48["Pasirinkti „Peržiūrėti kelią žemėlapyje'"]:::action
+  end
+
+  c679878b_f141_4bf8_b31c_797c1e0eaa4b --> n_315feb38_b696_4c01_8256_6e0253dee394
+  n_9f4987a0_d410_4137_9f0c_ee1fc8d59e91 --> n_6e9203be_a0fb_4f15_b494_a38ce3342d48
+  n_6e9203be_a0fb_4f15_b494_a38ce3342d48 --> c6087288_baff_47e8_a922_9c8cc63a1369
+  c6087288_baff_47e8_a922_9c8cc63a1369 --> c679878b_f141_4bf8_b31c_797c1e0eaa4b
+  n_315feb38_b696_4c01_8256_6e0253dee394 --> b0032a5f_d78a_40f9_ab35_1e85ff0de3f4

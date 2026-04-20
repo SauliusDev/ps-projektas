@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_672b45a5_411d_401c_81db_ea122a36b45f((( ))):::terminal
+  n_67face03_d7c4_4501_bfa7_e284c6d4e375(( )):::terminal
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_2751dd3b_6217_43d6_aa20_8fbdc0b2d7ff(( )):::decision
+    n_55d34313_acf1_4dfc_b53b_0aa6435d7c7b["Užpildyti pridėjimo formą ir patvirtinti"]:::action
+    n_5d10163e_1d65_4c82_8428_5fb96400bcbb["Pasirinkti pridėjimą"]:::action
+  end
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    ca67a001_1a12_4c75_9535_f9d4ae95c091["Pridėti pasiūlimą"]:::action
+    n_40a960b6_d5a7_4e1f_ab4d_f6cee09d9427["Pateikti pridėjimo formą"]:::action
+    n_9a95e4e8_6759_4b92_9229_2f7fee39686c["Patiktinti ar pasiūlimas nesidubliuoja sistemoje"]:::action
+    n_51f6c992_6447_42c5_84e2_74eaeca2cd2c["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    n_646f4e3e_d6a7_424b_a909_f0a73190a8aa{"?"}:::decision
+    n_654e3417_bd82_417d_a4a9_9e8d6db47f52["Pateikti klaidos pranešimą ir klaidingą duomenų lauką pridėjimo formoje"]:::action
+  end
+
+  n_51f6c992_6447_42c5_84e2_74eaeca2cd2c --> n_9a95e4e8_6759_4b92_9229_2f7fee39686c
+  ca67a001_1a12_4c75_9535_f9d4ae95c091 --> n_672b45a5_411d_401c_81db_ea122a36b45f
+  n_5d10163e_1d65_4c82_8428_5fb96400bcbb --> n_40a960b6_d5a7_4e1f_ab4d_f6cee09d9427
+  n_2751dd3b_6217_43d6_aa20_8fbdc0b2d7ff --> n_55d34313_acf1_4dfc_b53b_0aa6435d7c7b
+  n_9a95e4e8_6759_4b92_9229_2f7fee39686c --> n_646f4e3e_d6a7_424b_a909_f0a73190a8aa
+  n_67face03_d7c4_4501_bfa7_e284c6d4e375 --> n_5d10163e_1d65_4c82_8428_5fb96400bcbb
+  n_646f4e3e_d6a7_424b_a909_f0a73190a8aa -- "[duomenys klaidingi]" --> n_654e3417_bd82_417d_a4a9_9e8d6db47f52
+  n_55d34313_acf1_4dfc_b53b_0aa6435d7c7b --> n_51f6c992_6447_42c5_84e2_74eaeca2cd2c
+  n_40a960b6_d5a7_4e1f_ab4d_f6cee09d9427 --> n_2751dd3b_6217_43d6_aa20_8fbdc0b2d7ff
+  n_646f4e3e_d6a7_424b_a909_f0a73190a8aa -- "[duomenis tinkami]" --> ca67a001_1a12_4c75_9535_f9d4ae95c091
+  n_654e3417_bd82_417d_a4a9_9e8d6db47f52 -.-> n_2751dd3b_6217_43d6_aa20_8fbdc0b2d7ff
+  linkStyle 10 stroke:#C62828,stroke-width:2px

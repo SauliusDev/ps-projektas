@@ -1,0 +1,43 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  cbf49c5c_ff2d_4aa3_9cd0_b5c81b05a3ab((( ))):::terminal
+  a3a189f7_9ef0_4559_9acf_61b583b2ae81(( )):::terminal
+
+  subgraph Admin["Admin"]
+    direction TB
+    da1bc45a_d786_46c8_a8af_3bd41707d7ba["Redaguoti pasiūlymą"]:::action
+    n_1a90b6c7_40b8_421c_a977_5e1a602a3432{"?"}:::decision
+    n_10f05195_7167_4b88_87b7_3195c9a91c1d["Sukurti pasiūlymą"]:::action
+    n_11905076_718a_401c_a083_c76ac2921cd6["Uždaryti pasiūlymo langą"]:::action
+    b80d3198_db2c_40af_b2a2_0a23cc819ad0["Pasirinkti pasiūlymą"]:::action
+    n_3cc5c0fc_5065_41f2_a4e4_c365eafe70a2["Pasirinnkti pasiūlymų peržiūrą"]:::action
+    b66831e4_24ef_4c17_ae9d_0f3f82fab44a["Trinti pasiūlymą"]:::action
+  end
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_88c5e426_7bdd_42cc_9144_f1d733c7090d["Pateikti pasiūlymo langą"]:::action
+    n_32aa3b01_f8d8_47c5_a471_56ae4d0ab26f(( )):::decision
+    n_2946eb45_d2f9_452e_bbbe_ed47b144b4c0["Pateikti pasiūlymų peržiūros langą"]:::action
+  end
+
+  n_1a90b6c7_40b8_421c_a977_5e1a602a3432 -- "[nori ištrinti]" --> b66831e4_24ef_4c17_ae9d_0f3f82fab44a
+  n_2946eb45_d2f9_452e_bbbe_ed47b144b4c0 --> n_1a90b6c7_40b8_421c_a977_5e1a602a3432
+  b80d3198_db2c_40af_b2a2_0a23cc819ad0 --> n_88c5e426_7bdd_42cc_9144_f1d733c7090d
+  n_3cc5c0fc_5065_41f2_a4e4_c365eafe70a2 --> n_32aa3b01_f8d8_47c5_a471_56ae4d0ab26f
+  n_1a90b6c7_40b8_421c_a977_5e1a602a3432 -- "[nori peržiūrėti lankytiną vietą]" --> b80d3198_db2c_40af_b2a2_0a23cc819ad0
+  n_88c5e426_7bdd_42cc_9144_f1d733c7090d --> n_11905076_718a_401c_a083_c76ac2921cd6
+  a3a189f7_9ef0_4559_9acf_61b583b2ae81 --> n_3cc5c0fc_5065_41f2_a4e4_c365eafe70a2
+  n_1a90b6c7_40b8_421c_a977_5e1a602a3432 -- "[nori pridėti]" --> n_10f05195_7167_4b88_87b7_3195c9a91c1d
+  n_1a90b6c7_40b8_421c_a977_5e1a602a3432 -- "[else]" --> cbf49c5c_ff2d_4aa3_9cd0_b5c81b05a3ab
+  n_1a90b6c7_40b8_421c_a977_5e1a602a3432 -- "[nori redaguoti]" --> da1bc45a_d786_46c8_a8af_3bd41707d7ba
+  n_32aa3b01_f8d8_47c5_a471_56ae4d0ab26f --> n_2946eb45_d2f9_452e_bbbe_ed47b144b4c0
+  n_11905076_718a_401c_a083_c76ac2921cd6 -.-> n_32aa3b01_f8d8_47c5_a471_56ae4d0ab26f
+  da1bc45a_d786_46c8_a8af_3bd41707d7ba -.-> n_32aa3b01_f8d8_47c5_a471_56ae4d0ab26f
+  n_10f05195_7167_4b88_87b7_3195c9a91c1d -.-> n_32aa3b01_f8d8_47c5_a471_56ae4d0ab26f
+  b66831e4_24ef_4c17_ae9d_0f3f82fab44a -.-> n_32aa3b01_f8d8_47c5_a471_56ae4d0ab26f
+  linkStyle 11,12,13,14 stroke:#C62828,stroke-width:2px

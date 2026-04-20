@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_9e5205e0_52f0_40ee_8c3f_5299a2497090(( )):::terminal
+  n_174721f1_1f55_41f7_90ea_7a785a8ab676((( ))):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    df61a139_cf52_4056_ab6c_21cd3be05f8d["Pateikti klaidos pranešimą ir klaidingą duomenų lauką pridėjimo formoje"]:::action
+    n_1ead8bca_13c0_4ac4_b036_a579beb1dcec["Pateikti pridėjimo formą"]:::action
+    b6814efe_df43_4c43_8722_7eddcc2d70d1["Patiktinti ar maisto vieta nesidubliuoja sistemoje"]:::action
+    n_172394f9_b702_4d57_8f8f_b29d8a8e97d0{"?"}:::decision
+    ab5aef2d_a5d5_4d3a_9fcd_ef43a395a9cc["Pridėti maisto vietą"]:::action
+    c8e2c558_52d6_4317_a4f8_c68665af4393["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_307bb617_9c3c_4062_a9c5_f850733db359["Pasirinkti pridėjimą"]:::action
+    n_7d9b61b2_e7f5_4fb5_890f_08787c9635af(( )):::decision
+    d217db57_eb6b_4aa4_a1b6_897a66f0beaa["Užpildyti pridėjimo formą ir patvirtinti"]:::action
+  end
+
+  d217db57_eb6b_4aa4_a1b6_897a66f0beaa --> c8e2c558_52d6_4317_a4f8_c68665af4393
+  n_9e5205e0_52f0_40ee_8c3f_5299a2497090 --> n_307bb617_9c3c_4062_a9c5_f850733db359
+  b6814efe_df43_4c43_8722_7eddcc2d70d1 --> n_172394f9_b702_4d57_8f8f_b29d8a8e97d0
+  n_172394f9_b702_4d57_8f8f_b29d8a8e97d0 -- "[duomenis tinkami]" --> ab5aef2d_a5d5_4d3a_9fcd_ef43a395a9cc
+  c8e2c558_52d6_4317_a4f8_c68665af4393 --> b6814efe_df43_4c43_8722_7eddcc2d70d1
+  ab5aef2d_a5d5_4d3a_9fcd_ef43a395a9cc --> n_174721f1_1f55_41f7_90ea_7a785a8ab676
+  n_1ead8bca_13c0_4ac4_b036_a579beb1dcec --> n_7d9b61b2_e7f5_4fb5_890f_08787c9635af
+  n_307bb617_9c3c_4062_a9c5_f850733db359 --> n_1ead8bca_13c0_4ac4_b036_a579beb1dcec
+  n_172394f9_b702_4d57_8f8f_b29d8a8e97d0 -- "[duomenys klaidingi]" --> df61a139_cf52_4056_ab6c_21cd3be05f8d
+  n_7d9b61b2_e7f5_4fb5_890f_08787c9635af --> d217db57_eb6b_4aa4_a1b6_897a66f0beaa
+  df61a139_cf52_4056_ab6c_21cd3be05f8d -.-> n_7d9b61b2_e7f5_4fb5_890f_08787c9635af
+  linkStyle 10 stroke:#C62828,stroke-width:2px

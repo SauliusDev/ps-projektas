@@ -1,0 +1,35 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  a6fa58f5_0a83_414c_90b6_2ba1d42f28d3((( ))):::terminal
+  n_81b8065b_beb6_4210_8c5e_890f0820e8d1(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    d2d8cf4f_d20d_4a20_93a2_8fcfa2b12425["Nukreipti į prisijungimo puslapį"]:::action
+    n_92c3f382_31b8_4242_bafc_023315f69379(( )):::decision
+    n_27fc5887_d44c_4dc5_a11d_cfdd7f9cda15{"Ar sesija aktyvi?"}:::decision
+    n_83a005e1_685d_4f60_b9ec_172f5a28eebb["Ištrinti sesijos duomenis"]:::action
+    n_9b6e3ab6_3cd5_43d5_8e9e_0df4ca8c41b5["Rodyti patvirtinimą apie atsijungimą"]:::action
+    d0215a85_2f42_4ec9_9e18_e0cfc66930b9["Tikrinti ar sesija aktyvi"]:::action
+  end
+
+  subgraph Naudotojas["Naudotojas"]
+    direction TB
+    f941c924_508e_47f5_8891_373b7ef54b57["Paspausti atsijungti mygtuką"]:::action
+    n_3ff2765f_4591_4b7a_b4d8_c85f7f37e5d3["Patvirtinti atisijungimo veiksmą"]:::action
+  end
+
+  f941c924_508e_47f5_8891_373b7ef54b57 --> d0215a85_2f42_4ec9_9e18_e0cfc66930b9
+  n_81b8065b_beb6_4210_8c5e_890f0820e8d1 --> f941c924_508e_47f5_8891_373b7ef54b57
+  n_83a005e1_685d_4f60_b9ec_172f5a28eebb --> n_92c3f382_31b8_4242_bafc_023315f69379
+  n_27fc5887_d44c_4dc5_a11d_cfdd7f9cda15 -- "[Sesija aktyvi]" --> n_9b6e3ab6_3cd5_43d5_8e9e_0df4ca8c41b5
+  n_9b6e3ab6_3cd5_43d5_8e9e_0df4ca8c41b5 --> n_3ff2765f_4591_4b7a_b4d8_c85f7f37e5d3
+  d2d8cf4f_d20d_4a20_93a2_8fcfa2b12425 --> a6fa58f5_0a83_414c_90b6_2ba1d42f28d3
+  d0215a85_2f42_4ec9_9e18_e0cfc66930b9 --> n_27fc5887_d44c_4dc5_a11d_cfdd7f9cda15
+  n_27fc5887_d44c_4dc5_a11d_cfdd7f9cda15 -- "[Else]" --> n_92c3f382_31b8_4242_bafc_023315f69379
+  n_92c3f382_31b8_4242_bafc_023315f69379 --> d2d8cf4f_d20d_4a20_93a2_8fcfa2b12425
+  n_3ff2765f_4591_4b7a_b4d8_c85f7f37e5d3 --> n_83a005e1_685d_4f60_b9ec_172f5a28eebb

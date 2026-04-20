@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_2f496e93_8c9b_448a_a745_15f995bc1ecc((( ))):::terminal
+  n_29bbee83_6c8b_4552_88d2_d3777085e48f(( )):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_94028181_822e_4eed_98db_a43a8ea1b30e["Pridėti patiekalą"]:::action
+    n_95314356_cae9_4b17_9d6e_51de40864c1a["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    n_14e779f1_1306_41b0_b6a0_c27dfd197dc5{"?"}:::decision
+    f3200777_c9b4_4d7b_81b8_41156e9a8e8c["Pateikti klaidos pranešimą ir klaidingą duomenų lauką pridėjimo formoje"]:::action
+    n_1f12536e_e62a_4e4f_9759_99b5c399cffd["Patiktinti ar patiekalas nesidubliuoja sistemoje"]:::action
+    e581a6e3_d1f1_4c2d_ad63_9a66fa0ed3e5["Pateikti pridėjimo formą"]:::action
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    aba189ff_2059_4362_977a_e508139971e7["Užpildyti pridėjimo formą ir patvirtinti"]:::action
+    f01622c6_8e41_41f9_a0f5_b5236cb5fdea["Pasirinkti pridėjimą"]:::action
+    n_2de010ec_bd43_4747_b100_2baef334313d(( )):::decision
+  end
+
+  n_14e779f1_1306_41b0_b6a0_c27dfd197dc5 -- "[duomenys klaidingi]" --> f3200777_c9b4_4d7b_81b8_41156e9a8e8c
+  aba189ff_2059_4362_977a_e508139971e7 --> n_95314356_cae9_4b17_9d6e_51de40864c1a
+  n_14e779f1_1306_41b0_b6a0_c27dfd197dc5 -- "[duomenis tinkami]" --> n_94028181_822e_4eed_98db_a43a8ea1b30e
+  n_1f12536e_e62a_4e4f_9759_99b5c399cffd --> n_14e779f1_1306_41b0_b6a0_c27dfd197dc5
+  n_2de010ec_bd43_4747_b100_2baef334313d --> aba189ff_2059_4362_977a_e508139971e7
+  e581a6e3_d1f1_4c2d_ad63_9a66fa0ed3e5 --> n_2de010ec_bd43_4747_b100_2baef334313d
+  n_95314356_cae9_4b17_9d6e_51de40864c1a --> n_1f12536e_e62a_4e4f_9759_99b5c399cffd
+  f01622c6_8e41_41f9_a0f5_b5236cb5fdea --> e581a6e3_d1f1_4c2d_ad63_9a66fa0ed3e5
+  n_29bbee83_6c8b_4552_88d2_d3777085e48f --> f01622c6_8e41_41f9_a0f5_b5236cb5fdea
+  n_94028181_822e_4eed_98db_a43a8ea1b30e --> n_2f496e93_8c9b_448a_a745_15f995bc1ecc
+  f3200777_c9b4_4d7b_81b8_41156e9a8e8c -.-> n_2de010ec_bd43_4747_b100_2baef334313d
+  linkStyle 10 stroke:#C62828,stroke-width:2px

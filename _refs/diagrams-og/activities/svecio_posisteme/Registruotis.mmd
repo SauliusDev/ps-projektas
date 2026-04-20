@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_80b1795f_b34b_41f5_9e0e_1baed10e32fd((( ))):::terminal
+  n_33a350be_20c1_4a68_bf1f_3db84181f0b9(( )):::terminal
+
+  subgraph Sve_io_posistem["Svečio posistemė"]
+    direction TB
+    n_2249477c_2a82_433c_8af6_6020a2948354["Pateikti registracijos langą"]:::action
+    fccba3b3_0b46_45e9_b395_8ca951a423f3["Rodyti duomenų klaidos langą"]:::action
+    n_4cbf9c02_8ff6_4a86_9ffa_2bab2a485f72{"?"}:::decision
+    c16d2168_6e1a_40c9_96a8_43547918ac72(( )):::decision
+    cf04cd17_bbcd_427e_a5f7_318a8dbb1179["Rodyti prisijungimo langą"]:::action
+    bcbb6201_14c8_48da_890a_78264b0c9671["Validuoti registracijos duomenis"]:::action
+    b68ea0f6_4398_49c3_b25f_32fcb50c1c15["Sukurti paskyrą"]:::action
+  end
+
+  subgraph Svecias["Svecias"]
+    direction TB
+    a41ba086_7b3c_495c_acf0_826bc08df73d["Pateikti registracijos duomenis"]:::action
+    n_279ea28b_3090_4328_aafe_b898d23ae066["Pasirinkti registruotis"]:::action
+  end
+
+  n_33a350be_20c1_4a68_bf1f_3db84181f0b9 --> n_279ea28b_3090_4328_aafe_b898d23ae066
+  cf04cd17_bbcd_427e_a5f7_318a8dbb1179 --> n_80b1795f_b34b_41f5_9e0e_1baed10e32fd
+  c16d2168_6e1a_40c9_96a8_43547918ac72 --> a41ba086_7b3c_495c_acf0_826bc08df73d
+  n_4cbf9c02_8ff6_4a86_9ffa_2bab2a485f72 -- "[Duomenys netinkami]" --> fccba3b3_0b46_45e9_b395_8ca951a423f3
+  a41ba086_7b3c_495c_acf0_826bc08df73d --> bcbb6201_14c8_48da_890a_78264b0c9671
+  bcbb6201_14c8_48da_890a_78264b0c9671 --> n_4cbf9c02_8ff6_4a86_9ffa_2bab2a485f72
+  n_279ea28b_3090_4328_aafe_b898d23ae066 --> n_2249477c_2a82_433c_8af6_6020a2948354
+  b68ea0f6_4398_49c3_b25f_32fcb50c1c15 --> cf04cd17_bbcd_427e_a5f7_318a8dbb1179
+  n_2249477c_2a82_433c_8af6_6020a2948354 --> c16d2168_6e1a_40c9_96a8_43547918ac72
+  n_4cbf9c02_8ff6_4a86_9ffa_2bab2a485f72 -- "[Duomenys tinkami]" --> b68ea0f6_4398_49c3_b25f_32fcb50c1c15
+  fccba3b3_0b46_45e9_b395_8ca951a423f3 -.-> c16d2168_6e1a_40c9_96a8_43547918ac72
+  linkStyle 10 stroke:#C62828,stroke-width:2px

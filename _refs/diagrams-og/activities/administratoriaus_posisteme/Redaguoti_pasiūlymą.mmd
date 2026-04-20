@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_175c449a_5b11_4928_b230_38df40a4464d((( ))):::terminal
+  f26ec8e5_9762_4c34_84f8_235e78fc7bc7(( )):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_87bba008_e7f3_49d6_8bea_7ce4ae5c84e2{"?"}:::decision
+    n_18e798ed_9d38_49f3_8e3f_f3beaec7ae4b["Patiktinti ar pasiūlimas nesidubliuoja sistemoje"]:::action
+    n_14110b88_5996_4fd5_8e14_ff34baea42d8["Redaguoti pasiūlymą"]:::action
+    dbaeedcf_e0b5_41b5_b137_67c7c3a11731["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    n_41d99e88_4ad1_401e_b7d6_ff3c25d86b42["Pateikti redagavimo formą"]:::action
+    n_1d6e85c4_ad5b_4591_9da3_3f848685548c["Pateikti klaidos pranešimą ir klaidingą duomenų lauką redagavimo formoje"]:::action
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_9c1a029d_e88d_41bf_935c_504d4fe3f879(( )):::decision
+    f70f4377_84b8_4fc3_b472_4deddcf5b334["Užpildyti redagavimo formą ir patvirtinti"]:::action
+    n_3a239423_76ee_495a_8e1f_2294162d61aa["Pasirinkti pridėjimą"]:::action
+  end
+
+  n_3a239423_76ee_495a_8e1f_2294162d61aa --> n_41d99e88_4ad1_401e_b7d6_ff3c25d86b42
+  n_41d99e88_4ad1_401e_b7d6_ff3c25d86b42 --> n_9c1a029d_e88d_41bf_935c_504d4fe3f879
+  n_87bba008_e7f3_49d6_8bea_7ce4ae5c84e2 -- "[duomenys tinkami]" --> n_14110b88_5996_4fd5_8e14_ff34baea42d8
+  f26ec8e5_9762_4c34_84f8_235e78fc7bc7 --> n_3a239423_76ee_495a_8e1f_2294162d61aa
+  n_14110b88_5996_4fd5_8e14_ff34baea42d8 --> n_175c449a_5b11_4928_b230_38df40a4464d
+  f70f4377_84b8_4fc3_b472_4deddcf5b334 --> dbaeedcf_e0b5_41b5_b137_67c7c3a11731
+  dbaeedcf_e0b5_41b5_b137_67c7c3a11731 --> n_18e798ed_9d38_49f3_8e3f_f3beaec7ae4b
+  n_9c1a029d_e88d_41bf_935c_504d4fe3f879 --> f70f4377_84b8_4fc3_b472_4deddcf5b334
+  n_18e798ed_9d38_49f3_8e3f_f3beaec7ae4b --> n_87bba008_e7f3_49d6_8bea_7ce4ae5c84e2
+  n_87bba008_e7f3_49d6_8bea_7ce4ae5c84e2 -- "[duomenys klaidingi]" --> n_1d6e85c4_ad5b_4591_9da3_3f848685548c
+  n_1d6e85c4_ad5b_4591_9da3_3f848685548c -.-> n_9c1a029d_e88d_41bf_935c_504d4fe3f879
+  linkStyle 10 stroke:#C62828,stroke-width:2px

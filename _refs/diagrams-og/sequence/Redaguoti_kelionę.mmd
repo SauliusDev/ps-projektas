@@ -1,0 +1,59 @@
+---
+title: Redaguoti kelionę — sequence diagram
+---
+sequenceDiagram
+  actor KT as Keliautojas
+
+  participant MV as MainView<br/>«boundary»
+  participant TEV as TripEditView<br/>«boundary»
+  participant AIV as AddressInputView<br/>«boundary»
+
+  participant TLC as TripListController<br/>«control»
+  participant JC as JourneyController<br/>«control»
+  participant RC as RouteController<br/>«control»
+
+  participant Trip as Trip<br/>«entity»
+  participant Route as Route<br/>«entity»
+  participant Attr as Attraction<br/>«entity»
+
+  participant DB as DB
+
+  KT->>MV: redaguoti kelionę
+  MV->>TLC: loadTrips(userId)
+  TLC->>DB: query(Trip by userId)
+  DB-->>TLC: tripList
+  TLC-->>MV: showTrips(tripList)
+  KT->>MV: pasirinkti kelionę
+  MV->>TEV: open(selectedTrip)
+  TEV-->>KT: rodyti redagavimo formą
+
+  KT->>TEV: pridėti lankytiną vietą
+  TEV->>AIV: openAddressInput()
+  AIV-->>KT: rodyti adreso formą
+  KT->>AIV: įvesti adresą
+  AIV->>RC: findAttractions(address)
+  RC->>DB: query(Attraction by address)
+  DB-->>RC: attractionCandidates
+  RC-->>AIV: attractionCandidates
+  AIV-->>TEV: attractionSelected
+  TEV->>JC: addAttraction(tripId, attractionId)
+  JC->>Trip: addAttraction(attractionId)
+  Trip-->>JC: ok
+
+  opt Šalina jau pridėtą vietą
+    KT->>TEV: šalinti lankytiną vietą
+    TEV->>JC: removeAttraction(tripId, attractionId)
+    JC->>Trip: removeAttraction(attractionId)
+    Trip-->>JC: ok
+  end
+
+  KT->>TEV: išsaugoti pakeitimus
+  TEV->>JC: saveTripChanges(trip)
+  JC->>RC: recalculateRoute(trip)
+  RC->>Route: rebuild(trip.attractions)
+  Route-->>RC: updatedRoute
+  RC-->>JC: routeUpdated
+  JC->>DB: save(trip, route)
+  DB-->>JC: saved
+  JC-->>TEV: tripUpdated
+  TEV-->>KT: kelionė atnaujinta

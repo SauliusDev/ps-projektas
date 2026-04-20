@@ -1,0 +1,35 @@
+---
+title: Peržiūrėti lankytinas vietas — sequence diagram
+---
+sequenceDiagram
+  actor KT as Keliautojas
+
+  participant ALV as AttractionListView<br/>«boundary»
+  participant ADV as AttractionDetailsView<br/>«boundary»
+  participant MV as MapView<br/>«boundary»
+
+  participant RC as RouteController<br/>«control»
+
+  participant Attr as Attraction<br/>«entity»
+
+  participant DB as DB
+
+  KT->>ALV: atidaryti lankytinas vietas
+  ALV->>RC: getAttractions(city, filters)
+  RC->>DB: query(Attraction by city, filters)
+  DB-->>RC: attractionsData
+  RC-->>ALV: attractions
+  ALV-->>KT: rodyti sąrašą
+
+  KT->>ALV: pasirinkti vietą
+  ALV->>RC: getAttraction(attractionId)
+  RC->>Attr: load(attractionId)
+  Attr-->>RC: attraction
+  RC-->>ADV: showAttraction(attraction)
+  ADV-->>KT: rodyti aprašą ir informaciją
+
+  opt Peržiūrėti vietą žemėlapyje
+    KT->>ADV: rodyti žemėlapyje
+    ADV->>MV: open(attraction.coordinates)
+    MV-->>KT: rodyti vietą žemėlapyje
+  end

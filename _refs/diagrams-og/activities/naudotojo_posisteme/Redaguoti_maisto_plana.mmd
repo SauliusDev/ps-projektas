@@ -1,0 +1,80 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_0453012f_24d9_4b24_9ab6_915df2aabaa2((( ))):::terminal
+  n_1ccfa394_605b_4570_9f42_a1bf2e2c7fe2(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_1043d8fc_635a_483b_9493_93019370442c(( )):::decision
+    n_7fa61394_874e_4bb5_abcb_fab6a2783a2c["Tikrinti ar kelione turi maisto plana"]:::action
+    b145b5c8_2270_45a7_8fc9_0c429d508489{"?"}:::decision
+    ab0e2b69_239a_4433_8453_979c5db8b308["Pateikti pasirinkima generuoti maisto plana"]:::action
+    n_187f8643_eef1_4899_bf0b_85179e20a742(( )):::decision
+    bc0b88da_40d7_4b94_b50c_b65eccb1d17c["Pasalinti vieta is keliones"]:::action
+    ccf878d9_3b26_4ecc_991c_56693c33b99f["Rasyti ivedimo klaida"]:::action
+    ed0e5efd_0fa2_43c4_b014_dd49683d892b["Prideti vieta i maisto plana"]:::action
+    e41706c4_c8dd_4e59_8694_f5c6685a2be3["Panaikinti esama maisto plana"]:::action
+    db4d562b_6828_4e25_8cb5_fbb1f4850cf5["Pateikti maisto vietas, maisto plane"]:::action
+    n_51bc353f_ea73_46e3_86f5_07461efa09f4["Sugeneruoti maisto planą"]:::action
+    c03ce0ad_53e9_43ce_89e5_81d174d5a429["Tikrinti ar ivestas adresas teisingas"]:::action
+    n_6728dd70_6b59_4ca5_ab45_076dac58f4b3["Pateikti maisto redagavimo langa"]:::action
+    ad50fede_14ee_41d5_975e_ced3281b6c9d["Sugeneruoti maisto planą"]:::action
+    a4153702_2975_4c97_b0c5_9524821103ec["Panaikinti keliones maisto plana"]:::action
+    aff89add_d253_440a_95e9_8ee856c1402c{"?"}:::decision
+    n_879509f9_9eab_4e66_aaa4_211be1167a7e["Pasalinti vieta is maisto plano"]:::action
+    n_64b53df0_b75e_48fa_9635_4e0236da4bdd["Pasirinkti specifines kelionės parinktis"]:::action
+    n_05c3fe7c_8947_41a5_8aae_85c394360c74["Prideti vieta i kelione"]:::action
+    n_8e61bd8d_16e3_4b76_b666_5876e1bd989a{"?"}:::decision
+    n_607b6121_519d_4070_a7f8_acd2795a28cf(( )):::decision
+    n_007fd986_5fac_48c5_902c_9c8e0853d510["Pateikti maisto vietos adreso ivedimo langa"]:::action
+    d410fbaa_331d_4898_b6b6_b0d64c8e2849["Leisti pasirinkti generuoti kelione"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_5f7e2f0f_c228_437b_b938_979f7fac01b1{"?"}:::decision
+    n_633a1dcf_0189_4969_90cf_e69b7b08c4ec{"?"}:::decision
+    n_3b881125_f328_4e08_bd95_0ad1bd28b7b6["Pasirinkti maisto vieta"]:::action
+    n_037457be_dd80_4c7d_945b_9f40af9898c8["Ivesti adresa"]:::action
+  end
+
+  n_633a1dcf_0189_4969_90cf_e69b7b08c4ec -- "[norint patiem prideti maisto vieta]" --> n_1043d8fc_635a_483b_9493_93019370442c
+  e41706c4_c8dd_4e59_8694_f5c6685a2be3 --> ad50fede_14ee_41d5_975e_ced3281b6c9d
+  d410fbaa_331d_4898_b6b6_b0d64c8e2849 --> aff89add_d253_440a_95e9_8ee856c1402c
+  n_007fd986_5fac_48c5_902c_9c8e0853d510 --> n_037457be_dd80_4c7d_945b_9f40af9898c8
+  n_8e61bd8d_16e3_4b76_b666_5876e1bd989a -- "[zemelapyje adreso nera]" --> ccf878d9_3b26_4ecc_991c_56693c33b99f
+  n_64b53df0_b75e_48fa_9635_4e0236da4bdd --> e41706c4_c8dd_4e59_8694_f5c6685a2be3
+  ed0e5efd_0fa2_43c4_b014_dd49683d892b --> n_05c3fe7c_8947_41a5_8aae_85c394360c74
+  n_5f7e2f0f_c228_437b_b938_979f7fac01b1 -- "[else]" --> n_0453012f_24d9_4b24_9ab6_915df2aabaa2
+  b145b5c8_2270_45a7_8fc9_0c429d508489 -- "[kelione turi maisto plana]" --> n_6728dd70_6b59_4ca5_ab45_076dac58f4b3
+  n_1ccfa394_605b_4570_9f42_a1bf2e2c7fe2 --> n_187f8643_eef1_4899_bf0b_85179e20a742
+  n_5f7e2f0f_c228_437b_b938_979f7fac01b1 -- "[norint generuoti maisto plana]" --> n_51bc353f_ea73_46e3_86f5_07461efa09f4
+  n_05c3fe7c_8947_41a5_8aae_85c394360c74 --> d410fbaa_331d_4898_b6b6_b0d64c8e2849
+  n_633a1dcf_0189_4969_90cf_e69b7b08c4ec -- "[noritn istrinti maisto plana]" --> a4153702_2975_4c97_b0c5_9524821103ec
+  n_879509f9_9eab_4e66_aaa4_211be1167a7e --> bc0b88da_40d7_4b94_b50c_b65eccb1d17c
+  ab0e2b69_239a_4433_8453_979c5db8b308 --> n_5f7e2f0f_c228_437b_b938_979f7fac01b1
+  n_633a1dcf_0189_4969_90cf_e69b7b08c4ec -- "[noritn keisti parinktis]" --> n_64b53df0_b75e_48fa_9635_4e0236da4bdd
+  c03ce0ad_53e9_43ce_89e5_81d174d5a429 --> n_8e61bd8d_16e3_4b76_b666_5876e1bd989a
+  n_8e61bd8d_16e3_4b76_b666_5876e1bd989a -- "[zemelapyje adresas yra]" --> ed0e5efd_0fa2_43c4_b014_dd49683d892b
+  db4d562b_6828_4e25_8cb5_fbb1f4850cf5 --> n_3b881125_f328_4e08_bd95_0ad1bd28b7b6
+  aff89add_d253_440a_95e9_8ee856c1402c -- "[pasirinko generuoti kelione]" --> n_607b6121_519d_4070_a7f8_acd2795a28cf
+  n_3b881125_f328_4e08_bd95_0ad1bd28b7b6 --> n_879509f9_9eab_4e66_aaa4_211be1167a7e
+  n_607b6121_519d_4070_a7f8_acd2795a28cf --> ad50fede_14ee_41d5_975e_ced3281b6c9d
+  n_6728dd70_6b59_4ca5_ab45_076dac58f4b3 --> n_633a1dcf_0189_4969_90cf_e69b7b08c4ec
+  bc0b88da_40d7_4b94_b50c_b65eccb1d17c --> n_607b6121_519d_4070_a7f8_acd2795a28cf
+  n_037457be_dd80_4c7d_945b_9f40af9898c8 --> c03ce0ad_53e9_43ce_89e5_81d174d5a429
+  b145b5c8_2270_45a7_8fc9_0c429d508489 -- "[kelione neturi maisto plano]" --> ab0e2b69_239a_4433_8453_979c5db8b308
+  n_1043d8fc_635a_483b_9493_93019370442c --> n_007fd986_5fac_48c5_902c_9c8e0853d510
+  n_633a1dcf_0189_4969_90cf_e69b7b08c4ec -- "[norint istrinti maisto vieta]" --> db4d562b_6828_4e25_8cb5_fbb1f4850cf5
+  n_187f8643_eef1_4899_bf0b_85179e20a742 --> n_7fa61394_874e_4bb5_abcb_fab6a2783a2c
+  n_7fa61394_874e_4bb5_abcb_fab6a2783a2c --> b145b5c8_2270_45a7_8fc9_0c429d508489
+  aff89add_d253_440a_95e9_8ee856c1402c -. "[else]" .-> n_1043d8fc_635a_483b_9493_93019370442c
+  ccf878d9_3b26_4ecc_991c_56693c33b99f -.-> n_1043d8fc_635a_483b_9493_93019370442c
+  ad50fede_14ee_41d5_975e_ced3281b6c9d -.-> n_187f8643_eef1_4899_bf0b_85179e20a742
+  a4153702_2975_4c97_b0c5_9524821103ec -.-> n_187f8643_eef1_4899_bf0b_85179e20a742
+  n_51bc353f_ea73_46e3_86f5_07461efa09f4 -.-> n_187f8643_eef1_4899_bf0b_85179e20a742
+  linkStyle 30,31,32,33,34 stroke:#C62828,stroke-width:2px

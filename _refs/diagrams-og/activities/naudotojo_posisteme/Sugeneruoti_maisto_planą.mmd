@@ -1,0 +1,97 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_99d94135_f6b7_4a43_90ae_13e2b8e9d494((( ))):::terminal
+  a2e3bf58_de76_4a03_b031_316a756fbe4d(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    a2b9dacb_34fb_46bc_936d_14cf235de356(( )):::decision
+    n_978f92ac_59df_412a_98ac_bc1278a0fb48["Normalizuoti laiką nuo paskutinio valgymo į nuo 0 iki 10 intervalą"]:::action
+    n_0b044377_2da0_41c7_b143_5776beb40cce["Priskirti parinkčių atitikimo balą kiekvienai maisto vietai"]:::action
+    d77d6495_6b84_4037_9288_ea1a36392823["Įrašyti maisto vietą į maršrutą po pasirinktos lankytinos vietos"]:::action
+    eb249801_ab71_4854_8b44_50c8238f5599["Priskirti vartotojų įvertinimo balą kiekvienai maisto vietai"]:::action
+    n_25010cc9_db8e_4d38_bcc9_912207b474fd["Pateikti langą pranešanti, kad pagal parinktis maisto planas nėra įmanomas"]:::action
+    ba27c520_0863_48ba_a4f7_1f0961ebaf02{"?"}:::decision
+    ba401d54_0ce4_40e3_88f6_3ab6424aa5a7["Pasirinkti aukščiausiai įvertintą maisto vietą"]:::action
+    n_794778f8_1c03_41e9_bc3b_f6226eab595e(( )):::decision
+    b9bc28c6_d944_4259_b5b8_27348b008151["Pateikti maisto plano langą"]:::action
+    n_9c346762_6512_4931_b9c3_a82360136215(( )):::decision
+    n_79976374_89b2_4d57_bff4_dea7310c92b7["Išplėsti paieškos zoną"]:::action
+    n_150128a2_3ad2_416b_b46b_125610b9a31d{"?"}:::decision
+    n_534d8e59_82fa_4079_af96_7753212e3cb8["Atnaujinti paskutinio valgymo laiką"]:::action
+    d0b3838f_4eac_4835_85cd_9945d3bd0e2f["Pašalinti jau priskirtas maisto vietas"]:::action
+    n_208df157_c82e_4978_881f_19cf80bb1f7e["Įrašyti maisto vietą į maisto planą"]:::action
+    eefa5bf7_7bc7_4a9c_bece_0e1ab1ec3175["Priskirti laiko nuo paskutinio valgymo balą kiekvienai maisto vietai"]:::action
+    a1395cc9_9ae1_42ae_8250_f7448f6daaa8["Sujungti visų kelionėje dalyvaujančių vartotojų maisto parinktis"]:::action
+    f0250e75_a76f_4e3a_92fe_da887498c913["Priskirti atstumo balą kiekvienai maisto vietai"]:::action
+    n_4f340faa_deb8_4252_b112_2d6e29a319dd["Normalizuoti maisto vietų atstumus į nuo 0 iki 10 intervalą"]:::action
+    n_639a2d46_458d_44ad_a610_e164d1d37822["Išrikiuoti maisto vietas pagal galutinį įvertinimą"]:::action
+    n_8e018f9b_7e29_49c7_bdd8_55885b71e00c["Normalizuoti maisto vietų parinkčių atitikimą į nuo 0 iki 10 intervalą"]:::action
+    e3d53065_a5ae_4259_887d_5fd87f3a098c(( )):::decision
+    n_20c3e204_a770_4eb4_9dc5_826d10ac3383{"?"}:::decision
+    n_74370c95_fe3e_422c_a66c_8a9567925ad4{"?"}:::decision
+    n_4cff2958_956f_4c8d_987c_9954e807503c["Normalizuoti maisto vietų vartotojų įvertinimus į nuo 0 iki 10 intervalą"]:::action
+    da168cef_304a_46a2_ac3d_229596da187c["Sudėti visus balus į galutinį įvertinimą kiekvienai maisto vietai"]:::action
+    n_9c82d9a9_94dc_40d1_8d31_67cf165d2f54["Pasirinkti kitą lankytiną vietą, kuriai reikalinga maisto vieta"]:::action
+    n_6cfd808b_730d_4645_9840_6ca88aed2236{"?"}:::decision
+    n_3707153c_21ee_47b6_822b_5d549beb83b6["Gauti kelionės lankytinų vienų sarašą ir maršrutą"]:::action
+    e5e65a37_e910_4571_9278_d9072b3c9415["Padauginti balus iš balų svorių"]:::action
+    n_4adf367c_0083_4cbc_ba23_debfdfaec546["Filtruoti maisto vietas pagal laiką, biudžetą ir parinktis"]:::action
+    n_9a07e82e_f696_407f_bc81_27956fb8af4e["Priskirti lankytinai vietai maisto vietą"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    c8725c13_7add_4b8f_b975_271b2390043f["Pasirinkti generuoti maisto planą"]:::action
+    n_59b8ff86_60ed_47c5_8931_83c879175908{"?"}:::decision
+    n_92ef3c0a_c27d_4142_9e9b_d4d29c5af2b3(( )):::decision
+  end
+
+  ba401d54_0ce4_40e3_88f6_3ab6424aa5a7 --> n_534d8e59_82fa_4079_af96_7753212e3cb8
+  n_4f340faa_deb8_4252_b112_2d6e29a319dd --> f0250e75_a76f_4e3a_92fe_da887498c913
+  n_25010cc9_db8e_4d38_bcc9_912207b474fd --> n_92ef3c0a_c27d_4142_9e9b_d4d29c5af2b3
+  n_0b044377_2da0_41c7_b143_5776beb40cce --> n_978f92ac_59df_412a_98ac_bc1278a0fb48
+  n_794778f8_1c03_41e9_bc3b_f6226eab595e --> n_6cfd808b_730d_4645_9840_6ca88aed2236
+  n_6cfd808b_730d_4645_9840_6ca88aed2236 -- "[nuo paskutinio valgymo praėjo pakankamai laiko]" --> n_4adf367c_0083_4cbc_ba23_debfdfaec546
+  f0250e75_a76f_4e3a_92fe_da887498c913 --> n_4cff2958_956f_4c8d_987c_9954e807503c
+  a2e3bf58_de76_4a03_b031_316a756fbe4d --> c8725c13_7add_4b8f_b975_271b2390043f
+  d0b3838f_4eac_4835_85cd_9945d3bd0e2f --> n_150128a2_3ad2_416b_b46b_125610b9a31d
+  n_9a07e82e_f696_407f_bc81_27956fb8af4e --> n_74370c95_fe3e_422c_a66c_8a9567925ad4
+  n_150128a2_3ad2_416b_b46b_125610b9a31d -- "[tinkamų kandidatų nėra]" --> n_20c3e204_a770_4eb4_9dc5_826d10ac3383
+  n_9c346762_6512_4931_b9c3_a82360136215 --> n_9c82d9a9_94dc_40d1_8d31_67cf165d2f54
+  e3d53065_a5ae_4259_887d_5fd87f3a098c --> a1395cc9_9ae1_42ae_8250_f7448f6daaa8
+  eefa5bf7_7bc7_4a9c_bece_0e1ab1ec3175 --> e5e65a37_e910_4571_9278_d9072b3c9415
+  a2b9dacb_34fb_46bc_936d_14cf235de356 --> n_25010cc9_db8e_4d38_bcc9_912207b474fd
+  n_978f92ac_59df_412a_98ac_bc1278a0fb48 --> eefa5bf7_7bc7_4a9c_bece_0e1ab1ec3175
+  n_4adf367c_0083_4cbc_ba23_debfdfaec546 --> d0b3838f_4eac_4835_85cd_9945d3bd0e2f
+  n_3707153c_21ee_47b6_822b_5d549beb83b6 --> e3d53065_a5ae_4259_887d_5fd87f3a098c
+  e5e65a37_e910_4571_9278_d9072b3c9415 --> da168cef_304a_46a2_ac3d_229596da187c
+  n_20c3e204_a770_4eb4_9dc5_826d10ac3383 -- "[nepasiekta maksimalaus dydžio zona]" --> n_79976374_89b2_4d57_bff4_dea7310c92b7
+  n_4cff2958_956f_4c8d_987c_9954e807503c --> eb249801_ab71_4854_8b44_50c8238f5599
+  b9bc28c6_d944_4259_b5b8_27348b008151 --> n_92ef3c0a_c27d_4142_9e9b_d4d29c5af2b3
+  ba27c520_0863_48ba_a4f7_1f0961ebaf02 -- "[maisto planas įmanomas]" --> n_9c346762_6512_4931_b9c3_a82360136215
+  d77d6495_6b84_4037_9288_ea1a36392823 --> n_9a07e82e_f696_407f_bc81_27956fb8af4e
+  n_639a2d46_458d_44ad_a610_e164d1d37822 --> ba401d54_0ce4_40e3_88f6_3ab6424aa5a7
+  n_20c3e204_a770_4eb4_9dc5_826d10ac3383 -- "[pasiekta maksimalaus dydžio zona]" --> a2b9dacb_34fb_46bc_936d_14cf235de356
+  n_92ef3c0a_c27d_4142_9e9b_d4d29c5af2b3 --> n_59b8ff86_60ed_47c5_8931_83c879175908
+  da168cef_304a_46a2_ac3d_229596da187c --> n_639a2d46_458d_44ad_a610_e164d1d37822
+  n_59b8ff86_60ed_47c5_8931_83c879175908 -- "[nori priimti arba atmesti planą]" --> n_99d94135_f6b7_4a43_90ae_13e2b8e9d494
+  n_8e018f9b_7e29_49c7_bdd8_55885b71e00c --> n_0b044377_2da0_41c7_b143_5776beb40cce
+  c8725c13_7add_4b8f_b975_271b2390043f --> n_3707153c_21ee_47b6_822b_5d549beb83b6
+  n_74370c95_fe3e_422c_a66c_8a9567925ad4 -- "[maršrute nėra kitos lankytinos vietos]" --> b9bc28c6_d944_4259_b5b8_27348b008151
+  n_6cfd808b_730d_4645_9840_6ca88aed2236 -- "[nuo paskutinio valgymo nepraėjo pakankamai laiko]" --> n_74370c95_fe3e_422c_a66c_8a9567925ad4
+  ba27c520_0863_48ba_a4f7_1f0961ebaf02 -- "[maisto planas neįmanomas]" --> a2b9dacb_34fb_46bc_936d_14cf235de356
+  a1395cc9_9ae1_42ae_8250_f7448f6daaa8 --> ba27c520_0863_48ba_a4f7_1f0961ebaf02
+  n_534d8e59_82fa_4079_af96_7753212e3cb8 --> n_208df157_c82e_4978_881f_19cf80bb1f7e
+  n_150128a2_3ad2_416b_b46b_125610b9a31d -- "[tinkamų kandidatų yra]" --> n_4f340faa_deb8_4252_b112_2d6e29a319dd
+  eb249801_ab71_4854_8b44_50c8238f5599 --> n_8e018f9b_7e29_49c7_bdd8_55885b71e00c
+  n_9c82d9a9_94dc_40d1_8d31_67cf165d2f54 --> n_794778f8_1c03_41e9_bc3b_f6226eab595e
+  n_208df157_c82e_4978_881f_19cf80bb1f7e --> d77d6495_6b84_4037_9288_ea1a36392823
+  n_79976374_89b2_4d57_bff4_dea7310c92b7 -.-> n_794778f8_1c03_41e9_bc3b_f6226eab595e
+  n_74370c95_fe3e_422c_a66c_8a9567925ad4 -. "[maršrute yra kitą lankytina vieta]" .-> n_9c346762_6512_4931_b9c3_a82360136215
+  n_59b8ff86_60ed_47c5_8931_83c879175908 -. "[nori keisti parinktis ir bandyti vėl]" .-> e3d53065_a5ae_4259_887d_5fd87f3a098c
+  linkStyle 40,41,42 stroke:#C62828,stroke-width:2px

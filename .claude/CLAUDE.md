@@ -15,7 +15,7 @@ Read these first when starting work on this project:
 - When the user references a lab, assignment, or moodle content, check `_refs/` before asking.
 - `docs/project-context.md` is the source of truth for project scope and completed work — keep it in sync when major work finishes.
 
-## Diagram Format
+## Diagram Format - KTU course module specifics
 
 All UML diagrams in this project use **PlantUML** (`.puml` files) — not Mermaid.
 
@@ -25,8 +25,14 @@ All UML diagrams in this project use **PlantUML** (`.puml` files) — not Mermai
 - When generating, fixing, or discussing any diagram (use case, class, activity, sequence, state, package), always produce PlantUML syntax
 - PlantUML relationships: `-->` for associations, `.>` with `<<include>>` / `<<extend>>` for UC relationships, `--|>` for generalization, `<|--` for inheritance in class diagrams
 - Phase 1 diagrams (use case, activity, state, class) keep Lithuanian names; Phase 2 diagrams (package, sequence) use English
+- at least 4 difficult use cases colored reddish color
+- use case nodes: decision, action, merge, and reference action nodes extends/includes
 
 ## Diagram Validation (REQUIRED before marking work done)
+
+- ELK is alpha and not bundled in the VS Code extension — never use `!pragma layout elk`
+- Graphviz 14.1.5 is incompatible with the local PlantUML CLI — CLI validation will fail for use case / class diagrams; the VS Code extension uses its own renderer and works fine
+- Use case diagrams for this project use **Mermaid** (`.mmd`) — PlantUML cannot produce a clean LR layout for them
 
 After writing or editing any `.puml` file, **always** validate it renders without errors:
 
@@ -50,6 +56,28 @@ done
 - Package and class diagrams require **Graphviz** (`dot`). If `dot` is missing from PATH, run `brew link graphviz`
 - Do not report diagrams as done until the validation passes
 - After batch-writing files via bash, the VSCode PlantUML extension may show stale "No valid diagram found" errors from cached old renders. Fix: `Ctrl+Shift+P → Developer: Reload Window`
+
+### Mermaid `.mmd` validation (REQUIRED before marking work done)
+
+After writing or editing any `.mmd` file, **always** validate it parses without errors using the Mermaid CLI:
+
+```bash
+npx mmdc -i <file.mmd> -o /tmp/mmd_check.png 2>&1 | grep -i "error\|warn"
+# No output = clean. Any output = fix before proceeding.
+```
+
+To validate a whole directory at once:
+```bash
+for f in <dir>/*.mmd; do
+  result=$(npx mmdc -i "$f" -o /tmp/mmd_check.png 2>&1 | grep -i "error\|warn")
+  [ -z "$result" ] && echo "OK: $f" || echo "ERROR: $f — $result"
+done
+```
+
+**Common Mermaid parse mistakes to avoid:**
+- Arrow typo: `.--> ` is invalid — always use `.-> ` for dashed arrows
+- Edge labels with `«»` characters must be inside double quotes: `-. "«extend»" .->`
+- Do NOT use `\n` in edge labels — Mermaid does not support it; use a space or `<br/>` in node labels only
 
 # Magic systems module specifics
 

@@ -1,0 +1,26 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_9a302470_f3a1_4add_b57f_bc36a317cc03(( )):::terminal
+  n_0cdd97a8_e3c7_4b91_98ed_2a78ad97c3eb((( ))):::terminal
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_5df7f89b_3d56_4d89_b494_0cf68fdf3a84["Pasirinkti trinimą"]:::action
+    b8093bb0_2d14_4778_8237_9c0c89fa3237["Pažymėti patiekalus trinimui ir patvirtinti"]:::action
+  end
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    c591e012_fd9b_4b73_a2ef_38fe1a0da421["Pateikti žymėjimo sąrašą"]:::action
+    n_38f17a9c_27de_427f_bd3b_adda6ecdf09b["Ištrinti patiekalus"]:::action
+  end
+
+  b8093bb0_2d14_4778_8237_9c0c89fa3237 --> n_38f17a9c_27de_427f_bd3b_adda6ecdf09b
+  n_5df7f89b_3d56_4d89_b494_0cf68fdf3a84 --> c591e012_fd9b_4b73_a2ef_38fe1a0da421
+  c591e012_fd9b_4b73_a2ef_38fe1a0da421 --> b8093bb0_2d14_4778_8237_9c0c89fa3237
+  n_9a302470_f3a1_4add_b57f_bc36a317cc03 --> n_5df7f89b_3d56_4d89_b494_0cf68fdf3a84
+  n_38f17a9c_27de_427f_bd3b_adda6ecdf09b --> n_0cdd97a8_e3c7_4b91_98ed_2a78ad97c3eb

@@ -1,0 +1,28 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_1fe4524e_d1e8_4c3a_ae91_5cc73ebd1131((( ))):::terminal
+  a06f846f_57ed_429e_b297_954ad410a9ac(( )):::terminal
+
+  subgraph Naudotoju_posistemis["Naudotoju posistemis"]
+    direction TB
+    n_9ce54e81_2cdf_4733_855d_055aec1a1d2d["Pateikti pasiulymu perziuros langa"]:::action
+    n_4f7b121c_4057_4f12_9b45_e5a6f8e2f39e["Pateikti pasiulyma"]:::action
+  end
+
+  subgraph Svecias["Svecias"]
+    direction TB
+    eaf9420d_c36b_49a6_afcd_874d7cfbcf39["Pasirinkti pasiulymu perziurejima"]:::action
+    n_54ac7a79_163c_4b9c_8efe_30158fd754fc{"?"}:::decision
+    e3351738_7260_48d5_85b3_265827dfd293["Pasirinkti pasiulyma"]:::action
+  end
+
+  a06f846f_57ed_429e_b297_954ad410a9ac --> eaf9420d_c36b_49a6_afcd_874d7cfbcf39
+  n_54ac7a79_163c_4b9c_8efe_30158fd754fc --> n_1fe4524e_d1e8_4c3a_ae91_5cc73ebd1131
+  n_9ce54e81_2cdf_4733_855d_055aec1a1d2d --> n_54ac7a79_163c_4b9c_8efe_30158fd754fc
+  n_54ac7a79_163c_4b9c_8efe_30158fd754fc --> e3351738_7260_48d5_85b3_265827dfd293
+  e3351738_7260_48d5_85b3_265827dfd293 --> n_4f7b121c_4057_4f12_9b45_e5a6f8e2f39e
+  eaf9420d_c36b_49a6_afcd_874d7cfbcf39 --> n_9ce54e81_2cdf_4733_855d_055aec1a1d2d

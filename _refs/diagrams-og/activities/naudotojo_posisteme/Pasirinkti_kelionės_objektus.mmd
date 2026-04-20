@@ -1,0 +1,43 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  ec0f78b2_5b37_45ca_b0a1_7c484818a6e1((( ))):::terminal
+  b3db1e0f_00f7_43df_82b8_97f5cf6bfb4d(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_6119dc9e_f6d6_4dd4_816a_bf31f4cc0503["Išsaugoti pasirinkimus"]:::action
+    abcc1dd6_7581_4ab6_a30b_1848f58086a8["Rodyti objektų pasirinkimo žemėlapį"]:::action
+    n_39e7c907_12b6_4533_b6b5_70a0bcbc5e7a["Gauti kelionės objektus"]:::action
+    bb573bcd_e2f6_45cc_9102_ff71a1dd7171(( )):::decision
+  end
+
+  subgraph Google_maps["Google maps"]
+    direction TB
+    n_2a2fe0ae_c59c_401f_87f9_a48b13a9ed78["Sužymėti objektus žemėlapyje"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_350b7bc1_58f0_4484_b46f_7238d4625f4f{"?"}:::decision
+    n_01a84730_69f2_464e_8604_4ee428298d81["Pasirinkti norimus objektus"]:::action
+    c3b686c8_8d6b_4d37_b3fe_75c8ef0f5325["Paspausti atšaukti"]:::action
+    e2467e1c_7b78_41a3_96f9_27d6cb982830["Paspausti sudaryti savo kelionės objektus"]:::action
+    n_75c0a28f_d6df_43c6_849f_6c091c6c84b8["Paspausti saugoti"]:::action
+  end
+
+  e2467e1c_7b78_41a3_96f9_27d6cb982830 --> n_39e7c907_12b6_4533_b6b5_70a0bcbc5e7a
+  c3b686c8_8d6b_4d37_b3fe_75c8ef0f5325 --> bb573bcd_e2f6_45cc_9102_ff71a1dd7171
+  n_350b7bc1_58f0_4484_b46f_7238d4625f4f -- "[else]" --> c3b686c8_8d6b_4d37_b3fe_75c8ef0f5325
+  n_75c0a28f_d6df_43c6_849f_6c091c6c84b8 --> n_6119dc9e_f6d6_4dd4_816a_bf31f4cc0503
+  bb573bcd_e2f6_45cc_9102_ff71a1dd7171 --> ec0f78b2_5b37_45ca_b0a1_7c484818a6e1
+  n_350b7bc1_58f0_4484_b46f_7238d4625f4f -- "[Nori saugoti]" --> n_75c0a28f_d6df_43c6_849f_6c091c6c84b8
+  b3db1e0f_00f7_43df_82b8_97f5cf6bfb4d --> e2467e1c_7b78_41a3_96f9_27d6cb982830
+  abcc1dd6_7581_4ab6_a30b_1848f58086a8 --> n_01a84730_69f2_464e_8604_4ee428298d81
+  n_6119dc9e_f6d6_4dd4_816a_bf31f4cc0503 --> bb573bcd_e2f6_45cc_9102_ff71a1dd7171
+  n_2a2fe0ae_c59c_401f_87f9_a48b13a9ed78 --> abcc1dd6_7581_4ab6_a30b_1848f58086a8
+  n_01a84730_69f2_464e_8604_4ee428298d81 --> n_350b7bc1_58f0_4484_b46f_7238d4625f4f
+  n_39e7c907_12b6_4533_b6b5_70a0bcbc5e7a --> n_2a2fe0ae_c59c_401f_87f9_a48b13a9ed78

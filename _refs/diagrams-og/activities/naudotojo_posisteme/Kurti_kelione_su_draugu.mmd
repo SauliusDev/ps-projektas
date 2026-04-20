@@ -1,0 +1,34 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_993fb894_b0d6_4006_b8ae_eeb56bbc6c77(( )):::terminal
+  n_59c22cd1_95d0_489a_bf34_4d2ba775c85a((( ))):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    f48bb4e5_0cb4_490a_9762_f1b7324674ba{"?"}:::decision
+    a0e87110_be4d_4069_8483_afc6f3a4b4de["Sujungti dvieju keliautojų parinktis"]:::action
+    n_043fe1e7_d2f0_4052_a4e1_9b99fbbd3d6f["Prideti drauga kaip keliautoja"]:::action
+    n_132440f0_f256_4716_b796_f2389d6a0143["Tikrinti ar yra issaugotu indvidualiu parinkciu"]:::action
+    f49ddb60_166c_4f3a_9b5d_67e9219ff51b(( )):::decision
+    n_5b9c433c_5e8b_47d2_a831_bfc3e7512bd8{"?"}:::decision
+    n_1c077f74_c501_4cd2_9160_47921fb95507["Pasirinkti specifines kelionės parinktis"]:::action
+    fb9d6fff_8bbe_4235_aeb5_3633d47db1dc(( )):::decision
+    bd12eab3_70c8_41f5_a2e2_109448ee5a2b["Pateikti pasirinkimą keisti parinktis"]:::action
+  end
+
+  a0e87110_be4d_4069_8483_afc6f3a4b4de --> n_59c22cd1_95d0_489a_bf34_4d2ba775c85a
+  n_5b9c433c_5e8b_47d2_a831_bfc3e7512bd8 -- "[else]" --> f49ddb60_166c_4f3a_9b5d_67e9219ff51b
+  f49ddb60_166c_4f3a_9b5d_67e9219ff51b --> n_1c077f74_c501_4cd2_9160_47921fb95507
+  f48bb4e5_0cb4_490a_9762_f1b7324674ba -- "[else]" --> fb9d6fff_8bbe_4235_aeb5_3633d47db1dc
+  fb9d6fff_8bbe_4235_aeb5_3633d47db1dc --> a0e87110_be4d_4069_8483_afc6f3a4b4de
+  n_993fb894_b0d6_4006_b8ae_eeb56bbc6c77 --> n_043fe1e7_d2f0_4052_a4e1_9b99fbbd3d6f
+  n_043fe1e7_d2f0_4052_a4e1_9b99fbbd3d6f --> n_132440f0_f256_4716_b796_f2389d6a0143
+  bd12eab3_70c8_41f5_a2e2_109448ee5a2b --> f48bb4e5_0cb4_490a_9762_f1b7324674ba
+  n_132440f0_f256_4716_b796_f2389d6a0143 --> n_5b9c433c_5e8b_47d2_a831_bfc3e7512bd8
+  n_5b9c433c_5e8b_47d2_a831_bfc3e7512bd8 -- "[yra]" --> bd12eab3_70c8_41f5_a2e2_109448ee5a2b
+  f48bb4e5_0cb4_490a_9762_f1b7324674ba -- "[nori keisti]" --> f49ddb60_166c_4f3a_9b5d_67e9219ff51b
+  n_1c077f74_c501_4cd2_9160_47921fb95507 --> fb9d6fff_8bbe_4235_aeb5_3633d47db1dc

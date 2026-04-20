@@ -1,0 +1,34 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_57bd7401_74df_4c3a_9094_cf39302db9d3(( )):::terminal
+  n_66e07f9e_9cd9_4ac0_bf96_205bf378c9e3((( ))):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_398dc843_1421_49dd_847a_8723a591aaed["Pateikti visų kelionių peržiūros langą"]:::action
+    n_737fcbf2_83e3_4117_93e1_fa4f7829c056["Pateikti kelionės langą"]:::action
+    eb106aea_ce82_46b3_ace9_b9fed3e0a5ca(( )):::decision
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    bfd2e6ec_182d_4cb4_a007_3b5a5c78a52d["Pasirinnkti visų kelionių peržiūrą"]:::action
+    n_9410a4d6_8dec_4ef2_9430_15994b9a0c4c["Uždaryti kelionės langą"]:::action
+    dd1c93d8_1b63_4c77_baad_4b6c5dcaef08{"?"}:::decision
+    n_47203bd7_ba55_434e_8bd4_fb78b56eafeb["Pasirinkti kelionę"]:::action
+  end
+
+  n_737fcbf2_83e3_4117_93e1_fa4f7829c056 --> n_9410a4d6_8dec_4ef2_9430_15994b9a0c4c
+  n_47203bd7_ba55_434e_8bd4_fb78b56eafeb --> n_737fcbf2_83e3_4117_93e1_fa4f7829c056
+  bfd2e6ec_182d_4cb4_a007_3b5a5c78a52d --> eb106aea_ce82_46b3_ace9_b9fed3e0a5ca
+  dd1c93d8_1b63_4c77_baad_4b6c5dcaef08 -- "[else]" --> n_66e07f9e_9cd9_4ac0_bf96_205bf378c9e3
+  dd1c93d8_1b63_4c77_baad_4b6c5dcaef08 -- "[nori peržiūrėti lankytiną vietą]" --> n_47203bd7_ba55_434e_8bd4_fb78b56eafeb
+  n_57bd7401_74df_4c3a_9094_cf39302db9d3 --> bfd2e6ec_182d_4cb4_a007_3b5a5c78a52d
+  eb106aea_ce82_46b3_ace9_b9fed3e0a5ca --> n_398dc843_1421_49dd_847a_8723a591aaed
+  n_398dc843_1421_49dd_847a_8723a591aaed --> dd1c93d8_1b63_4c77_baad_4b6c5dcaef08
+  n_9410a4d6_8dec_4ef2_9430_15994b9a0c4c -.-> eb106aea_ce82_46b3_ace9_b9fed3e0a5ca
+  linkStyle 8 stroke:#C62828,stroke-width:2px

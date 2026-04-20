@@ -1,0 +1,37 @@
+---
+title: Peržiūrėti keliones — sequence diagram
+---
+sequenceDiagram
+  actor N as Naudotojas
+
+  participant TLV as TripListView<br/>«boundary»
+  participant TDV as TripDetailsView<br/>«boundary»
+
+  participant TLC as TripListController<br/>«control»
+
+  participant Trip as Trip<br/>«entity»
+
+  participant DB as DB
+
+  N->>TLV: atidaryti mano keliones
+  TLV->>TLC: getTrips(userId)
+  TLC->>DB: query(Trip by userId)
+  DB-->>TLC: tripsData
+  TLC-->>TLV: trips
+  TLV-->>N: rodyti kelionių sąrašą
+
+  N->>TLV: pasirinkti kelionę
+  TLV->>TLC: getTripDetails(tripId)
+  TLC->>Trip: load(tripId)
+  Trip-->>TLC: trip
+  TLC-->>TDV: showTrip(trip)
+  TDV-->>N: rodyti kelionės detales
+
+  opt Filtravimas pagal statusą/datą
+    N->>TLV: filtruoti(status, dateRange)
+    TLV->>TLC: filterTrips(criteria)
+    TLC->>DB: query(Trip by criteria)
+    DB-->>TLC: filteredTrips
+    TLC-->>TLV: filteredTrips
+    TLV-->>N: atnaujintas sąrašas
+  end

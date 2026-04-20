@@ -1,0 +1,47 @@
+---
+title: Peržiūrėti pasiūlymus — sequence diagram
+---
+sequenceDiagram
+  actor SV as Svečias
+
+  participant MV as MainView<br/>«boundary»
+  participant DV as DealsView<br/>«boundary»
+
+  participant DC as DealController<br/>«control»
+  participant SDC as SavedDealsController<br/>«control»
+  participant UC as UserController<br/>«control»
+
+  participant Deal as Deal<br/>«entity»
+  participant SD as SavedDeals<br/>«entity»
+
+  participant DB as DB
+
+  SV->>MV: peržiūrėti pasiūlymus
+  MV->>DC: getDeals()
+  DC->>DB: query(Deal active)
+  DB-->>DC: dealsData
+  DC-->>DV: showDeals(dealsData)
+  DV-->>SV: rodyti pasiūlymų sąrašą
+
+  SV->>DV: pasirinkti pasiūlymą
+  DV->>DC: getDealDetails(dealId)
+  DC->>Deal: load(dealId)
+  Deal-->>DC: deal
+  DC-->>DV: dealDetails
+  DV-->>SV: rodyti pasiūlymo detales
+
+  SV->>DV: išsaugoti pasiūlymą
+  DV->>UC: checkSession()
+  UC-->>DV: sessionStatus
+
+  alt Prisijungęs naudotojas
+    DV->>SDC: saveDeal(userId, dealId)
+    SDC->>SD: add(dealId)
+    SD-->>SDC: ok
+    SDC->>DB: save(savedDeal)
+    DB-->>SDC: saved
+    SDC-->>DV: savedDealAdded
+    DV-->>SV: pasiūlymas išsaugotas
+  else Neprisijungęs svečias
+    DV-->>SV: reikia prisijungti
+  end

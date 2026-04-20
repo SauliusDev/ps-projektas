@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_91b8877a_423f_4e45_a089_f6f39c4565d2((( ))):::terminal
+  dbf6bbd3_1b70_42ae_b2d6_8f1d9ca2fa02(( )):::terminal
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_0e601fbe_8be7_40fb_a41f_7e0bb9c38c75["Pasirinkti pridėjimą"]:::action
+    f746b5e5_0cd8_4984_9fc3_6ecf7361477b(( )):::decision
+    n_1e4399dc_9ec2_4a37_b7c9_979fe92aed5c["Užpildyti redagavimo formą ir patvirtinti"]:::action
+  end
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    d2cd8e33_4dbb_4c64_9119_03b35bc2199c["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    n_85b7784b_0dc6_4387_8e32_667895b09aa8["Redaguoti patiekalą"]:::action
+    f75f7db1_43a2_4f24_ae8e_cfe7edf8d529["Patiktinti ar patiekalas nesidubliuoja sistemoje"]:::action
+    n_5bb10f81_f563_4bb4_9379_6bb0846635bd{"?"}:::decision
+    n_60957d83_5110_424d_b4e2_a7f7ea261807["Pateikti redagavimo formą"]:::action
+    n_63dbab5d_6da3_49dd_8e8b_05d8edce754c["Pateikti klaidos pranešimą ir klaidingą duomenų lauką redagavimo formoje"]:::action
+  end
+
+  n_5bb10f81_f563_4bb4_9379_6bb0846635bd -- "[duomenys klaidingi]" --> n_63dbab5d_6da3_49dd_8e8b_05d8edce754c
+  n_1e4399dc_9ec2_4a37_b7c9_979fe92aed5c --> d2cd8e33_4dbb_4c64_9119_03b35bc2199c
+  n_60957d83_5110_424d_b4e2_a7f7ea261807 --> f746b5e5_0cd8_4984_9fc3_6ecf7361477b
+  d2cd8e33_4dbb_4c64_9119_03b35bc2199c --> f75f7db1_43a2_4f24_ae8e_cfe7edf8d529
+  n_5bb10f81_f563_4bb4_9379_6bb0846635bd -- "[duomenys tinkami]" --> n_85b7784b_0dc6_4387_8e32_667895b09aa8
+  f75f7db1_43a2_4f24_ae8e_cfe7edf8d529 --> n_5bb10f81_f563_4bb4_9379_6bb0846635bd
+  n_0e601fbe_8be7_40fb_a41f_7e0bb9c38c75 --> n_60957d83_5110_424d_b4e2_a7f7ea261807
+  n_85b7784b_0dc6_4387_8e32_667895b09aa8 --> n_91b8877a_423f_4e45_a089_f6f39c4565d2
+  f746b5e5_0cd8_4984_9fc3_6ecf7361477b --> n_1e4399dc_9ec2_4a37_b7c9_979fe92aed5c
+  dbf6bbd3_1b70_42ae_b2d6_8f1d9ca2fa02 --> n_0e601fbe_8be7_40fb_a41f_7e0bb9c38c75
+  n_63dbab5d_6da3_49dd_8e8b_05d8edce754c -.-> f746b5e5_0cd8_4984_9fc3_6ecf7361477b
+  linkStyle 10 stroke:#C62828,stroke-width:2px

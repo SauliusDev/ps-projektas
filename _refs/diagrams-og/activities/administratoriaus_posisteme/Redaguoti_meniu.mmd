@@ -1,0 +1,36 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  df5c211d_0bc4_43d6_b474_35ab4fed7700((( ))):::terminal
+  a7c9b86d_1246_43d3_8ec1_abd6b4c2e565(( )):::terminal
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_00f8b593_2658_42e2_ba31_f4c2dc16d587["Užpildyti redagavimo formą ir patvirtinti"]:::action
+    ebdf8151_9d15_4ab4_b14a_79c20aeeb1ed["Pasirinkti pridėjimą"]:::action
+    d7754133_b83e_4717_8c8f_81f6cc166854(( )):::decision
+  end
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    f873281b_9f2a_433a_a8ac_576906829a75["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    n_07a7de4b_fe63_4f59_b311_91a582bc5e4e["Pateikti klaidos pranešimą ir klaidingą duomenų lauką redagavimo formoje"]:::action
+    n_2f46849b_f628_4320_92d1_d46223f819a5["Redaguoti meniu"]:::action
+    d7661e44_f249_4405_ba01_3505ac9065a5["Pateikti redagavimo formą"]:::action
+    n_71ceafdd_3ed4_4637_8e8a_6206b0720e94{"?"}:::decision
+  end
+
+  d7661e44_f249_4405_ba01_3505ac9065a5 --> d7754133_b83e_4717_8c8f_81f6cc166854
+  n_71ceafdd_3ed4_4637_8e8a_6206b0720e94 -- "[duomenys klaidingi]" --> n_07a7de4b_fe63_4f59_b311_91a582bc5e4e
+  ebdf8151_9d15_4ab4_b14a_79c20aeeb1ed --> d7661e44_f249_4405_ba01_3505ac9065a5
+  n_00f8b593_2658_42e2_ba31_f4c2dc16d587 --> f873281b_9f2a_433a_a8ac_576906829a75
+  n_71ceafdd_3ed4_4637_8e8a_6206b0720e94 -- "[duomenys tinkami]" --> n_2f46849b_f628_4320_92d1_d46223f819a5
+  d7754133_b83e_4717_8c8f_81f6cc166854 --> n_00f8b593_2658_42e2_ba31_f4c2dc16d587
+  f873281b_9f2a_433a_a8ac_576906829a75 --> n_71ceafdd_3ed4_4637_8e8a_6206b0720e94
+  n_2f46849b_f628_4320_92d1_d46223f819a5 --> df5c211d_0bc4_43d6_b474_35ab4fed7700
+  a7c9b86d_1246_43d3_8ec1_abd6b4c2e565 --> ebdf8151_9d15_4ab4_b14a_79c20aeeb1ed
+  n_07a7de4b_fe63_4f59_b311_91a582bc5e4e -.-> d7754133_b83e_4717_8c8f_81f6cc166854
+  linkStyle 9 stroke:#C62828,stroke-width:2px

@@ -1,0 +1,94 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  cf45439e_bb24_4f66_b569_3594325d449c((( ))):::terminal
+  n_042354ea_f58b_4dd3_91e3_96af9e8e6cd9(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_289f765c_f66a_40a6_90c5_7dd536ab4d24{"?"}:::decision
+    n_84cbd66e_b590_44ec_bee2_a1ddbea6a50e["Pasirinkti dar nenaudota lankytinų vietų porą"]:::action
+    n_9d2bf632_f956_4be8_bfe3_8b9dbef4c293["Ištrinti sekantį elementą"]:::action
+    n_5323e17a_83a8_42e4_8fca_53453b36d96a["Grįžti į buvusį elementą"]:::action
+    d45663a9_0de1_4076_b502_d30258606146["Sukurti naują elementą į kurį rodys aktyvusis elementas"]:::action
+    n_1f2b8dd9_8c25_47b5_96ca_7230d485f0a2{"?"}:::decision
+    dbed4d19_57b2_4f17_9d45_56e3cd57aeb3["Parinkti pirmą elementą kaip aktyvųjį elementą"]:::action
+    n_061c3c1b_2f45_4422_9796_26d11e02862e["Įrašyti lanką su svoriais, lygu keliavimo laikui sekundėmis, tarp parinktos lankytinų vietų taškų poros grafe"]:::action
+    n_7b1579d9_fa57_4c61_8a30_b6586a6e57d1{"?"}:::decision
+    n_6f4a4667_d498_410d_abec_46246ae484d8["Įrašyti lankytiną vietą kaip tašką grafe"]:::action
+    e137b774_0565_4dd9_844e_98268dc6b431["Pridėti sekantį nepažymėta ir nepanaudota tašką į 'Maršrutas' masyvą aktyviame elemente"]:::action
+    n_5d5c4d9a_b34a_4049_aa98_9f7c86badb27{"?"}:::decision
+    n_43144545_56ca_4ddb_8044_d8301cdf392f{"?"}:::decision
+    f1958ec9_0e90_4c04_8156_868ed4e3b182["Patikrinti ar pirmasis elementas turi visus taškus masyve 'Pažymėti'"]:::action
+    n_9726eac2_dc3e_4f1a_986b_98cc7406547b{"?"}:::decision
+    n_0be40d7e_0652_47fe_819b_2f7b6f5caca6["Pasirinkti dar nenaudota lankytina vietą"]:::action
+    n_44be7ee9_dcd0_447a_b568_71b598a89560["Pridėti prie laikas kintamojo paskutinių dviejų taškų 'Maršutas' masyvę lanko svorį"]:::action
+    n_74df0048_fbba_41b7_8ccb_3b4462c9e3cf(( )):::decision
+    n_8aa30fac_b171_4eb0_91e7_3886df6cc512["Pakeisti aktyvųjį elementą į sekantį"]:::action
+    n_58cb67ba_4a67_453d_b80f_6a37080b170d{"?"}:::decision
+    n_6acaa2c8_0eb5_42a0_9614_85beccd5fd2d["Sukurti dvipusį linkedList, kurio kiekvienas elementas yra atskiras maršrutas su masyvais 'Pažymėti', 'Maršrutas ir kintamaji laikas"]:::action
+    n_8f44d4c1_c6c0_498f_88b8_4262a3f3e5ae["Išsaugoti aktyvųjį elementą kaip greičiausią"]:::action
+    n_9a0049e1_4dc3_40f8_b387_c0eddd9e9206["Nukopijuoti 'Maršrutas' masyvą į sekantį elementą"]:::action
+    cd1be301_1784_41f2_b1f7_372a6394a266["Įdėti pirmosios lankytinos vietos sąraše tašką į pirmo elemento 'Pažymėti' ir 'Maršrutas' masyvus"]:::action
+    n_8ca81dbe_8921_4ad6_b953_e5f8c0b0d0f3["Grąžinti išsaugotą greičiausią elementą"]:::action
+    n_3dfdbebe_c3cd_468a_baca_3d796324b840["Patikrinti ar visi taškai aktyviame elemente yra masyve 'Maršrutas'"]:::action
+    n_1a2e1453_fb62_4103_a551_70cf98495d26["Palyginti aktyvaus elemento laikas kintamajį su išsaugoto greičiausio maršruto laikas kintamuoju"]:::action
+    d7e432d7_e881_46a6_a4af_a4ba8a8645a3(( )):::decision
+    c0454993_7ff6_4c31_8db3_48afb78a116e(( )):::decision
+    ae916afe_7312_49dc_84c9_bdea0419e842["Paskutinį sekančio elemento 'Maršrutas' tašką įdėti į aktyvaus elemento 'Pažymėti' masyvą"]:::action
+    n_08b532d4_cdb0_499b_86a9_2b3aa37b4a91["Išsaugoti maršrutą kaip tą vieną lankytiną vietą"]:::action
+    n_7d237b3f_beba_486f_8a6e_8646605a76d3(( )):::decision
+    c9ac0fd6_eeb3_43e5_83b6_ab4260bbfe17["Gauti keliones lankytinas vietas"]:::action
+  end
+
+  subgraph Google_maps["Google maps"]
+    direction TB
+    fdf053dd_f66a_455c_a714_4927c8a2f634["Atrasti keliavimo laiką (sekundėmis) tarp parinktos lankytinų vietų poros"]:::action
+  end
+
+  n_6f4a4667_d498_410d_abec_46246ae484d8 --> n_7b1579d9_fa57_4c61_8a30_b6586a6e57d1
+  n_061c3c1b_2f45_4422_9796_26d11e02862e --> n_9726eac2_dc3e_4f1a_986b_98cc7406547b
+  n_74df0048_fbba_41b7_8ccb_3b4462c9e3cf --> n_0be40d7e_0652_47fe_819b_2f7b6f5caca6
+  n_9a0049e1_4dc3_40f8_b387_c0eddd9e9206 --> n_8aa30fac_b171_4eb0_91e7_3886df6cc512
+  n_9726eac2_dc3e_4f1a_986b_98cc7406547b -- "[else]" --> n_6acaa2c8_0eb5_42a0_9614_85beccd5fd2d
+  n_3dfdbebe_c3cd_468a_baca_3d796324b840 --> n_5d5c4d9a_b34a_4049_aa98_9f7c86badb27
+  n_042354ea_f58b_4dd3_91e3_96af9e8e6cd9 --> c9ac0fd6_eeb3_43e5_83b6_ab4260bbfe17
+  n_6acaa2c8_0eb5_42a0_9614_85beccd5fd2d --> cd1be301_1784_41f2_b1f7_372a6394a266
+  n_5323e17a_83a8_42e4_8fca_53453b36d96a --> ae916afe_7312_49dc_84c9_bdea0419e842
+  fdf053dd_f66a_455c_a714_4927c8a2f634 --> n_061c3c1b_2f45_4422_9796_26d11e02862e
+  n_8ca81dbe_8921_4ad6_b953_e5f8c0b0d0f3 --> c0454993_7ff6_4c31_8db3_48afb78a116e
+  n_08b532d4_cdb0_499b_86a9_2b3aa37b4a91 --> c0454993_7ff6_4c31_8db3_48afb78a116e
+  n_7d237b3f_beba_486f_8a6e_8646605a76d3 --> f1958ec9_0e90_4c04_8156_868ed4e3b182
+  n_9d2bf632_f956_4be8_bfe3_8b9dbef4c293 --> d7e432d7_e881_46a6_a4af_a4ba8a8645a3
+  dbed4d19_57b2_4f17_9d45_56e3cd57aeb3 --> n_1f2b8dd9_8c25_47b5_96ca_7230d485f0a2
+  n_58cb67ba_4a67_453d_b80f_6a37080b170d -- "[else]" --> n_7d237b3f_beba_486f_8a6e_8646605a76d3
+  n_8f44d4c1_c6c0_498f_88b8_4262a3f3e5ae --> n_7d237b3f_beba_486f_8a6e_8646605a76d3
+  n_7b1579d9_fa57_4c61_8a30_b6586a6e57d1 -- "[else]" --> n_84cbd66e_b590_44ec_bee2_a1ddbea6a50e
+  c9ac0fd6_eeb3_43e5_83b6_ab4260bbfe17 --> n_289f765c_f66a_40a6_90c5_7dd536ab4d24
+  n_1f2b8dd9_8c25_47b5_96ca_7230d485f0a2 -- "[else]" --> n_5323e17a_83a8_42e4_8fca_53453b36d96a
+  d45663a9_0de1_4076_b502_d30258606146 --> n_9a0049e1_4dc3_40f8_b387_c0eddd9e9206
+  n_5d5c4d9a_b34a_4049_aa98_9f7c86badb27 --> n_1a2e1453_fb62_4103_a551_70cf98495d26
+  c0454993_7ff6_4c31_8db3_48afb78a116e --> cf45439e_bb24_4f66_b569_3594325d449c
+  n_43144545_56ca_4ddb_8044_d8301cdf392f -- "[Pirmas elementas turi visus taškus masyve 'Pažymėti']" --> n_8ca81dbe_8921_4ad6_b953_e5f8c0b0d0f3
+  n_0be40d7e_0652_47fe_819b_2f7b6f5caca6 --> n_6f4a4667_d498_410d_abec_46246ae484d8
+  n_43144545_56ca_4ddb_8044_d8301cdf392f -- "[else]" --> d7e432d7_e881_46a6_a4af_a4ba8a8645a3
+  n_58cb67ba_4a67_453d_b80f_6a37080b170d -- "[Aktyvusis elementas turi mažesnį laikas kintamąjį už išsaugoto maršruto arba dar nėra greičiausio maršuto]" --> n_8f44d4c1_c6c0_498f_88b8_4262a3f3e5ae
+  n_1a2e1453_fb62_4103_a551_70cf98495d26 -- "[Visi taškai aktyviame elemente yra masyve 'Maršrutas']" --> n_58cb67ba_4a67_453d_b80f_6a37080b170d
+  n_289f765c_f66a_40a6_90c5_7dd536ab4d24 -- "[Lankytinų vietų >1]" --> n_74df0048_fbba_41b7_8ccb_3b4462c9e3cf
+  n_44be7ee9_dcd0_447a_b568_71b598a89560 --> n_3dfdbebe_c3cd_468a_baca_3d796324b840
+  cd1be301_1784_41f2_b1f7_372a6394a266 --> dbed4d19_57b2_4f17_9d45_56e3cd57aeb3
+  e137b774_0565_4dd9_844e_98268dc6b431 --> n_44be7ee9_dcd0_447a_b568_71b598a89560
+  n_1f2b8dd9_8c25_47b5_96ca_7230d485f0a2 -- "[Dar yra nepažymėtų ir nepanaudotų taškų]" --> d45663a9_0de1_4076_b502_d30258606146
+  n_289f765c_f66a_40a6_90c5_7dd536ab4d24 -- "[else]" --> n_08b532d4_cdb0_499b_86a9_2b3aa37b4a91
+  n_84cbd66e_b590_44ec_bee2_a1ddbea6a50e --> fdf053dd_f66a_455c_a714_4927c8a2f634
+  n_5d5c4d9a_b34a_4049_aa98_9f7c86badb27 -- "[else]" --> d7e432d7_e881_46a6_a4af_a4ba8a8645a3
+  n_8aa30fac_b171_4eb0_91e7_3886df6cc512 --> e137b774_0565_4dd9_844e_98268dc6b431
+  f1958ec9_0e90_4c04_8156_868ed4e3b182 --> n_43144545_56ca_4ddb_8044_d8301cdf392f
+  ae916afe_7312_49dc_84c9_bdea0419e842 --> n_9d2bf632_f956_4be8_bfe3_8b9dbef4c293
+  d7e432d7_e881_46a6_a4af_a4ba8a8645a3 -.-> n_1f2b8dd9_8c25_47b5_96ca_7230d485f0a2
+  n_9726eac2_dc3e_4f1a_986b_98cc7406547b -. "[Dar yra nenaudotų lankytinų vietų porų]" .-> n_84cbd66e_b590_44ec_bee2_a1ddbea6a50e
+  n_7b1579d9_fa57_4c61_8a30_b6586a6e57d1 -. "[Dar yra neįrašytų lankytinų vietų]" .-> n_74df0048_fbba_41b7_8ccb_3b4462c9e3cf
+  linkStyle 39,40,41 stroke:#C62828,stroke-width:2px

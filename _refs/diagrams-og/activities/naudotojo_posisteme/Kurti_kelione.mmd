@@ -1,0 +1,119 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_0f343282_68ca_45ff_a3fa_855e4f7a6449((( ))):::terminal
+  n_2c0b0dbd_37c2_4bcf_afb7_c7ba6de76e44(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_41cdb42f_e989_41de_9b70_debdde3c0755(( )):::decision
+    n_6905f2c2_ff67_4138_b575_d6aa7087f822["Rodyti siūlyti generuoti maisto planą"]:::action
+    n_3cc5bedc_e986_4270_b924_828ee48d3652["Apskaičiuoti integer tipo kintamųjų skirtumą"]:::action
+    b6453e20_64e0_4efb_8519_807fa051e6d9["Pateikti ar nori sujunti pasirinktis"]:::action
+    fcb8ad39_439b_4ec5_aacd_615588e0d52b(( )):::decision
+    n_69bf8c57_24fb_4890_891e_2807ae17709f(( )):::decision
+    ae526efe_56c0_48cc_8283_d6fcb7b4afe5["Naudoti vieno keliautojo preferencijų profilį"]:::action
+    n_68ac9d13_d97e_4bad_9220_38634d352b3f["Išvesti bendrą heuristinį kintamąjį. sum(norm_p_match)/count"]:::action
+    n_4802e734_61a3_4fdd_8c2e_eb4685273f74["Surinkti visų keliautojų preferencijas iš profilių"]:::action
+    bd7beb36_1be4_4524_997c_2d2bfe620047{"?"}:::decision
+    n_425881cd_feb8_4eb7_b56a_59184a98ca55{"?"}:::decision
+    n_58078ff4_a94f_425f_b3eb_3bead49a5447["Rodyti sėkmingai sugeneruotos kelionės plana apžiūrą"]:::action
+    e45c9c33_d7d1_4795_b64b_95bfd23b0c79{"?"}:::decision
+    dc740109_7bcf_41f4_845d_dac10f363015["Sudėti kategorinius kintamuosius į vieną masyvą"]:::action
+    b1fe707a_4d52_41bb_a558_54439ad07e4a["Rodyti tutorial langą"]:::action
+    e56db1fb_9907_4c48_b17c_fabc939a54cd(( )):::decision
+    a9d26848_e483_4fc5_bc2b_5c99d0ffcbd7["Prideti drauga kaip keliautoja"]:::action
+    c776ab32_3284_436e_b36d_632d93fa5994["Apskaičiuoti kategorinių kintamųjų sutapimą. match(P, P_place)"]:::action
+    n_1b9e4fa9_abca_4d4f_aedf_51d61f6f2d63["Pasirinkti kelionės objektus"]:::action
+    bc7f7c36_93cf_45f5_9912_66a276a785dd["Suformuoti bendrą preferencijų profilį"]:::action
+    n_45623c3d_c140_4574_9184_832e9d2dc883["Sujungti dvieju keliautojų parinktis"]:::action
+    n_3dfa0708_62f2_472c_a2db_5bbe38db9bbf["Tikrinti ar yra issaugotu indvidualiu parinkciu"]:::action
+    n_21d6bc0d_7c02_4cb0_943f_9b18a4b1112c{"?"}:::decision
+    fda2d7b3_723c_4100_bd8f_3aded588b8e4["Gauti lankytinų vietų sąrašą"]:::action
+    n_8db3db6d_7317_48c1_ba48_81532c8fee3d["Tikrinti ar telpa į laiką sum(*activity_time)"]:::action
+    n_95cb166e_8390_489a_9f34_88cd6bee69c5["Parinkti N geriausių vietų (N = keliautojo pasirinktas skaičius)"]:::action
+    cb823a9d_3d7b_4c97_92fa_d48bcc7159f5["Rodyti pridėti draugą kaip keliautoją langą"]:::action
+    n_60c211f1_06a9_4e61_a84c_b331219db400["Sudaryti maršruta"]:::action
+    n_72860674_5ee9_4bc7_aed9_0624aab1f347["Reitinguoti vietas pagal balą B (mažėjimo tvarka)"]:::action
+    n_2ec027da_0873_43f5_a40a_0f1ca4e931c1["Rodyti siūlyti mažinti vietų skaičių langą"]:::action
+    n_3fa264eb_7efa_47cb_9019_6d4efefc766c{"?"}:::decision
+    fccf9c2a_bb9c_4a5e_9b5f_f3bc97cefbfa["Pasirinkti specifines kelionės parinktis"]:::action
+    d63b361d_127f_41ae_8fcd_70d8e2d88ac5(( )):::decision
+    n_47658606_0300_4411_9318_6f5e020cd186["Normalizuoti individuolius preferences 0-100"]:::action
+    f399e9e8_5fc9_450e_b613_9c31d8d06e69["Apskaičiuoti vidurkį integer tipo kintamųjų"]:::action
+    be8165eb_55c4_46fc_8b77_f9d5030fb170(( )):::decision
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_9007b348_6674_4271_af3d_0eaca94745cb{"?"}:::decision
+    n_0563f888_e365_46ac_bcf0_683418df11ca["Pasirinkti sugeneruoti lankytinas vietas"]:::action
+    n_90ab72ce_d3fe_49d5_a0b9_1a1aa97016c8["Sugeneruoti maisto planą"]:::action
+    n_141c0826_d733_4ebd_a941_063aa6485103["Pasirinkti sujungti pasirinktis"]:::action
+    edce6e63_f261_4d21_b688_a3bfeeffe906["Pasirinkti ar keliautu su draugu"]:::action
+    f8b3fc2c_fb50_4770_8806_34787f5cf891{"?"}:::decision
+    e38d5aa8_78f6_4309_b27c_ae63fe2e6efd["Pasirinkti „Kurti kelionę' mygtuką"]:::action
+    n_7689f48d_196a_48df_b9e7_f242ac1491cc(( )):::decision
+    n_2dc05a86_ed24_4c72_b590_36970076a7d1{"?"}:::decision
+    n_1739f248_a13a_4100_b3d4_49b347e63d6d["Pasirinkti mažesnį kelionių skaičių"]:::action
+  end
+
+  n_3fa264eb_7efa_47cb_9019_6d4efefc766c -- "[1 keliautojas]" --> ae526efe_56c0_48cc_8283_d6fcb7b4afe5
+  dc740109_7bcf_41f4_845d_dac10f363015 --> f399e9e8_5fc9_450e_b613_9c31d8d06e69
+  n_58078ff4_a94f_425f_b3eb_3bead49a5447 --> n_0f343282_68ca_45ff_a3fa_855e4f7a6449
+  n_141c0826_d733_4ebd_a941_063aa6485103 --> n_2dc05a86_ed24_4c72_b590_36970076a7d1
+  fccf9c2a_bb9c_4a5e_9b5f_f3bc97cefbfa --> n_7689f48d_196a_48df_b9e7_f242ac1491cc
+  n_3dfa0708_62f2_472c_a2db_5bbe38db9bbf --> n_21d6bc0d_7c02_4cb0_943f_9b18a4b1112c
+  n_41cdb42f_e989_41de_9b70_debdde3c0755 --> n_95cb166e_8390_489a_9f34_88cd6bee69c5
+  fcb8ad39_439b_4ec5_aacd_615588e0d52b --> fda2d7b3_723c_4100_bd8f_3aded588b8e4
+  edce6e63_f261_4d21_b688_a3bfeeffe906 --> n_9007b348_6674_4271_af3d_0eaca94745cb
+  bc7f7c36_93cf_45f5_9912_66a276a785dd --> fcb8ad39_439b_4ec5_aacd_615588e0d52b
+  n_4802e734_61a3_4fdd_8c2e_eb4685273f74 --> n_3fa264eb_7efa_47cb_9019_6d4efefc766c
+  e45c9c33_d7d1_4795_b64b_95bfd23b0c79 -- "[else]" --> be8165eb_55c4_46fc_8b77_f9d5030fb170
+  bd7beb36_1be4_4524_997c_2d2bfe620047 -- "[jei telpa bet nerodytas maisto plano generavimo pasiūlymas]" --> n_6905f2c2_ff67_4138_b575_d6aa7087f822
+  n_47658606_0300_4411_9318_6f5e020cd186 --> n_68ac9d13_d97e_4bad_9220_38634d352b3f
+  b6453e20_64e0_4efb_8519_807fa051e6d9 --> n_141c0826_d733_4ebd_a941_063aa6485103
+  n_3fa264eb_7efa_47cb_9019_6d4efefc766c --> dc740109_7bcf_41f4_845d_dac10f363015
+  d63b361d_127f_41ae_8fcd_70d8e2d88ac5 --> n_60c211f1_06a9_4e61_a84c_b331219db400
+  f399e9e8_5fc9_450e_b613_9c31d8d06e69 --> bc7f7c36_93cf_45f5_9912_66a276a785dd
+  n_425881cd_feb8_4eb7_b56a_59184a98ca55 -- "[else]" --> bd7beb36_1be4_4524_997c_2d2bfe620047
+  n_9007b348_6674_4271_af3d_0eaca94745cb -- "[else]" --> n_69bf8c57_24fb_4890_891e_2807ae17709f
+  fda2d7b3_723c_4100_bd8f_3aded588b8e4 --> c776ab32_3284_436e_b36d_632d93fa5994
+  n_1b9e4fa9_abca_4d4f_aedf_51d61f6f2d63 --> e56db1fb_9907_4c48_b17c_fabc939a54cd
+  n_425881cd_feb8_4eb7_b56a_59184a98ca55 -- "[parodytas maisto plano generavimo pasiūlymas ir planas telpa į laiką]" --> n_58078ff4_a94f_425f_b3eb_3bead49a5447
+  n_45623c3d_c140_4574_9184_832e9d2dc883 --> n_7689f48d_196a_48df_b9e7_f242ac1491cc
+  n_9007b348_6674_4271_af3d_0eaca94745cb -- "[pasirinko prideti drauga]" --> a9d26848_e483_4fc5_bc2b_5c99d0ffcbd7
+  n_8db3db6d_7317_48c1_ba48_81532c8fee3d --> n_425881cd_feb8_4eb7_b56a_59184a98ca55
+  c776ab32_3284_436e_b36d_632d93fa5994 --> n_3cc5bedc_e986_4270_b924_828ee48d3652
+  n_2c0b0dbd_37c2_4bcf_afb7_c7ba6de76e44 --> e38d5aa8_78f6_4309_b27c_ae63fe2e6efd
+  ae526efe_56c0_48cc_8283_d6fcb7b4afe5 --> fcb8ad39_439b_4ec5_aacd_615588e0d52b
+  n_21d6bc0d_7c02_4cb0_943f_9b18a4b1112c -- "[else]" --> b6453e20_64e0_4efb_8519_807fa051e6d9
+  b1fe707a_4d52_41bb_a558_54439ad07e4a --> be8165eb_55c4_46fc_8b77_f9d5030fb170
+  n_7689f48d_196a_48df_b9e7_f242ac1491cc --> f8b3fc2c_fb50_4770_8806_34787f5cf891
+  n_2ec027da_0873_43f5_a40a_0f1ca4e931c1 --> n_1739f248_a13a_4100_b3d4_49b347e63d6d
+  f8b3fc2c_fb50_4770_8806_34787f5cf891 -- "[else]" --> n_0563f888_e365_46ac_bcf0_683418df11ca
+  n_2dc05a86_ed24_4c72_b590_36970076a7d1 -- "[sujungti]" --> n_45623c3d_c140_4574_9184_832e9d2dc883
+  n_6905f2c2_ff67_4138_b575_d6aa7087f822 --> n_90ab72ce_d3fe_49d5_a0b9_1a1aa97016c8
+  e45c9c33_d7d1_4795_b64b_95bfd23b0c79 -- "[Keliautojas nematęs tutorial lango]" --> b1fe707a_4d52_41bb_a558_54439ad07e4a
+  bd7beb36_1be4_4524_997c_2d2bfe620047 -- "[jei netelpa]" --> n_2ec027da_0873_43f5_a40a_0f1ca4e931c1
+  n_95cb166e_8390_489a_9f34_88cd6bee69c5 --> d63b361d_127f_41ae_8fcd_70d8e2d88ac5
+  n_3cc5bedc_e986_4270_b924_828ee48d3652 --> n_47658606_0300_4411_9318_6f5e020cd186
+  n_68ac9d13_d97e_4bad_9220_38634d352b3f --> n_72860674_5ee9_4bc7_aed9_0624aab1f347
+  n_60c211f1_06a9_4e61_a84c_b331219db400 --> e56db1fb_9907_4c48_b17c_fabc939a54cd
+  cb823a9d_3d7b_4c97_92fa_d48bcc7159f5 --> edce6e63_f261_4d21_b688_a3bfeeffe906
+  n_72860674_5ee9_4bc7_aed9_0624aab1f347 --> n_41cdb42f_e989_41de_9b70_debdde3c0755
+  n_69bf8c57_24fb_4890_891e_2807ae17709f --> fccf9c2a_bb9c_4a5e_9b5f_f3bc97cefbfa
+  f8b3fc2c_fb50_4770_8806_34787f5cf891 -- "[Nori sudaryti savo lankymo objektus]" --> n_1b9e4fa9_abca_4d4f_aedf_51d61f6f2d63
+  be8165eb_55c4_46fc_8b77_f9d5030fb170 --> cb823a9d_3d7b_4c97_92fa_d48bcc7159f5
+  n_0563f888_e365_46ac_bcf0_683418df11ca --> n_4802e734_61a3_4fdd_8c2e_eb4685273f74
+  n_21d6bc0d_7c02_4cb0_943f_9b18a4b1112c -- "[yra]" --> n_69bf8c57_24fb_4890_891e_2807ae17709f
+  e56db1fb_9907_4c48_b17c_fabc939a54cd --> n_8db3db6d_7317_48c1_ba48_81532c8fee3d
+  n_2dc05a86_ed24_4c72_b590_36970076a7d1 -- "[else]" --> n_69bf8c57_24fb_4890_891e_2807ae17709f
+  e38d5aa8_78f6_4309_b27c_ae63fe2e6efd --> e45c9c33_d7d1_4795_b64b_95bfd23b0c79
+  a9d26848_e483_4fc5_bc2b_5c99d0ffcbd7 --> n_3dfa0708_62f2_472c_a2db_5bbe38db9bbf
+  n_1739f248_a13a_4100_b3d4_49b347e63d6d -.-> n_41cdb42f_e989_41de_9b70_debdde3c0755
+  n_90ab72ce_d3fe_49d5_a0b9_1a1aa97016c8 -.-> d63b361d_127f_41ae_8fcd_70d8e2d88ac5
+  linkStyle 53,54 stroke:#C62828,stroke-width:2px

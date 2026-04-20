@@ -1,0 +1,51 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_0f3b3b4a_2fe9_4187_afcc_a156b9bdfe8b((( ))):::terminal
+  a777ca76_6091_47de_93dc_2754c884abe7(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_03fbb46e_6d37_48f3_8a9d_6b4995c24664["Validuoti formos pasirinktis"]:::action
+    n_9ebe7326_3c41_4586_953b_d8459edcc6f8["Rodyti klaidos pranešimą"]:::action
+    n_5218164c_f0bb_4ea6_806c_1032f524d1ca(( )):::decision
+    n_8982179a_3220_48b3_be58_996044aca0f9["Išsaugoti pasirinktus kelionės duomenis"]:::action
+    ff2db38f_cdd0_4d0c_beac_8a13851cf9b8["Rodyti apgyvendinimo vietos tipų pasirinktį"]:::action
+    n_38a15da6_de5e_4350_9822_b4ad52ac75d8{"?"}:::decision
+    n_3af6fbe1_367a_4540_b526_960c9b1f29a6["Pateikti kelionės pasirinkimų formą"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_1ac00bc8_3923_42dc_bd14_df983bf0dc76["Pasirinkti transporto tipus"]:::action
+    n_3d36f904_4ca6_4a02_ac2b_b61196ba88f9["Pasirinkti apgyvendinimo tipus"]:::action
+    n_0b646b60_0a21_4e3c_adbf_b70391e1b59f["Pareikti formą"]:::action
+    n_3f0b25b1_188a_4f96_bb89_f1770f757eef["Nustatyti kelionės biudžetą"]:::action
+    a1f1e722_b00e_4e50_89f0_21e4cc77e66d["Pasirinkti kelionės starto/pabaigos laiką"]:::action
+    n_0a62d071_c444_48f4_87f5_f9ca0f7bc37c(( )):::decision
+    n_21e5968e_c0ab_49ab_80ea_404eff8662a4["Pasirinkti lankytinų vietų skaičių"]:::action
+    n_12282594_abb3_4060_81e7_83a572c26821{"?"}:::decision
+  end
+
+  n_1ac00bc8_3923_42dc_bd14_df983bf0dc76 --> n_3f0b25b1_188a_4f96_bb89_f1770f757eef
+  n_3f0b25b1_188a_4f96_bb89_f1770f757eef --> n_21e5968e_c0ab_49ab_80ea_404eff8662a4
+  n_03fbb46e_6d37_48f3_8a9d_6b4995c24664 --> n_38a15da6_de5e_4350_9822_b4ad52ac75d8
+  a1f1e722_b00e_4e50_89f0_21e4cc77e66d --> n_12282594_abb3_4060_81e7_83a572c26821
+  n_12282594_abb3_4060_81e7_83a572c26821 -- "[else]" --> n_0a62d071_c444_48f4_87f5_f9ca0f7bc37c
+  n_0b646b60_0a21_4e3c_adbf_b70391e1b59f --> n_03fbb46e_6d37_48f3_8a9d_6b4995c24664
+  n_5218164c_f0bb_4ea6_806c_1032f524d1ca --> n_1ac00bc8_3923_42dc_bd14_df983bf0dc76
+  n_21e5968e_c0ab_49ab_80ea_404eff8662a4 --> a1f1e722_b00e_4e50_89f0_21e4cc77e66d
+  n_8982179a_3220_48b3_be58_996044aca0f9 --> n_0f3b3b4a_2fe9_4187_afcc_a156b9bdfe8b
+  ff2db38f_cdd0_4d0c_beac_8a13851cf9b8 --> n_3d36f904_4ca6_4a02_ac2b_b61196ba88f9
+  n_3d36f904_4ca6_4a02_ac2b_b61196ba88f9 --> n_0a62d071_c444_48f4_87f5_f9ca0f7bc37c
+  n_38a15da6_de5e_4350_9822_b4ad52ac75d8 -- "[else]" --> n_9ebe7326_3c41_4586_953b_d8459edcc6f8
+  n_38a15da6_de5e_4350_9822_b4ad52ac75d8 -- "[Duomenis tinkami]" --> n_8982179a_3220_48b3_be58_996044aca0f9
+  n_0a62d071_c444_48f4_87f5_f9ca0f7bc37c --> n_0b646b60_0a21_4e3c_adbf_b70391e1b59f
+  n_12282594_abb3_4060_81e7_83a572c26821 -- "[kelionės trūkmė>1d.]" --> ff2db38f_cdd0_4d0c_beac_8a13851cf9b8
+  a777ca76_6091_47de_93dc_2754c884abe7 --> n_3af6fbe1_367a_4540_b526_960c9b1f29a6
+  n_3af6fbe1_367a_4540_b526_960c9b1f29a6 --> n_5218164c_f0bb_4ea6_806c_1032f524d1ca
+  n_9ebe7326_3c41_4586_953b_d8459edcc6f8 -.-> n_5218164c_f0bb_4ea6_806c_1032f524d1ca
+  linkStyle 17 stroke:#C62828,stroke-width:2px

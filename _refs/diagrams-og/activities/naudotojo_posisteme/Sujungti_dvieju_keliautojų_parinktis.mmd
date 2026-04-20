@@ -1,0 +1,79 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_86bd025b_a041_47e0_9a9d_fb9c576bdda0((( ))):::terminal
+  n_3a65283e_3e84_4e18_944d_d7b9c9f2c12c(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    fb25ba63_c0e0_4bd8_bd97_1f8d02150efd["Tikrinti ar datos vienodos"]:::action
+    a30b5290_e70c_4251_94dc_f344b85acda3["Prideti kito keliautojo papildomas ir prioritetines parinktis"]:::action
+    n_6b7f98b1_7d2e_41e4_93cc_994e480c0373["Tikrinti ar <10"]:::action
+    n_6c1f878a_f43f_4107_a26c_a8d77f844c9a["Pateikti dvieju keliautoju parinkciu langa"]:::action
+    n_3355acb0_0dd8_445a_897e_de91898d2b4d(( )):::decision
+    n_2d4cafa7_82d0_4325_8104_b9c3714a5ba2{"?"}:::decision
+    n_4cc03c6d_03c2_4f26_add4_025186663a1d["Keisti lankytinu vietu kieki i abieju vidurki"]:::action
+    n_6d5e4050_b7ac_4329_acc0_e57ecf2ec90c["Ispeti ar tikrai nori skirtingu transporto priemoniu"]:::action
+    n_3a6b97b7_6c55_442b_9dbc_df02d02b5d40["Tikrinti keliautoju biudzeta"]:::action
+    n_56ccc1ec_2748_43da_8e57_6d67b7e9052a["Pateikti kitos datos parinkti"]:::action
+    n_5950ed3f_a4ac_4791_af1f_9967e21ef640{"?"}:::decision
+    bdd2217b_9eb3_4266_8d16_542da693a8ef["Pateikti ispejima del didelio biudzeto skirtumo"]:::action
+    a9e296af_694f_4d9b_96f9_d495880e017e(( )):::decision
+    n_913f71ea_7d87_4bf5_947f_1ad1d1d091c3["Patikrinti ar transporto priemones vienodos"]:::action
+    n_10cd788d_435c_4d1f_af7b_e5fd36dbe575["Pateikti blogu duomenu ispejima"]:::action
+    n_9231d327_cf7f_40c2_ba56_9975a1a6a107{"?"}:::decision
+    ea1fd682_6aa5_4ab5_a0b8_250ac509c283{"?"}:::decision
+    dc048b2b_f1c8_4d8b_80d9_69231882822b["Pateikti biudzeto keitima"]:::action
+    n_7afd1c07_cd1a_4f41_942f_3032f05cf8c3["Rasti minimaliausia biudzeta"]:::action
+    b23be9f1_4502_4e7b_b8ea_cd9195659cef["Keisti transporto priemones parinkti"]:::action
+    f37111ee_2ec4_4543_8038_8eae620d6972["Keisti minimalu biudzeta kaip biudzeto parinkti"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    f98bfb1a_7399_48b4_b242_fee51f481dbf{"?"}:::decision
+    n_1d517eff_374a_48db_bed2_9c661c2ed498{"?"}:::decision
+    d75c59b0_2d8d_44ac_aadb_9d9af8f40921["Pasirinkti kita transporto priemone"]:::action
+    n_17d29886_9a6c_4be6_afbc_d0e6e07c5f4a["Keisti biudzeta"]:::action
+    n_56cd50c1_185c_4bbd_ae36_a26a5406031e["Pasirinkti ar keisti biudzeta"]:::action
+    f0383de2_ad48_4899_a519_70fe6b154f2d["Pasirinkti bendra data"]:::action
+  end
+
+  bdd2217b_9eb3_4266_8d16_542da693a8ef --> n_56cd50c1_185c_4bbd_ae36_a26a5406031e
+  n_6b7f98b1_7d2e_41e4_93cc_994e480c0373 --> n_5950ed3f_a4ac_4791_af1f_9967e21ef640
+  a9e296af_694f_4d9b_96f9_d495880e017e --> n_3a6b97b7_6c55_442b_9dbc_df02d02b5d40
+  n_4cc03c6d_03c2_4f26_add4_025186663a1d --> a30b5290_e70c_4251_94dc_f344b85acda3
+  dc048b2b_f1c8_4d8b_80d9_69231882822b --> n_17d29886_9a6c_4be6_afbc_d0e6e07c5f4a
+  f98bfb1a_7399_48b4_b242_fee51f481dbf -- "[keisti]" --> dc048b2b_f1c8_4d8b_80d9_69231882822b
+  n_1d517eff_374a_48db_bed2_9c661c2ed498 -- "[else]" --> a9e296af_694f_4d9b_96f9_d495880e017e
+  n_913f71ea_7d87_4bf5_947f_1ad1d1d091c3 -- "[nevienodos]" --> n_9231d327_cf7f_40c2_ba56_9975a1a6a107
+  n_2d4cafa7_82d0_4325_8104_b9c3714a5ba2 -- "[vienodos]" --> n_3355acb0_0dd8_445a_897e_de91898d2b4d
+  n_9231d327_cf7f_40c2_ba56_9975a1a6a107 -- "[nevienodos]" --> n_6d5e4050_b7ac_4329_acc0_e57ecf2ec90c
+  n_56cd50c1_185c_4bbd_ae36_a26a5406031e --> f98bfb1a_7399_48b4_b242_fee51f481dbf
+  n_2d4cafa7_82d0_4325_8104_b9c3714a5ba2 -- "[else]" --> n_56ccc1ec_2748_43da_8e57_6d67b7e9052a
+  n_56ccc1ec_2748_43da_8e57_6d67b7e9052a --> f0383de2_ad48_4899_a519_70fe6b154f2d
+  n_1d517eff_374a_48db_bed2_9c661c2ed498 -- "[keisti]" --> d75c59b0_2d8d_44ac_aadb_9d9af8f40921
+  n_3a6b97b7_6c55_442b_9dbc_df02d02b5d40 --> ea1fd682_6aa5_4ab5_a0b8_250ac509c283
+  ea1fd682_6aa5_4ab5_a0b8_250ac509c283 -- "[else]" --> bdd2217b_9eb3_4266_8d16_542da693a8ef
+  n_9231d327_cf7f_40c2_ba56_9975a1a6a107 -- "[else]" --> a9e296af_694f_4d9b_96f9_d495880e017e
+  n_17d29886_9a6c_4be6_afbc_d0e6e07c5f4a --> n_6b7f98b1_7d2e_41e4_93cc_994e480c0373
+  ea1fd682_6aa5_4ab5_a0b8_250ac509c283 -- "[biudzeto skirtumas<100]" --> n_7afd1c07_cd1a_4f41_942f_3032f05cf8c3
+  fb25ba63_c0e0_4bd8_bd97_1f8d02150efd --> n_2d4cafa7_82d0_4325_8104_b9c3714a5ba2
+  d75c59b0_2d8d_44ac_aadb_9d9af8f40921 --> b23be9f1_4502_4e7b_b8ea_cd9195659cef
+  n_6d5e4050_b7ac_4329_acc0_e57ecf2ec90c --> n_1d517eff_374a_48db_bed2_9c661c2ed498
+  b23be9f1_4502_4e7b_b8ea_cd9195659cef --> a9e296af_694f_4d9b_96f9_d495880e017e
+  f37111ee_2ec4_4543_8038_8eae620d6972 --> n_4cc03c6d_03c2_4f26_add4_025186663a1d
+  n_5950ed3f_a4ac_4791_af1f_9967e21ef640 -- "[else]" --> n_10cd788d_435c_4d1f_af7b_e5fd36dbe575
+  f98bfb1a_7399_48b4_b242_fee51f481dbf -- "[else]" --> f37111ee_2ec4_4543_8038_8eae620d6972
+  n_6c1f878a_f43f_4107_a26c_a8d77f844c9a --> fb25ba63_c0e0_4bd8_bd97_1f8d02150efd
+  n_3a65283e_3e84_4e18_944d_d7b9c9f2c12c --> n_6c1f878a_f43f_4107_a26c_a8d77f844c9a
+  n_3355acb0_0dd8_445a_897e_de91898d2b4d -- "[vienodos]" --> n_913f71ea_7d87_4bf5_947f_1ad1d1d091c3
+  f0383de2_ad48_4899_a519_70fe6b154f2d --> n_3355acb0_0dd8_445a_897e_de91898d2b4d
+  a30b5290_e70c_4251_94dc_f344b85acda3 --> n_86bd025b_a041_47e0_9a9d_fb9c576bdda0
+  n_7afd1c07_cd1a_4f41_942f_3032f05cf8c3 --> f37111ee_2ec4_4543_8038_8eae620d6972
+  n_10cd788d_435c_4d1f_af7b_e5fd36dbe575 -.-> dc048b2b_f1c8_4d8b_80d9_69231882822b
+  n_5950ed3f_a4ac_4791_af1f_9967e21ef640 -. "[<10]" .-> a9e296af_694f_4d9b_96f9_d495880e017e
+  linkStyle 32,33 stroke:#C62828,stroke-width:2px

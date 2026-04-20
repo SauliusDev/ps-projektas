@@ -1,0 +1,52 @@
+---
+title: Pasinaudoti pasiūlymu — sequence diagram
+---
+sequenceDiagram
+  actor KT as Keliautojas
+
+  participant MV as MainView<br/>«boundary»
+  participant SDV as SavedDealsView<br/>«boundary»
+  participant TDPV as TripDatePickerView<br/>«boundary»
+
+  participant SDC as SavedDealsController<br/>«control»
+  participant TLC as TripListController<br/>«control»
+  participant RC as RouteController<br/>«control»
+
+  participant SD as SavedDeals<br/>«entity»
+  participant Deal as Deal<br/>«entity»
+  participant Trip as Trip<br/>«entity»
+  participant RA as RouteAttraction<br/>«entity»
+
+  participant DB as DB
+
+  KT->>MV: atidaryti išsaugotus pasiūlymus
+  MV->>SDV: open()
+  SDV->>SDC: getSavedDeals(userId)
+  SDC->>DB: query(SavedDeals by userId)
+  DB-->>SDC: savedDealsData
+  SDC-->>SDV: savedDeals
+  SDV-->>KT: rodyti išsaugotus pasiūlymus
+
+  KT->>SDV: pasirinkti pasiūlymą
+  SDV->>SDC: useDeal(dealId)
+  SDC->>Deal: increasePopularity()
+  Deal-->>SDC: ok
+  SDC->>DB: save(dealPopularity)
+  DB-->>SDC: saved
+
+  SDC-->>TDPV: requestDates()
+  TDPV-->>KT: rodyti datų pasirinkimą
+  KT->>TDPV: pasirinkti datas
+  TDPV->>TLC: createTripFromDeal(userId, dealId, dates)
+  TLC->>Trip: new Trip(dates)
+  Trip-->>TLC: trip
+  TLC->>RC: generateRouteFromDeal(dealId, dates)
+  RC->>DB: getDealAttractions(dealId)
+  DB-->>RC: dealAttractions
+  RC->>RA: buildRouteAttractions(dealAttractions)
+  RA-->>RC: routeAttractions
+  RC-->>TLC: routeReady
+  TLC->>DB: save(trip, route)
+  DB-->>TLC: saved
+  TLC-->>SDV: tripCreated
+  SDV-->>KT: kelionė sukurta

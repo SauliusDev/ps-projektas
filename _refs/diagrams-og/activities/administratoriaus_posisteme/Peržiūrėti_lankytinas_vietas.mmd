@@ -1,0 +1,43 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_633a3a15_0f1d_4896_be42_88a63d467ece(( )):::terminal
+  n_2e9b8cff_d057_440e_8bd0_49045ab50e5a((( ))):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    a6f82864_f286_4017_b1ca_a028635bb3a3["Pateikti lankytinų vietų peržiūros langą"]:::action
+    fecddc58_f494_4e31_a82c_bcdb0606b2f5["Pateikti lankytiną vietos langą"]:::action
+    c839676f_4a6d_4651_a19e_83e60fb908bc(( )):::decision
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_97bf721b_6b60_4512_8fab_513d5741e36a{"?"}:::decision
+    c8a73f8a_dbe5_4f2c_bd59_b890c9b084a6["Pridėti lankytiną vietą"]:::action
+    b4d61d8a_5ce6_4b7d_9884_b2ef65e9d3b4["Ištrinti lankytiną vietą"]:::action
+    a4844914_f9ea_43e4_92d2_564f80833ad9["Pasirinnkti lankytinų vietų peržiūrą"]:::action
+    c2e9b494_b3a8_427f_8666_c8e23c8fb949["Uždaryti lankytiną vietos langą"]:::action
+    ecc77081_2817_46ad_925b_21db1be8ca36["Pasirinkti lankytiną vietą"]:::action
+    n_19d0c740_b5a5_4526_b203_91f1ff11ad3d["Redaguoti lankytinas vietą"]:::action
+  end
+
+  n_97bf721b_6b60_4512_8fab_513d5741e36a -- "[nori redaguoti]" --> n_19d0c740_b5a5_4526_b203_91f1ff11ad3d
+  n_97bf721b_6b60_4512_8fab_513d5741e36a -- "[nori peržiūrėti lankytiną vietą]" --> ecc77081_2817_46ad_925b_21db1be8ca36
+  fecddc58_f494_4e31_a82c_bcdb0606b2f5 --> c2e9b494_b3a8_427f_8666_c8e23c8fb949
+  ecc77081_2817_46ad_925b_21db1be8ca36 --> fecddc58_f494_4e31_a82c_bcdb0606b2f5
+  n_633a3a15_0f1d_4896_be42_88a63d467ece --> a4844914_f9ea_43e4_92d2_564f80833ad9
+  c839676f_4a6d_4651_a19e_83e60fb908bc --> a6f82864_f286_4017_b1ca_a028635bb3a3
+  n_97bf721b_6b60_4512_8fab_513d5741e36a -- "[else]" --> n_2e9b8cff_d057_440e_8bd0_49045ab50e5a
+  a4844914_f9ea_43e4_92d2_564f80833ad9 --> c839676f_4a6d_4651_a19e_83e60fb908bc
+  n_97bf721b_6b60_4512_8fab_513d5741e36a -- "[nori ištrinti]" --> b4d61d8a_5ce6_4b7d_9884_b2ef65e9d3b4
+  a6f82864_f286_4017_b1ca_a028635bb3a3 --> n_97bf721b_6b60_4512_8fab_513d5741e36a
+  n_97bf721b_6b60_4512_8fab_513d5741e36a -- "[nori pridėti]" --> c8a73f8a_dbe5_4f2c_bd59_b890c9b084a6
+  n_19d0c740_b5a5_4526_b203_91f1ff11ad3d -.-> c839676f_4a6d_4651_a19e_83e60fb908bc
+  c2e9b494_b3a8_427f_8666_c8e23c8fb949 -.-> c839676f_4a6d_4651_a19e_83e60fb908bc
+  c8a73f8a_dbe5_4f2c_bd59_b890c9b084a6 -.-> c839676f_4a6d_4651_a19e_83e60fb908bc
+  b4d61d8a_5ce6_4b7d_9884_b2ef65e9d3b4 -.-> c839676f_4a6d_4651_a19e_83e60fb908bc
+  linkStyle 11,12,13,14 stroke:#C62828,stroke-width:2px

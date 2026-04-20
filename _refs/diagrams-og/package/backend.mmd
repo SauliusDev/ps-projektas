@@ -1,0 +1,48 @@
+%%{init: {'flowchart': {'defaultRenderer': 'elk', 'htmlLabels': true, 'curve': 'linear'}}}%%
+flowchart LR
+  classDef cls fill:#FFE0B2,stroke:#E65100,color:#000
+  classDef redcls fill:#FFD4D4,stroke:#C62828,color:#000
+
+  subgraph Backend["Backend"]
+    direction LR
+    subgraph BControls["Controls"]
+      DealController["DealController"]:::redcls
+      UserController["UserController"]:::redcls
+      RouteController["RouteController"]:::redcls
+      TripListController["TripListController"]:::redcls
+      SavedDealsController["SavedDealsController"]:::redcls
+      JourneyController["JourneyController"]:::redcls
+      PreferencesController["PreferencesController"]:::redcls
+      FoodController["FoodController"]:::redcls
+
+      DealController ~~~ UserController
+      RouteController ~~~ TripListController
+      SavedDealsController ~~~ JourneyController
+      PreferencesController ~~~ FoodController
+    end
+    subgraph Models["Models"]
+      Admin["Admin"]:::cls
+      Deal["Deal"]:::cls
+      Dish["Dish"]:::cls
+      FoodPlan["FoodPlan"]:::cls
+      Group["Group"]:::cls
+      Menu["Menu"]:::cls
+      Preferences["Preferences"]:::cls
+      Route["Route"]:::cls
+      RouteAttraction["RouteAttraction"]:::cls
+      RouteFoodPlace["RouteFoodPlace"]:::cls
+      RoutePlace["RoutePlace"]:::cls
+      Traveler["Traveler"]:::cls
+      Trip["Trip"]:::cls
+      User["User"]:::cls
+      VisitedPlace["VisitedPlace"]:::cls
+      Dieta["Dieta"]:::cls
+
+      Admin ~~~ Deal ~~~ Dish ~~~ FoodPlan
+      Group ~~~ Menu ~~~ Preferences ~~~ Route
+      RouteAttraction ~~~ RouteFoodPlace ~~~ RoutePlace ~~~ Traveler
+      Trip ~~~ User ~~~ VisitedPlace ~~~ Dieta
+    end
+  end
+
+  BControls -.-> Models

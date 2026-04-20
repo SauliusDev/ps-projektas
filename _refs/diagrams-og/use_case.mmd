@@ -1,0 +1,156 @@
+---
+title: Panaudojimo atvejų diagrama
+---
+flowchart LR
+  Svecias["👤 Svečias"]
+  El_pasto["📧 El pašto serveris"]
+  Keliautojas["👤 Keliautojas"]
+  Naudotojas["👤 Naudotojas"]
+  Admin["👤 Admin"]
+  Google["🗺️ Google maps"]
+
+  Keliautojas --> Naudotojas
+  Admin --> Naudotojas
+  Naudotojas --> Svecias
+
+  subgraph SP["Svečio posistemė"]
+    direction LR
+    UC_S_Perziureti(["Peržiūrėti pasiūlymus"])
+    UC_S_Rekomenduoti(["Rekomenduoti pasiūlymus"])
+    UC_Prisijungti(["Prisijungti"])
+    UC_Registruotis(["Registruotis"])
+    UC_Priminti(["Priminti slaptažodį"])
+  end
+
+  subgraph NP["Naudotojo posistemė"]
+    direction LR
+    UC_Atsijungti(["Atsijungti"])
+
+    UC_Perziureti_keliones(["Peržiūrėti\nkeliones"])
+    UC_Kurti_kelione(["Kurti kelionę"])
+    UC_Redaguoti_kelione(["Redaguoti kelionę"])
+    UC_Perziureti_kelia_zemelapy(["Peržiūrėti kelią žemėlapy"])
+
+    UC_Sudaryti_marsruta(["Sudaryti maršrutą"])
+    UC_Pasirinkti_objektus(["Pasirinkti kelionės objektus"])
+    UC_Pasirinkti_specifines(["Pasirinkti specifines\nkelionės parinktis"])
+    UC_Prideti_drauga(["Pridėti draugą\nkaip keliautoją"])
+    UC_Sujungti(["Sujungti dviejų\nkeliautoją parinktis"])
+
+    UC_Sugeneruoti_maisto(["Sugeneruoti maisto planą"])
+    UC_Redaguoti_maisto(["Redaguoti maisto planą"])
+    UC_Redaguoti_profili(["Redaguoti profilį\n(preferences)"])
+    UC_Pasinaudoti(["Pasinaudoti pasiūlymu"])
+  end
+
+  subgraph AP["Administratoriaus posistemė"]
+    direction LR
+    UC_LV(["Peržiūrėti\nlankytinas vietas"])
+    UC_LV_P(["Pridėti lankytiną vietą"])
+    UC_LV_R(["Redaguoti lankytinas vietą"])
+    UC_LV_I(["Ištrinti lankytiną vietą"])
+
+    UC_Pat(["Peržiūrėti\npatiekalus"])
+    UC_Pat_P(["Pridėti patiekalą"])
+    UC_Pat_R(["Redaguoti patiekalą"])
+    UC_Pat_I(["Ištrinti patiekalą"])
+
+    UC_Kel(["Peržiūrėti\nvisas keliones"])
+    UC_Kel_T(["Tikrinti kelionės būseną"])
+
+    UC_Pas(["Peržiūrėti\npasiūlymus"])
+    UC_Pas_S(["Sukurti pasiūlymą"])
+    UC_Pas_R(["Redaguoti pasiūlymą"])
+    UC_Pas_T(["Trinti pasiūlymą"])
+
+    UC_MV(["Peržiūrėti\nmaisto vietas"])
+    UC_MV_P(["Pridėti maisto vietą"])
+    UC_MV_R(["Redaguoti maisto vietą"])
+    UC_MV_I(["Ištrinti maisto vietą"])
+
+    UC_Men(["Peržiūrėti\nmeniu"])
+    UC_Men_P(["Pridėti meniu"])
+    UC_Men_R(["Redaguoti meniu"])
+    UC_Men_I(["Ištrinti meniu"])
+  end
+
+  %% ── Svečio posistemė ──────────────────────────────────────────
+  Svecias    --> UC_S_Perziureti
+  Svecias    --> UC_Prisijungti
+  Svecias    --> UC_Registruotis
+  El_pasto   --> UC_Priminti
+
+  UC_S_Perziureti -. "«include»" .-> UC_S_Rekomenduoti
+  UC_Priminti     -. "«extend» (Jei pamiršo slaptažodį)" .-> UC_Prisijungti
+
+  %% ── Naudotojo posistemė ───────────────────────────────────────
+  Naudotojas --> UC_Atsijungti
+  Keliautojas --> UC_Perziureti_keliones
+  Keliautojas --> UC_Kurti_kelione
+  Keliautojas --> UC_Redaguoti_kelione
+  Keliautojas --> UC_Perziureti_kelia_zemelapy
+  Keliautojas --> UC_Pasinaudoti
+  Keliautojas --> UC_Redaguoti_profili
+  Google      --> UC_Pasirinkti_objektus
+  Google      --> UC_Sudaryti_marsruta
+
+  Google      --> UC_Perziureti_kelia_zemelapy
+
+  UC_Kurti_kelione -. "«include»" .-> UC_Sudaryti_marsruta
+
+  UC_Kurti_kelione             -. "«extend» (Jei norima sukurti kelionę)" .->                         UC_Perziureti_keliones
+  UC_Redaguoti_kelione         -. "«extend» (Jei norima redaguoti kelionę)" .->                       UC_Perziureti_keliones
+  UC_Perziureti_kelia_zemelapy -. "«extend» (Jei norima peržiūrėti maršrutą)" .->                    UC_Perziureti_keliones
+  UC_Redaguoti_maisto          -. "«extend» (Jei yra kelionėje maisto planas ir nori redaguoti)" .->  UC_Perziureti_keliones
+
+  UC_Pasirinkti_objektus   -. "«extend» (Jei norima pasirinkti kelionės objektus)" .->               UC_Kurti_kelione
+  UC_Pasirinkti_specifines -. "«extend» (Jei norima sudaryti kelionės lankymo objektus)" .->          UC_Kurti_kelione
+  UC_Prideti_drauga        -. "«extend» (Jei norima keliauti su draugu)" .->                          UC_Kurti_kelione
+  UC_Sujungti              -. "«extend» (Jei norima sujungti dviejų keliautoją parinktis)" .->        UC_Kurti_kelione
+  UC_Sugeneruoti_maisto    -. "«extend» (Jei norima sugeneruoti maisto planą)" .->                    UC_Kurti_kelione
+
+  UC_Sudaryti_marsruta  -. "«extend» (Jei norima keisti lankytinų vietų kiekį)" .->                   UC_Redaguoti_kelione
+  UC_Sugeneruoti_maisto -. "«extend» (Jei norima sugeneruoti maisto planą)" .->                       UC_Redaguoti_kelione
+  UC_Redaguoti_maisto   -. "«extend» (Jei norima redaguoti maisto planą)" .->                         UC_Redaguoti_kelione
+
+  %% ── Administratoriaus posistemė ──────────────────────────────
+  Admin --> UC_LV
+  Admin --> UC_Pat
+  Admin --> UC_Kel
+  Admin --> UC_Pas
+  Admin --> UC_MV
+  Admin --> UC_Men
+
+  UC_LV  -. "«extend» (Jei norima pridėti lankytiną vietą)" .->         UC_LV_P
+  UC_LV  -. "«extend» (Jei norima redaguoti lankytinas vietas)" .->      UC_LV_R
+  UC_LV  -. "«extend» (Jei norima ištrinti lankytiną vietą)" .->         UC_LV_I
+
+  UC_Pat -. "«extend» (Jei norima pridėti patiekalą)" .->                UC_Pat_P
+  UC_Pat -. "«extend» (Jei norima redaguoti patiekalus)" .->             UC_Pat_R
+  UC_Pat -. "«extend» (Jei norima ištrinti patiekalą)" .->               UC_Pat_I
+
+  UC_Kel -. "«extend» (Jei norima tikrinti kelionės būseną)" .->         UC_Kel_T
+
+  UC_Pas -. "«extend» (Jei norima sukurti naują pasiūlymą)" .->          UC_Pas_S
+  UC_Pas -. "«extend» (Jei norima redaguoti pasiūlymą)" .->              UC_Pas_R
+  UC_Pas -. "«extend» (Jei norima ištrinti pasiūlymą)" .->               UC_Pas_T
+
+  UC_MV  -. "«extend» (Jei norima pridėti maisto vietą)" .->             UC_MV_P
+  UC_MV  -. "«extend» (Jei norima redaguoti maisto vietą)" .->           UC_MV_R
+  UC_MV  -. "«extend» (Jei norima ištrinti maisto vietą)" .->            UC_MV_I
+
+  UC_Men -. "«extend» (Jei norima pridėti meniu)" .->                    UC_Men_P
+  UC_Men -. "«extend» (Jei norima redaguoti meniu)" .->                  UC_Men_R
+  UC_Men -. "«extend» (Jei norima ištrinti meniu)" .->                   UC_Men_I
+
+  style Svecias    fill:#E3F2FD,stroke:#1565C0
+  style El_pasto   fill:#E3F2FD,stroke:#1565C0
+  style Keliautojas fill:#E3F2FD,stroke:#1565C0
+  style Naudotojas fill:#E3F2FD,stroke:#1565C0
+  style Admin      fill:#E3F2FD,stroke:#1565C0
+  style Google     fill:#E3F2FD,stroke:#1565C0
+
+  style UC_S_Rekomenduoti          fill:#FFCDD2,stroke:#C62828
+  style UC_Sudaryti_marsruta       fill:#FFCDD2,stroke:#C62828
+  style UC_Sugeneruoti_maisto      fill:#FFCDD2,stroke:#C62828
+  style UC_Perziureti_kelia_zemelapy fill:#FFCDD2,stroke:#C62828

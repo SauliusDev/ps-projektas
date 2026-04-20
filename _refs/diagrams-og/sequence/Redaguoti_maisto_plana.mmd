@@ -1,0 +1,48 @@
+---
+title: Redaguoti maisto planą — sequence diagram
+---
+sequenceDiagram
+  actor KT as Keliautojas
+
+  participant FPV as FoodPlanView<br/>«boundary»
+  participant FPPV as FoodPlacePickerView<br/>«boundary»
+  participant MEV as MenuEditorView<br/>«boundary»
+
+  participant JC as JourneyController<br/>«control»
+  participant UC as UserController<br/>«control»
+
+  participant Trip as Trip<br/>«entity»
+  participant FP as FoodPlan<br/>«entity»
+  participant Menu as Menu<br/>«entity»
+
+  participant DB as DB
+
+  KT->>FPV: redaguoti maisto planą
+  FPV->>JC: getFoodPlan(tripId)
+  JC->>DB: query(FoodPlan by tripId)
+  DB-->>JC: foodPlanData
+  JC-->>FPV: showFoodPlan(foodPlanData)
+  FPV-->>KT: rodyti planą
+
+  KT->>FPV: pridėti maisto vietą
+  FPV->>FPPV: openPicker()
+  FPPV->>JC: getFoodPlaces(route, preferences)
+  JC->>DB: query(FoodPlace by route, preferences)
+  DB-->>JC: foodPlaces
+  JC-->>FPPV: foodPlaces
+  FPPV-->>KT: rodyti pasirinkimus
+  KT->>FPPV: pasirinkti vietą
+  FPPV->>JC: addFoodPlace(tripId, placeId)
+  JC->>FP: addPlace(placeId)
+  FP-->>JC: ok
+
+  KT->>FPV: redaguoti meniu
+  FPV->>MEV: open(menuId)
+  MEV->>JC: updateMenu(menuChanges)
+  JC->>Menu: applyChanges(menuChanges)
+  Menu-->>JC: ok
+
+  JC->>DB: save(foodPlan)
+  DB-->>JC: saved
+  JC-->>FPV: foodPlanUpdated
+  FPV-->>KT: maisto planas atnaujintas

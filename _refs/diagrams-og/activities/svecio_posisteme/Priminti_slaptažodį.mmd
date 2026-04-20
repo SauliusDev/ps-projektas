@@ -1,0 +1,44 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_68a63211_ae46_4112_a4bc_8f1968df38e6(( )):::terminal
+  n_0133ba19_feff_4d79_9ef8_e857b2f55ab0((( ))):::terminal
+
+  subgraph Sve_io_posistem["Svečio posistemė"]
+    direction TB
+    n_61a5130b_f616_4902_b968_35c2b694c6b0(( )):::decision
+    eb74d9c1_9e80_4b5a_9a6c_fb4715f115f9["Rodyti sėkmingo priminimo išsiuntimo pranešimą"]:::action
+    dfe521b8_b586_4dcb_a21e_2fce901d0cc3["Rodyti slaptažodžio priminimo pasirinkimus"]:::action
+    aa61f750_ac11_4890_a63a_5de9d8e243fd["Validuoti paskyros egzistavimą"]:::action
+    f4784f3d_5205_43cf_be8b_6faeb23f62d4["Rodyti paskyros neradimo pranešimą"]:::action
+    n_76925be0_0fb4_4617_ac07_85a587825170["CallBehaviorAction"]:::action
+    n_82f9165a_d25c_4ccb_aa8c_42e4fce8b62b{"?"}:::decision
+  end
+
+  subgraph El_pasto_serveris["El pasto serveris"]
+    direction TB
+    n_600631ff_76a6_458d_be85_6c5a7c20af49["Nusiųsti slaptažodžio priminimo laišką"]:::action
+  end
+
+  subgraph Svecias["Svecias"]
+    direction TB
+    n_8320fc11_d84f_4562_a78d_7a3a63670cd8["Pasirinkti priminti slaptažodį"]:::action
+    eccaee95_8a8d_4e4e_9203_061b0b16dc79["Pasirinkti priminimo parinktį ir įvesti duomenis"]:::action
+  end
+
+  n_8320fc11_d84f_4562_a78d_7a3a63670cd8 --> dfe521b8_b586_4dcb_a21e_2fce901d0cc3
+  n_82f9165a_d25c_4ccb_aa8c_42e4fce8b62b -- "[else]" --> f4784f3d_5205_43cf_be8b_6faeb23f62d4
+  n_61a5130b_f616_4902_b968_35c2b694c6b0 --> eccaee95_8a8d_4e4e_9203_061b0b16dc79
+  aa61f750_ac11_4890_a63a_5de9d8e243fd --> n_82f9165a_d25c_4ccb_aa8c_42e4fce8b62b
+  eb74d9c1_9e80_4b5a_9a6c_fb4715f115f9 --> n_0133ba19_feff_4d79_9ef8_e857b2f55ab0
+  n_68a63211_ae46_4112_a4bc_8f1968df38e6 --> n_8320fc11_d84f_4562_a78d_7a3a63670cd8
+  eccaee95_8a8d_4e4e_9203_061b0b16dc79 --> aa61f750_ac11_4890_a63a_5de9d8e243fd
+  n_76925be0_0fb4_4617_ac07_85a587825170 -- "[Paskyra egzistuoja]" --> n_600631ff_76a6_458d_be85_6c5a7c20af49
+  n_600631ff_76a6_458d_be85_6c5a7c20af49 --> eb74d9c1_9e80_4b5a_9a6c_fb4715f115f9
+  n_82f9165a_d25c_4ccb_aa8c_42e4fce8b62b --> n_76925be0_0fb4_4617_ac07_85a587825170
+  dfe521b8_b586_4dcb_a21e_2fce901d0cc3 --> n_61a5130b_f616_4902_b968_35c2b694c6b0
+  f4784f3d_5205_43cf_be8b_6faeb23f62d4 -.-> n_61a5130b_f616_4902_b968_35c2b694c6b0
+  linkStyle 11 stroke:#C62828,stroke-width:2px

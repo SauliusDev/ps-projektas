@@ -1,0 +1,82 @@
+---
+title: Kurti kelionę — sequence diagram
+---
+sequenceDiagram
+  actor KT as Keliautojas
+
+  participant CJV as CreateJourneyView<br/>«boundary»
+  participant AFV as AddFriendView<br/>«boundary»
+  participant JPV as JourneyParamsView<br/>«boundary»
+  participant JOV as JourneyOverviewView<br/>«boundary»
+
+  participant TLC as TripListController<br/>«control»
+  participant JC as JourneyController<br/>«control»
+  participant RC as RouteController<br/>«control»
+  participant UC as UserController<br/>«control»
+
+  participant Trip as Trip<br/>«entity»
+  participant Route as Route<br/>«entity»
+  participant Prefs as Preferences<br/>«entity»
+
+  participant DB as DB
+
+  KT->>CJV: atidaryti kelionės kūrimą
+  CJV->>TLC: initCreateJourney()
+  TLC->>Trip: new Trip()
+  Trip-->>TLC: trip
+  TLC-->>CJV: showForm(trip)
+  CJV-->>KT: rodyti formą
+
+  KT->>CJV: pridėtiDraugą()
+  CJV->>AFV: open()
+  AFV-->>KT: rodyti draugų paiešką
+  KT->>AFV: pasirinkti draugą
+  AFV->>UC: findUser(email)
+  UC->>DB: query(User)
+  DB-->>UC: userData
+  UC-->>AFV: userFound
+  AFV->>TLC: addTraveler(trip, friendId)
+  TLC->>Trip: addTraveler(friendId)
+  Trip-->>TLC: ok
+  TLC-->>CJV: travelerAdded
+
+  KT->>JPV: konfigūruoti parinktis
+  JPV->>JC: loadPreferences(travelerId)
+  JC->>DB: query(Preferences)
+  DB-->>JC: preferencesData
+  JC-->>JPV: preferences
+  JPV-->>KT: rodyti parinktis
+  KT->>JPV: patvirtinti parinktis
+  JPV->>JC: saveParams(params)
+  JC->>Prefs: merge(prefs1, prefs2)
+  Prefs-->>JC: mergedPrefs
+
+  JC->>RC: generateRoute(mergedPrefs, dates)
+  RC->>DB: getAttractions(city, prefs)
+  DB-->>RC: attractionsList
+  RC->>RC: score(attractions, mergedPrefs)
+  RC->>RC: rankByScore()
+  RC->>RC: fitToTimeWindow(N)
+  RC->>Route: new Route(rankedAttractions)
+  Route-->>RC: route
+  RC-->>JC: route
+  JC->>Trip: setRoute(route)
+  Trip-->>JC: ok
+  JC-->>JPV: routeReady
+
+  JC->>JOV: showOverview(trip)
+  JOV-->>KT: rodyti kelionės apžvalgą<br/>[siūlyti maisto planą?]
+
+  alt Sutinka generuoti maisto planą
+    KT->>JOV: generuotiMaistoPlaną()
+    JOV->>JC: generateFoodPlan(trip)
+    JC->>DB: getFoodPlaces(route)
+    DB-->>JC: foodPlaces
+    JC->>Trip: setFoodPlan(foodPlan)
+    Trip-->>JC: ok
+    JC-->>JOV: foodPlanReady
+  end
+
+  JC->>DB: save(trip)
+  DB-->>JC: saved
+  JOV-->>KT: kelionė sėkmingai sukurta

@@ -1,0 +1,26 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  d5da3825_bf1c_4f95_bbe6_54def9681fcd((( ))):::terminal
+  n_949a179f_9742_498a_9a5f_0eabafa0f0e0(( )):::terminal
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_627023e5_9296_438a_b24e_81d161532e14["Pasirinkti trinimą"]:::action
+    aabb06fe_f3a6_4822_a859_adc634c5983d["Pažymėti lankytinas vietas trinimui ir patvirtinti"]:::action
+  end
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_691a31ce_3401_44ba_99f7_5aa6f4e2e839["Ištrinti lankytinas vietas"]:::action
+    c7c6242d_e5b2_4527_99fa_e94d2b90f68f["Pateikti žymėjimo sąrašą"]:::action
+  end
+
+  c7c6242d_e5b2_4527_99fa_e94d2b90f68f --> aabb06fe_f3a6_4822_a859_adc634c5983d
+  aabb06fe_f3a6_4822_a859_adc634c5983d --> n_691a31ce_3401_44ba_99f7_5aa6f4e2e839
+  n_949a179f_9742_498a_9a5f_0eabafa0f0e0 --> n_627023e5_9296_438a_b24e_81d161532e14
+  n_627023e5_9296_438a_b24e_81d161532e14 --> c7c6242d_e5b2_4527_99fa_e94d2b90f68f
+  n_691a31ce_3401_44ba_99f7_5aa6f4e2e839 --> d5da3825_bf1c_4f95_bbe6_54def9681fcd

@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  f36cf965_f5e3_4c5b_a949_9fcce5e5d665((( ))):::terminal
+  n_5444ffdd_9bc1_431f_82a4_16ed7c2ad433(( )):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    fd0aff14_9305_43ae_a8a9_70036e21931d["Pateikti klaidos pranešimą ir klaidingą duomenų lauką pridėjimo formoje"]:::action
+    n_4cc76967_25fc_42bd_9671_ca5ce4e6d7d4["Pridėti lankytiną vietą"]:::action
+    n_043e5b71_b1a0_45af_ae5c_d8f367c007fc["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    n_4a9612ee_6d36_4aec_95d0_6066fcb212e4["Patiktinti ar lankytina vieta nesidubliuoja sistemoje"]:::action
+    n_0337e082_206e_4f7f_b7c1_1a14ed6bb5e7{"?"}:::decision
+    n_8320cd60_177e_45f6_bb1c_dcc47a88326f["Pateikti pridėjimo formą"]:::action
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_391dbb6b_470b_4c26_b441_e73a8ba4191b["Pasirinkti pridėjimą"]:::action
+    f20f15d4_9226_4063_b04c_cfa69f54683d["Užpildyti pridėjimo formą ir patvirtinti"]:::action
+    n_4b14a1db_4adf_4a28_96bb_dcbc53019de7(( )):::decision
+  end
+
+  n_0337e082_206e_4f7f_b7c1_1a14ed6bb5e7 -- "[duomenys klaidingi]" --> fd0aff14_9305_43ae_a8a9_70036e21931d
+  n_4a9612ee_6d36_4aec_95d0_6066fcb212e4 --> n_0337e082_206e_4f7f_b7c1_1a14ed6bb5e7
+  n_0337e082_206e_4f7f_b7c1_1a14ed6bb5e7 -- "[duomenis tinkami]" --> n_4cc76967_25fc_42bd_9671_ca5ce4e6d7d4
+  n_4cc76967_25fc_42bd_9671_ca5ce4e6d7d4 --> f36cf965_f5e3_4c5b_a949_9fcce5e5d665
+  n_043e5b71_b1a0_45af_ae5c_d8f367c007fc --> n_4a9612ee_6d36_4aec_95d0_6066fcb212e4
+  f20f15d4_9226_4063_b04c_cfa69f54683d --> n_043e5b71_b1a0_45af_ae5c_d8f367c007fc
+  n_8320cd60_177e_45f6_bb1c_dcc47a88326f --> n_4b14a1db_4adf_4a28_96bb_dcbc53019de7
+  n_391dbb6b_470b_4c26_b441_e73a8ba4191b --> n_8320cd60_177e_45f6_bb1c_dcc47a88326f
+  n_5444ffdd_9bc1_431f_82a4_16ed7c2ad433 --> n_391dbb6b_470b_4c26_b441_e73a8ba4191b
+  n_4b14a1db_4adf_4a28_96bb_dcbc53019de7 --> f20f15d4_9226_4063_b04c_cfa69f54683d
+  fd0aff14_9305_43ae_a8a9_70036e21931d -.-> n_4b14a1db_4adf_4a28_96bb_dcbc53019de7
+  linkStyle 10 stroke:#C62828,stroke-width:2px

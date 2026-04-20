@@ -1,0 +1,43 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_8689cc7c_0287_4df1_b60f_f17a57e6a4fb(( )):::terminal
+  n_5de55f0e_1e42_4315_8aaf_57eff7e8c17c((( ))):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_156d8569_2229_4a98_a605_12e74c9bb4da["Pateikti patiekalo langą"]:::action
+    n_1ea72f12_7666_44bb_ba40_d621f58e349d["Pateikti patiekalų peržiūros langą"]:::action
+    af9fd5a3_55f1_4ce7_8b79_0f7cd02132eb(( )):::decision
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    bf2f3e50_658b_4bdb_af23_10c141477e14{"?"}:::decision
+    n_2103b5a8_085b_4255_9673_37914a100f28["Ištrinti patiekalą"]:::action
+    d75c4b11_3633_4318_8260_3fa7622bf6a8["Pasirinkti patiekalą"]:::action
+    n_5cf7d010_f4b8_4020_9f29_3838af55c525["Uždaryti patiekalą langą"]:::action
+    n_36366bd9_2d2b_479b_9a5e_a28c7d18ca99["Pasirinnkti patiekalų peržiūrą"]:::action
+    n_06fe473f_d848_4553_872a_4d90ce63e14f["Pridėti patiekalą į menių"]:::action
+    n_37716b18_854a_4638_9494_54d3194d676e["Redaguoti patiekalą"]:::action
+  end
+
+  bf2f3e50_658b_4bdb_af23_10c141477e14 -- "[else]" --> n_5de55f0e_1e42_4315_8aaf_57eff7e8c17c
+  bf2f3e50_658b_4bdb_af23_10c141477e14 -- "[nori ištrinti]" --> n_2103b5a8_085b_4255_9673_37914a100f28
+  d75c4b11_3633_4318_8260_3fa7622bf6a8 --> n_156d8569_2229_4a98_a605_12e74c9bb4da
+  bf2f3e50_658b_4bdb_af23_10c141477e14 -- "[nori redaguoti]" --> n_37716b18_854a_4638_9494_54d3194d676e
+  bf2f3e50_658b_4bdb_af23_10c141477e14 -- "[nori peržiūrėti lankytiną vietą]" --> d75c4b11_3633_4318_8260_3fa7622bf6a8
+  af9fd5a3_55f1_4ce7_8b79_0f7cd02132eb --> n_1ea72f12_7666_44bb_ba40_d621f58e349d
+  n_36366bd9_2d2b_479b_9a5e_a28c7d18ca99 --> af9fd5a3_55f1_4ce7_8b79_0f7cd02132eb
+  n_1ea72f12_7666_44bb_ba40_d621f58e349d --> bf2f3e50_658b_4bdb_af23_10c141477e14
+  bf2f3e50_658b_4bdb_af23_10c141477e14 -- "[nori pridėti]" --> n_06fe473f_d848_4553_872a_4d90ce63e14f
+  n_8689cc7c_0287_4df1_b60f_f17a57e6a4fb --> n_36366bd9_2d2b_479b_9a5e_a28c7d18ca99
+  n_156d8569_2229_4a98_a605_12e74c9bb4da --> n_5cf7d010_f4b8_4020_9f29_3838af55c525
+  n_37716b18_854a_4638_9494_54d3194d676e -.-> af9fd5a3_55f1_4ce7_8b79_0f7cd02132eb
+  n_2103b5a8_085b_4255_9673_37914a100f28 -.-> af9fd5a3_55f1_4ce7_8b79_0f7cd02132eb
+  n_06fe473f_d848_4553_872a_4d90ce63e14f -.-> af9fd5a3_55f1_4ce7_8b79_0f7cd02132eb
+  n_5cf7d010_f4b8_4020_9f29_3838af55c525 -.-> af9fd5a3_55f1_4ce7_8b79_0f7cd02132eb
+  linkStyle 11,12,13,14 stroke:#C62828,stroke-width:2px

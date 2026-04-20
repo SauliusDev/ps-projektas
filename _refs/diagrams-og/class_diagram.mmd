@@ -1,0 +1,95 @@
+---
+title: Dalykinės srities klasių diagrama
+---
+classDiagram
+  direction LR
+
+  class Admin
+  class Grupe {
+    -nariuSkaičius: Integer
+  }
+  class Keliautojas
+  class Kelione {
+    -pradžiosData: Date
+    -suDraugais: Boolean
+    -pabaigosData: Date
+  }
+  class Lankytina_vieta {
+    +pavadinimas: String
+    +adresas: String
+    +aprašas: String
+    +tipas: String
+    +miestas: String
+    +atidaryta: Boolean
+    +rekomenduojamasBuvimoLaikas: Integer
+  }
+  class Maisto_planas
+  class Maisto_vieta {
+    +pavadinimas: String
+    +adresas: String
+    +miestas: String
+  }
+  class Marsrutas {
+    -numatomasLaikas: Integer
+  }
+  class Marsruto_lankytina_vieta {
+    +eilesNumeris: Integer
+  }
+  class Marsruto_maisto_vieta {
+    +eilesNumeris: Integer
+  }
+  class Meniu {
+    +tipas: String
+  }
+  class Naudotojas {
+    -Vardas: String
+    -Elpastas: String
+    -Slaptazodis: String
+  }
+  class Pasiulimas {
+    -naujas: boolean
+    -populiarumas: int
+    -įvertinimas: double
+  }
+  class Patiekalas {
+    +pavadinimas: String
+    +dieta: Dieta
+    +aprašas: String
+  }
+  class Preferences {
+    -biudžetas: Double
+    -megstamasMiestas: String
+    -kelionesTipas: String
+    -dieta: Dieta
+  }
+  class Dieta {
+    <<enumeration>>
+    Nesvarbu
+    Pesketaras
+    Vegetaras
+  }
+
+  Naudotojas <|-- Keliautojas
+  Naudotojas <|-- Admin
+
+  Keliautojas "1" o-- "1..*" Pasiulimas : Išsisaugo
+  Keliautojas "1..*" o-- "1" Preferences : Nustato
+  Grupe "0..1" o-- "1..*" Keliautojas : Keliautoju grupe
+  Maisto_planas "1" o-- "0..*" Maisto_vieta
+  Maisto_vieta "1" o-- "1..*" Meniu
+  Meniu "1" o-- "1..*" Patiekalas
+
+  Kelione "1" *-- "1" Marsrutas
+  Kelione "1" *-- "1" Maisto_planas
+  Marsrutas "1" *-- "1..*" Marsruto_lankytina_vieta
+  Lankytina_vieta "1" *-- "0..*" Marsruto_maisto_vieta
+
+  Kelione "0..*" -- "1..*" Keliautojas : Dalyvauja
+  Kelione "0..*" -- "0..1" Grupe : Dalyvauja
+  Pasiulimas "0..*" -- "1" Kelione
+  Lankytina_vieta "1" -- "1..*" Marsruto_lankytina_vieta
+  Maisto_vieta "1" -- "0..*" Marsruto_maisto_vieta
+  Marsruto_lankytina_vieta "0..1" -- "0..*" Marsruto_maisto_vieta : Pririšta prie
+
+  Admin "1" -- "0..*" Lankytina_vieta : Valdo
+  Admin "1" -- "0..*" Maisto_vieta : Valdo

@@ -1,0 +1,26 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_71b9e0b1_95a0_494f_8fe6_2cf8adad93bb((( ))):::terminal
+  bc73ea52_c3ad_43df_a856_c8a23871f1d9(( )):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_77b855b8_4198_4997_b87e_10c0d1ee9a5b["Ištrinti maisto vietas"]:::action
+    n_3b910422_07e1_4426_baba_67e675f074c1["Pateikti žymėjimo sąrašą"]:::action
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    aaa81ca6_5697_44a2_87ce_314ac1c0d595["Pažymėti maisto vietas trinimui ir patvirtinti"]:::action
+    n_49e87d92_f57b_4a73_87a8_b83ee70b99da["Pasirinkti trinimą"]:::action
+  end
+
+  bc73ea52_c3ad_43df_a856_c8a23871f1d9 --> n_49e87d92_f57b_4a73_87a8_b83ee70b99da
+  n_49e87d92_f57b_4a73_87a8_b83ee70b99da --> n_3b910422_07e1_4426_baba_67e675f074c1
+  n_77b855b8_4198_4997_b87e_10c0d1ee9a5b --> n_71b9e0b1_95a0_494f_8fe6_2cf8adad93bb
+  aaa81ca6_5697_44a2_87ce_314ac1c0d595 --> n_77b855b8_4198_4997_b87e_10c0d1ee9a5b
+  n_3b910422_07e1_4426_baba_67e675f074c1 --> aaa81ca6_5697_44a2_87ce_314ac1c0d595

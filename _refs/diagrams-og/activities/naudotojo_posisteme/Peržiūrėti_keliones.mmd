@@ -1,0 +1,83 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_4ba47f14_dac2_41fc_b3aa_1af1553b38e5(( )):::terminal
+  a4835078_7572_4342_ba4c_714779d22fd2((( ))):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    c33878e5_854b_4360_803b_4d334583032f["Jei yra miesto pasiulymuose, prideti pasiulymui ivertinima"]:::action
+    n_3f44d367_2cdb_420a_b2da_c1acd6adb318["Rodyti keliones detales"]:::action
+    e687af4b_6533_4f80_9790_f9c668aa709c["Rodyti keliones detaliu langa"]:::action
+    n_45946b3c_4463_4137_8832_fbcdfe6426e5["pateikti galimybe ivertinti kelione"]:::action
+    c4897b83_11f3_4489_9813_0fef73a72f63{"?"}:::decision
+    n_3a7a4c5b_173a_4d57_b77e_38e381093981(( )):::decision
+    n_955a2f62_6788_480e_9f3b_7987bf8a1ee6(( )):::decision
+    n_4f5de58c_8016_4217_8d1d_848a6f900218["Tikrinti ar vartotojas suteike kelionei ivertinima"]:::action
+    n_4d772444_05eb_4989_b1de_84de637ec0a0["pazymeti kelione kaip ivertinta"]:::action
+    n_9189c2e5_d3c6_4ac9_929d_f3430e329c16["Redaguoti maisto plana"]:::action
+    a18b6d3d_daf1_43d3_be35_124685a570ee["Prideti kelione i keliautojo archyva"]:::action
+    cd399f09_227d_4319_a279_093e26210f1b["Tikrinti ar kelione prideta is pasiulymu"]:::action
+    c27ebd4b_4b32_414d_9d01_256e20e9ed39["Pateikti galimybe archivuoti arba istrinti praejuse kelione"]:::action
+    af827c80_144e_4ce6_8435_2c78a1a16717{"?"}:::decision
+    e66b8197_302e_4755_adf9_af7bea2c122a["Redaguoti kelionę"]:::action
+    cebf6126_fb91_412c_839d_a5a76150b054["Trinti kelione is pridetu kelioniu ir archivuoti sistemoje"]:::action
+    f66318ae_9a85_46c7_8cc6_4c99762dfbeb["Rodyti archivuotu kelioniu langa"]:::action
+    cdcbaba9_2629_4fcb_8db1_d2745c831a33["Peržiūrėti kelią žemėlapy"]:::action
+    e3608f9d_76e2_4422_b5ad_0f57cef2abaf["Pateikti pridetas keliones"]:::action
+    aed2835a_a43c_408f_8508_0122d0f6e1b6["Tikrinti keliones busena"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_2e917da2_e771_4994_8dff_39a77a8bd66f{"?"}:::decision
+    c386a8dc_5585_4375_8d12_01af389cbee9["Pasirinkti perziureti keliones"]:::action
+    n_28fa7569_104d_4487_bb29_80767db9d283["Pasirinkti kelione"]:::action
+    n_0dd21793_c806_4bf9_a9db_be6c4c0c0954["Pasirinkti kelione"]:::action
+    n_2d660b0a_7b31_47d2_ae72_543d1cb8809b{"?"}:::decision
+    n_7702d9df_6fea_4907_85ca_448cb6c9bbcd["Ivertina kelione"]:::action
+    n_20ac4313_926b_4013_a4a6_0752900bc667{"?"}:::decision
+    n_199930e4_10cf_46aa_af0c_100c8a83292b["Kurti kelione"]:::action
+  end
+
+  e3608f9d_76e2_4422_b5ad_0f57cef2abaf --> n_2e917da2_e771_4994_8dff_39a77a8bd66f
+  n_2d660b0a_7b31_47d2_ae72_543d1cb8809b -- "[norint istrinti kelione]" --> cebf6126_fb91_412c_839d_a5a76150b054
+  n_3a7a4c5b_173a_4d57_b77e_38e381093981 --> c27ebd4b_4b32_414d_9d01_256e20e9ed39
+  n_28fa7569_104d_4487_bb29_80767db9d283 --> n_3f44d367_2cdb_420a_b2da_c1acd6adb318
+  n_4ba47f14_dac2_41fc_b3aa_1af1553b38e5 --> c386a8dc_5585_4375_8d12_01af389cbee9
+  n_4d772444_05eb_4989_b1de_84de637ec0a0 --> n_3a7a4c5b_173a_4d57_b77e_38e381093981
+  n_955a2f62_6788_480e_9f3b_7987bf8a1ee6 --> e3608f9d_76e2_4422_b5ad_0f57cef2abaf
+  af827c80_144e_4ce6_8435_2c78a1a16717 -- "[keliones busena yra praejusi]" --> n_4f5de58c_8016_4217_8d1d_848a6f900218
+  n_7702d9df_6fea_4907_85ca_448cb6c9bbcd --> cd399f09_227d_4319_a279_093e26210f1b
+  cd399f09_227d_4319_a279_093e26210f1b --> c33878e5_854b_4360_803b_4d334583032f
+  e687af4b_6533_4f80_9790_f9c668aa709c --> aed2835a_a43c_408f_8508_0122d0f6e1b6
+  af827c80_144e_4ce6_8435_2c78a1a16717 --> n_20ac4313_926b_4013_a4a6_0752900bc667
+  c33878e5_854b_4360_803b_4d334583032f --> n_4d772444_05eb_4989_b1de_84de637ec0a0
+  c27ebd4b_4b32_414d_9d01_256e20e9ed39 --> n_2d660b0a_7b31_47d2_ae72_543d1cb8809b
+  aed2835a_a43c_408f_8508_0122d0f6e1b6 -- "[keliones busena yra ateinanti, arba aktyvi]" --> af827c80_144e_4ce6_8435_2c78a1a16717
+  f66318ae_9a85_46c7_8cc6_4c99762dfbeb --> n_28fa7569_104d_4487_bb29_80767db9d283
+  a18b6d3d_daf1_43d3_be35_124685a570ee --> cebf6126_fb91_412c_839d_a5a76150b054
+  c4897b83_11f3_4489_9813_0fef73a72f63 -- "[kelione neivertinta]" --> n_45946b3c_4463_4137_8832_fbcdfe6426e5
+  n_20ac4313_926b_4013_a4a6_0752900bc667 -- "[else]" --> a4835078_7572_4342_ba4c_714779d22fd2
+  n_20ac4313_926b_4013_a4a6_0752900bc667 -- "[norint redaguoti maisto plana]" --> n_9189c2e5_d3c6_4ac9_929d_f3430e329c16
+  n_2d660b0a_7b31_47d2_ae72_543d1cb8809b -- "[norint archivuoti kelione]" --> a18b6d3d_daf1_43d3_be35_124685a570ee
+  n_45946b3c_4463_4137_8832_fbcdfe6426e5 --> n_7702d9df_6fea_4907_85ca_448cb6c9bbcd
+  n_0dd21793_c806_4bf9_a9db_be6c4c0c0954 --> e687af4b_6533_4f80_9790_f9c668aa709c
+  n_2e917da2_e771_4994_8dff_39a77a8bd66f -- "[norint ziureti archyvuotas keliones]" --> f66318ae_9a85_46c7_8cc6_4c99762dfbeb
+  n_2e917da2_e771_4994_8dff_39a77a8bd66f -- "[kurti nauja kelione]" --> n_199930e4_10cf_46aa_af0c_100c8a83292b
+  n_20ac4313_926b_4013_a4a6_0752900bc667 -- "[norint redaguoti kelione]" --> e66b8197_302e_4755_adf9_af7bea2c122a
+  c386a8dc_5585_4375_8d12_01af389cbee9 --> n_955a2f62_6788_480e_9f3b_7987bf8a1ee6
+  n_20ac4313_926b_4013_a4a6_0752900bc667 -- "[norint perziureti kelia zemelapyje]" --> cdcbaba9_2629_4fcb_8db1_d2745c831a33
+  n_4f5de58c_8016_4217_8d1d_848a6f900218 --> c4897b83_11f3_4489_9813_0fef73a72f63
+  c4897b83_11f3_4489_9813_0fef73a72f63 -- "[kelione ivertinta]" --> n_3a7a4c5b_173a_4d57_b77e_38e381093981
+  n_2e917da2_e771_4994_8dff_39a77a8bd66f -- "[perziureti pridetas keliones]" --> n_0dd21793_c806_4bf9_a9db_be6c4c0c0954
+  e66b8197_302e_4755_adf9_af7bea2c122a -.-> n_955a2f62_6788_480e_9f3b_7987bf8a1ee6
+  cdcbaba9_2629_4fcb_8db1_d2745c831a33 -.-> n_955a2f62_6788_480e_9f3b_7987bf8a1ee6
+  cebf6126_fb91_412c_839d_a5a76150b054 -.-> n_955a2f62_6788_480e_9f3b_7987bf8a1ee6
+  n_199930e4_10cf_46aa_af0c_100c8a83292b -.-> n_955a2f62_6788_480e_9f3b_7987bf8a1ee6
+  n_9189c2e5_d3c6_4ac9_929d_f3430e329c16 -.-> n_955a2f62_6788_480e_9f3b_7987bf8a1ee6
+  n_3f44d367_2cdb_420a_b2da_c1acd6adb318 -.-> n_955a2f62_6788_480e_9f3b_7987bf8a1ee6
+  linkStyle 31,32,33,34,35,36 stroke:#C62828,stroke-width:2px

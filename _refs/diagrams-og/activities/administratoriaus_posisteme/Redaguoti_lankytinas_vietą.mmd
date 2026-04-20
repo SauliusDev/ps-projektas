@@ -1,0 +1,38 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  c6015de7_7971_4c7e_afdb_9e424727f01b(( )):::terminal
+  a34ebb69_4b3d_4c76_8191_4aae1f316628((( ))):::terminal
+
+  subgraph Admin["Admin"]
+    direction TB
+    n_4d055bcf_d9f6_4b5d_915a_c4c7c11a2962["Pasirinkti pridėjimą"]:::action
+    bd33952b_fc8e_4270_b554_4ea6efd6a27c["Užpildyti redagavimo formą ir patvirtinti"]:::action
+    b9ae2d15_8169_4996_b629_76db74dc636f(( )):::decision
+  end
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_78f908e2_229e_4678_bb81_e6fdcfcbd84f["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    n_886f2d41_3c3c_4e67_ab1c_99fa2e1b70cc["Pateikti klaidos pranešimą ir klaidingą duomenų lauką redagavimo formoje"]:::action
+    n_98275f0c_8d74_4446_abfa_f6b17f39e9b5["Pateikti redagavimo formą"]:::action
+    cc14f181_ac4e_439c_9ba9_15d2f858cc9a{"?"}:::decision
+    c85ad4a6_debc_4f87_8096_165224598462["Patiktinti ar lankytina vieta nesidubliuoja sistemoje"]:::action
+    n_5d71c7f0_56c9_4109_adc9_41dce5aae4fb["Redaguoti lankytiną vietą"]:::action
+  end
+
+  bd33952b_fc8e_4270_b554_4ea6efd6a27c --> n_78f908e2_229e_4678_bb81_e6fdcfcbd84f
+  n_5d71c7f0_56c9_4109_adc9_41dce5aae4fb --> a34ebb69_4b3d_4c76_8191_4aae1f316628
+  n_98275f0c_8d74_4446_abfa_f6b17f39e9b5 --> b9ae2d15_8169_4996_b629_76db74dc636f
+  n_78f908e2_229e_4678_bb81_e6fdcfcbd84f --> c85ad4a6_debc_4f87_8096_165224598462
+  b9ae2d15_8169_4996_b629_76db74dc636f --> bd33952b_fc8e_4270_b554_4ea6efd6a27c
+  n_4d055bcf_d9f6_4b5d_915a_c4c7c11a2962 --> n_98275f0c_8d74_4446_abfa_f6b17f39e9b5
+  c85ad4a6_debc_4f87_8096_165224598462 --> cc14f181_ac4e_439c_9ba9_15d2f858cc9a
+  c6015de7_7971_4c7e_afdb_9e424727f01b --> n_4d055bcf_d9f6_4b5d_915a_c4c7c11a2962
+  cc14f181_ac4e_439c_9ba9_15d2f858cc9a -- "[duomenys tinkami]" --> n_5d71c7f0_56c9_4109_adc9_41dce5aae4fb
+  cc14f181_ac4e_439c_9ba9_15d2f858cc9a -- "[duomenys klaidingi]" --> n_886f2d41_3c3c_4e67_ab1c_99fa2e1b70cc
+  n_886f2d41_3c3c_4e67_ab1c_99fa2e1b70cc -.-> b9ae2d15_8169_4996_b629_76db74dc636f
+  linkStyle 10 stroke:#C62828,stroke-width:2px

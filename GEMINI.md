@@ -9,7 +9,7 @@ Read:
 - `docs/project-context.md`
 - `_refs/1st-lab/`
 - `_refs/2nd-lab/`
-
+∑
 Shared rules:
 
 - `.claude/skills/` is the canonical shared skill library for this repository.

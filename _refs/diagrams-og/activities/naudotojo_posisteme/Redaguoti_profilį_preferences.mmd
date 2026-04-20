@@ -1,0 +1,36 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_3dfc3e96_57ae_4e7e_b964_52d15bd0b1f4((( ))):::terminal
+  cc807f2a_592e_4ce5_bceb_ba3828bbcd67(( )):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_441a83ce_9dfd_4cf1_86d2_9f2514999791["Validuoti duomenis"]:::action
+    e82839dd_8fb6_466f_81ac_623698ebec83["Rodyti patvirtinima apie sékmingą redagavimą"]:::action
+    n_093979da_21fd_4a0a_bc26_12548a5ae520["Pateikti profilio redagavimo pasirinktis"]:::action
+    cace9435_8dde_4556_9373_82a1486c63bf(( )):::decision
+    n_77cc9802_34e9_4845_b2c8_d0ddf8034469["Redaguoti duomenų bazę"]:::action
+    e0e4a8f2_e373_428e_9aa9_282b184063ed{"?"}:::decision
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_9d288d94_566d_4189_9c45_c4ad6fa09ff6["Pasirinkti redaguoti profilį"]:::action
+    n_0c3326b0_3b15_4a3f_a8c1_d9f53dfd9dab["Redaguoti profilį"]:::action
+  end
+
+  n_9d288d94_566d_4189_9c45_c4ad6fa09ff6 --> n_093979da_21fd_4a0a_bc26_12548a5ae520
+  e82839dd_8fb6_466f_81ac_623698ebec83 --> n_3dfc3e96_57ae_4e7e_b964_52d15bd0b1f4
+  n_093979da_21fd_4a0a_bc26_12548a5ae520 --> cace9435_8dde_4556_9373_82a1486c63bf
+  n_441a83ce_9dfd_4cf1_86d2_9f2514999791 --> e0e4a8f2_e373_428e_9aa9_282b184063ed
+  cace9435_8dde_4556_9373_82a1486c63bf --> n_0c3326b0_3b15_4a3f_a8c1_d9f53dfd9dab
+  n_0c3326b0_3b15_4a3f_a8c1_d9f53dfd9dab --> n_441a83ce_9dfd_4cf1_86d2_9f2514999791
+  e0e4a8f2_e373_428e_9aa9_282b184063ed -- "[Duomenys tinka]" --> n_77cc9802_34e9_4845_b2c8_d0ddf8034469
+  n_77cc9802_34e9_4845_b2c8_d0ddf8034469 --> e82839dd_8fb6_466f_81ac_623698ebec83
+  cc807f2a_592e_4ce5_bceb_ba3828bbcd67 --> n_9d288d94_566d_4189_9c45_c4ad6fa09ff6
+  e0e4a8f2_e373_428e_9aa9_282b184063ed -. "[Duomenys netinkami]" .-> cace9435_8dde_4556_9373_82a1486c63bf
+  linkStyle 9 stroke:#C62828,stroke-width:2px

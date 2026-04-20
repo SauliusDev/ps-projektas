@@ -1,0 +1,34 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  ce63d81d_b102_4e86_a671_5d7c8b35be91(( )):::terminal
+  c271e034_0150_48b7_a4b7_0541e4ec5898((( ))):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_2a0c310b_d1b1_4053_8054_32337b7dbd2b["keliones numeri padaryti pasiulimo numeriu"]:::action
+    n_37f08fbe_623a_4191_a3d1_dbedc13071ae["Pateikti datos pasirinkima"]:::action
+    n_06863865_4837_4ca7_94ad_1dd835b127e1["Prideti kelione"]:::action
+    n_21b1154b_3a15_4b1d_b7d4_ee99df92aaeb["Rodyti issaugotus pasiulimus"]:::action
+    n_259b463c_00ae_443b_9a4f_873f2cce6a27["Padidinti pasiulymo populiaruma vienu"]:::action
+  end
+
+  subgraph Keliautojas["Keliautojas"]
+    direction TB
+    n_554bd6e8_267a_4c02_a108_ce957f20d5fb["Pasirinkti keliones data"]:::action
+    n_38320b8f_1937_47dd_afdd_a6e8ff1926a3["Pasirinkti pasiulyma"]:::action
+    fc85d4e6_9e70_49aa_8b02_53d8b08319f0["pasirenka naudotis pasiulymu"]:::action
+  end
+
+  n_259b463c_00ae_443b_9a4f_873f2cce6a27 --> n_37f08fbe_623a_4191_a3d1_dbedc13071ae
+  fc85d4e6_9e70_49aa_8b02_53d8b08319f0 --> n_21b1154b_3a15_4b1d_b7d4_ee99df92aaeb
+  ce63d81d_b102_4e86_a671_5d7c8b35be91 --> fc85d4e6_9e70_49aa_8b02_53d8b08319f0
+  n_38320b8f_1937_47dd_afdd_a6e8ff1926a3 --> n_259b463c_00ae_443b_9a4f_873f2cce6a27
+  n_06863865_4837_4ca7_94ad_1dd835b127e1 --> c271e034_0150_48b7_a4b7_0541e4ec5898
+  n_21b1154b_3a15_4b1d_b7d4_ee99df92aaeb --> n_38320b8f_1937_47dd_afdd_a6e8ff1926a3
+  n_37f08fbe_623a_4191_a3d1_dbedc13071ae --> n_554bd6e8_267a_4c02_a108_ce957f20d5fb
+  n_554bd6e8_267a_4c02_a108_ce957f20d5fb --> n_2a0c310b_d1b1_4053_8054_32337b7dbd2b
+  n_2a0c310b_d1b1_4053_8054_32337b7dbd2b --> n_06863865_4837_4ca7_94ad_1dd835b127e1

@@ -1,4 +1,5 @@
-_archive/
 .DS_Store
 gemini_debug.log
 test_settings.json
+_archive/
+_mind/

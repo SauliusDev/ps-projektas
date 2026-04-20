@@ -1,0 +1,35 @@
+%%{init: {'flowchart': {'defaultRenderer': 'elk', 'htmlLabels': true, 'curve': 'linear'}}}%%
+flowchart TB
+  classDef cls fill:#F5F5F5,stroke:#424242,color:#000
+  classDef redcls fill:#FFD4D4,stroke:#C62828,color:#000
+  classDef pkg fill:#E3F2FD,stroke:#1565C0,color:#000
+
+  subgraph Frontend["Frontend"]
+    direction LR
+    subgraph FControls["Controls"]
+      Navigator["Navigator"]:::redcls
+    end
+    subgraph FView["View"]
+      AddFriendView["<b>AddFriendView</b><br/><i>operations</i><br/>+open()"]:::cls
+      JourneyParamsView["JourneyParamsView"]:::cls
+      Deals["Deals"]:::cls
+      MainView["MainView"]:::cls
+      CreateJorneyView["CreateJorneyView"]:::cls
+      SavedDeals["SavedDeals"]:::cls
+      ErrorView["ErrorView"]:::cls
+      TripEditView["<b>TripEditView</b><br/><i>operations</i><br/>+openDeleteAttraction()"]:::cls
+      JourneyOverviewView["JourneyOverviewView"]:::cls
+      FoodEditView["FoodEditView"]:::cls
+      TripList["TripList"]:::cls
+      CombinePrefView["CombinePrefView"]:::cls
+      TutorialView["TutorialView"]:::cls
+
+      AddFriendView ~~~ JourneyParamsView ~~~ Deals ~~~ MainView
+      CreateJorneyView ~~~ SavedDeals ~~~ ErrorView ~~~ TripEditView
+      JourneyOverviewView ~~~ FoodEditView ~~~ TripList ~~~ CombinePrefView
+    end
+  end
+
+  Models["Models"]:::pkg
+
+  FView -.-> Models

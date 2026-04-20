@@ -1,0 +1,36 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_726ffa9d_8d4e_4063_89c6_f49ccf305a3e(( )):::terminal
+  n_1eb7f340_dce0_4c8e_aa7d_2590fd80d6fb((( ))):::terminal
+
+  subgraph Administratoriaus_posistem["Administratoriaus posistemė"]
+    direction TB
+    n_3e8e1f43_1a56_45c9_a313_d347050da855["Pridėti meniu"]:::action
+    n_670e5fdf_15fa_40b6_a8c1_e3e6a60c2f85["Pateikti klaidos pranešimą ir klaidingą duomenų lauką pridėjimo formoje"]:::action
+    n_4f61777d_7cea_4ef2_85f1_1f103b7b2d91{"?"}:::decision
+    n_7c79b4e2_04c5_4825_a953_e4c13d927676["Patikrinti ar įvesti teisingi duomenų tipai"]:::action
+    cc008dcc_49f2_4e09_aea2_1748f1acf498["Pateikti pridėjimo formą"]:::action
+  end
+
+  subgraph Admin["Admin"]
+    direction TB
+    ecf0f9e5_23e8_4c19_afc2_222af0fac6a6["Užpildyti pridėjimo formą ir patvirtinti"]:::action
+    n_5bf86b4a_0597_423c_83de_c0da9ad7a958(( )):::decision
+    bacb4220_8348_44f5_805f_4e047c5ef517["Pasirinkti pridėjimą"]:::action
+  end
+
+  cc008dcc_49f2_4e09_aea2_1748f1acf498 --> n_5bf86b4a_0597_423c_83de_c0da9ad7a958
+  n_3e8e1f43_1a56_45c9_a313_d347050da855 --> n_1eb7f340_dce0_4c8e_aa7d_2590fd80d6fb
+  n_5bf86b4a_0597_423c_83de_c0da9ad7a958 --> ecf0f9e5_23e8_4c19_afc2_222af0fac6a6
+  n_4f61777d_7cea_4ef2_85f1_1f103b7b2d91 -- "[duomenys klaidingi]" --> n_670e5fdf_15fa_40b6_a8c1_e3e6a60c2f85
+  bacb4220_8348_44f5_805f_4e047c5ef517 --> cc008dcc_49f2_4e09_aea2_1748f1acf498
+  n_4f61777d_7cea_4ef2_85f1_1f103b7b2d91 -- "[duomenis tinkami]" --> n_3e8e1f43_1a56_45c9_a313_d347050da855
+  n_726ffa9d_8d4e_4063_89c6_f49ccf305a3e --> bacb4220_8348_44f5_805f_4e047c5ef517
+  n_7c79b4e2_04c5_4825_a953_e4c13d927676 --> n_4f61777d_7cea_4ef2_85f1_1f103b7b2d91
+  ecf0f9e5_23e8_4c19_afc2_222af0fac6a6 --> n_7c79b4e2_04c5_4825_a953_e4c13d927676
+  n_670e5fdf_15fa_40b6_a8c1_e3e6a60c2f85 -.-> n_5bf86b4a_0597_423c_83de_c0da9ad7a958
+  linkStyle 9 stroke:#C62828,stroke-width:2px

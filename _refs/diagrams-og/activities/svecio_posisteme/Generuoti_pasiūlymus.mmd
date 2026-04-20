@@ -1,0 +1,122 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  a962e032_34aa_4b93_94aa_74ccba53c6f5(( )):::terminal
+  n_2d674d94_9a12_4f02_8b90_3fce075012a4((( ))):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    n_800e27f3_271e_4b3a_9c60_b3b20d4d7c39["Isrikiuoti pagal bendra ivertinima"]:::action
+    cc1cd7c3_9f48_4c0f_8243_d0252758da5c{"?"}:::decision
+    f3735765_1c8c_4696_ba1e_0f8e763b5893{"?"}:::decision
+    n_5eb5c012_814b_4f25_a95a_530fe9c3d4b4(( )):::decision
+    c6a69550_0f8e_4124_ab71_9d38e905fffb(( )):::decision
+    n_53e89139_a0f1_4c6e_b4ea_77e0d80de21d["Tikrinti pasiulymo ratinga"]:::action
+    e49f185c_47b8_4ccb_8272_da3425b1c0b5{"?"}:::decision
+    n_59ed1332_d89e_4f81_b111_90c91f0b8c6c(( )):::decision
+    n_90da9f8d_aea2_4ebb_b7de_bbcd5dcda403{"?"}:::decision
+    n_969480c8_f249_4ebd_978f_27fc2b651a92(( )):::decision
+    n_4e8d8d9e_ad93_4e06_a0d9_3b7d7dbb41d9["Vidutinis vietu kiekis = suma/kiekis"]:::action
+    ea7a67d4_3887_4a68_8d10_4c140c1c590d(( )):::decision
+    n_5ee05788_de7c_4dbf_a2eb_99568a712ae1{"?"}:::decision
+    b43008fa_7fc1_4413_9e13_b309ddc5c609["Gauti visus pasiulymus iš duomenų bazės"]:::action
+    cfc7d907_a4e2_43dc_a458_73327dab96cf["max kelias = 6000(m)"]:::action
+    ec646f93_ba78_47b7_9cc2_194b9fbc8c79["Gauti max populiarumo skaiciu"]:::action
+    ffaf067d_4e78_402c_acf9_3bc6c009c414{"?"}:::decision
+    n_3e55bb3c_5850_4f55_9724_71d0d9a2b583["Prie bendro ivertinimo prideti 0.2*(populiarumas/maxpopuliarumas * 100)"]:::action
+    ebba92cd_2e71_4b38_bce6_ee0b9756a517["Prie bendro ivertinimo prideti += 0.2 * 30"]:::action
+    c0077237_8d99_49da_b616_4594a74c0812{"?"}:::decision
+    n_49b1ff5a_6d7e_4537_a1cd_c096fde6713d["Tikrinti ar keliautojas turi pridetu kelioniu"]:::action
+    n_2abb84da_bc7d_40df_a91e_f81478fafbca["Prie bendro ivertinimo prideti 0.2*100"]:::action
+    n_51a11483_c57d_46b0_af2d_ff6fdb519597["Rikiuoti maršrutus pagal populiarumo skaičių"]:::action
+    n_5dd3c1fb_a236_46aa_a51a_51cd3ae15b76["Eiti per keliones"]:::action
+    n_19ba5c8d_63e0_465b_8aec_16a027550dcd["Tikrinti ar pasiulimas yra naujas"]:::action
+    a7fa0e88_92da_4d40_a31a_8e169c01b49e(( )):::decision
+    f8d3e030_85b5_42de_8696_0bd83c5a3c70{"?"}:::decision
+    a7fc5ea0_ac78_43fb_b615_1550106b1d30["max kelias = 2000(m)"]:::action
+    n_0d4b9d29_d876_4ea1_9f33_7fbc94217365{"?"}:::decision
+    fb3d118c_3f72_4f6d_a28e_cb175e3e431d(( )):::decision
+    a0fcab69_615b_432e_a00b_a2c50925f265["Prie bendro ivertinimo prideti 0.2 * 50"]:::action
+    n_3abb8ce1_d2a0_4bab_b3ac_b06ae93f2ac6["Tikrinti pasiulymo pirmo tasko atstuma nuo keliautojo"]:::action
+    n_05a81fe6_40e4_4381_9349_f5b4a89a729c["Tikrinti miestą"]:::action
+    n_240db4c3_f7f9_4f41_8fa5_446de7aef048(( )):::decision
+    da68725e_4eb4_4ce0_812b_15efcb722318["Prie bendro ivertinimo prideti 0.2 *(100-(kelias / max kelias *100))"]:::action
+    cce92526_0efe_4b2d_97a4_334a96c14c51["Prie sumos prideti keliones lankytinu vietu kiekis"]:::action
+    a09d35d5_b853_46be_a992_82da5903bafe["Prie bendro ivertinimo prideti 0.2 * 100"]:::action
+    n_616eb42f_67ea_4ddf_9299_5f94bf375637["Prie bendro ivertinimo prideti += 0.2*100"]:::action
+    n_13f57bb6_3efd_43bf_a3b1_0144e4c1511f{"?"}:::decision
+    eeb055b4_315a_4bba_9199_362052cd9955{"?"}:::decision
+    n_12d51c74_7921_4061_95a2_d7be44859c03(( )):::decision
+    n_53563680_084e_47be_aa92_99ccd709ec18["max kelias = 15000(m)"]:::action
+    e9a998c0_49b7_4eb2_a823_c4befdb7df2c["Prie bendro ivertinimo prideti +=0.2 * 60"]:::action
+    d7ea58b4_4d99_4f86_a855_b3ddb40c3575["Rodyti pirmus 10 pasiulymus, pasiulymu lange"]:::action
+    e94dbe57_293f_43e1_a13b_e8c296ff4377["Tikrinti transporto parinktis"]:::action
+    e58d7b26_d175_4e02_b4c8_d9daf828abed["Prie bendro ivertinimo prideti 0.2*100"]:::action
+  end
+
+  ec646f93_ba78_47b7_9cc2_194b9fbc8c79 --> a7fa0e88_92da_4d40_a31a_8e169c01b49e
+  n_0d4b9d29_d876_4ea1_9f33_7fbc94217365 -- "[turi]" --> n_5dd3c1fb_a236_46aa_a51a_51cd3ae15b76
+  n_240db4c3_f7f9_4f41_8fa5_446de7aef048 --> n_19ba5c8d_63e0_465b_8aec_16a027550dcd
+  n_19ba5c8d_63e0_465b_8aec_16a027550dcd --> n_13f57bb6_3efd_43bf_a3b1_0144e4c1511f
+  n_5eb5c012_814b_4f25_a95a_530fe9c3d4b4 --> n_53e89139_a0f1_4c6e_b4ea_77e0d80de21d
+  cce92526_0efe_4b2d_97a4_334a96c14c51 --> c0077237_8d99_49da_b616_4594a74c0812
+  n_12d51c74_7921_4061_95a2_d7be44859c03 --> n_3abb8ce1_d2a0_4bab_b3ac_b06ae93f2ac6
+  c0077237_8d99_49da_b616_4594a74c0812 -- "[kelioniu kiekis ==5]" --> fb3d118c_3f72_4f6d_a28e_cb175e3e431d
+  n_5ee05788_de7c_4dbf_a2eb_99568a712ae1 -- "[else if parinktyse pazymetas dviratis]" --> cfc7d907_a4e2_43dc_a458_73327dab96cf
+  n_51a11483_c57d_46b0_af2d_ff6fdb519597 --> ea7a67d4_3887_4a68_8d10_4c140c1c590d
+  n_13f57bb6_3efd_43bf_a3b1_0144e4c1511f -- "[pasiulimas naujas]" --> e58d7b26_d175_4e02_b4c8_d9daf828abed
+  n_4e8d8d9e_ad93_4e06_a0d9_3b7d7dbb41d9 --> f8d3e030_85b5_42de_8696_0bd83c5a3c70
+  e58d7b26_d175_4e02_b4c8_d9daf828abed --> n_969480c8_f249_4ebd_978f_27fc2b651a92
+  f8d3e030_85b5_42de_8696_0bd83c5a3c70 -- "[else]" --> n_59ed1332_d89e_4f81_b111_90c91f0b8c6c
+  b43008fa_7fc1_4413_9e13_b309ddc5c609 --> n_51a11483_c57d_46b0_af2d_ff6fdb519597
+  n_13f57bb6_3efd_43bf_a3b1_0144e4c1511f -- "[pasiulymas senas]" --> n_969480c8_f249_4ebd_978f_27fc2b651a92
+  f8d3e030_85b5_42de_8696_0bd83c5a3c70 -- "[Abs(RoundUp( vidutinis vietu kiekiss) - pasiulymo vietu kiekis) ==1]" --> e9a998c0_49b7_4eb2_a823_c4befdb7df2c
+  e49f185c_47b8_4ccb_8272_da3425b1c0b5 -- "[else]" --> n_3e55bb3c_5850_4f55_9724_71d0d9a2b583
+  f3735765_1c8c_4696_ba1e_0f8e763b5893 -- "[Jei dar yra pasiulymu]" --> e49f185c_47b8_4ccb_8272_da3425b1c0b5
+  n_800e27f3_271e_4b3a_9c60_b3b20d4d7c39 --> ea7a67d4_3887_4a68_8d10_4c140c1c590d
+  n_49b1ff5a_6d7e_4537_a1cd_c096fde6713d --> n_0d4b9d29_d876_4ea1_9f33_7fbc94217365
+  n_53e89139_a0f1_4c6e_b4ea_77e0d80de21d --> eeb055b4_315a_4bba_9199_362052cd9955
+  b43008fa_7fc1_4413_9e13_b309ddc5c609 --> ec646f93_ba78_47b7_9cc2_194b9fbc8c79
+  n_90da9f8d_aea2_4ebb_b7de_bbcd5dcda403 -- "[else]" --> c6a69550_0f8e_4124_ab71_9d38e905fffb
+  n_5dd3c1fb_a236_46aa_a51a_51cd3ae15b76 --> ffaf067d_4e78_402c_acf9_3bc6c009c414
+  f8d3e030_85b5_42de_8696_0bd83c5a3c70 -- "[Abs(RoundUp( vidutinis vietu kiekis) - pasiulymo vietu kiekis) ==2]" --> ebba92cd_2e71_4b38_bce6_ee0b9756a517
+  n_616eb42f_67ea_4ddf_9299_5f94bf375637 --> n_59ed1332_d89e_4f81_b111_90c91f0b8c6c
+  eeb055b4_315a_4bba_9199_362052cd9955 -- "[rating average>= 3 && rating average < 4]" --> a0fcab69_615b_432e_a00b_a2c50925f265
+  cc1cd7c3_9f48_4c0f_8243_d0252758da5c -- "[vartotojas neprisijunges]" --> b43008fa_7fc1_4413_9e13_b309ddc5c609
+  a7fa0e88_92da_4d40_a31a_8e169c01b49e --> f3735765_1c8c_4696_ba1e_0f8e763b5893
+  n_05a81fe6_40e4_4381_9349_f5b4a89a729c --> b43008fa_7fc1_4413_9e13_b309ddc5c609
+  da68725e_4eb4_4ce0_812b_15efcb722318 --> c6a69550_0f8e_4124_ab71_9d38e905fffb
+  n_2abb84da_bc7d_40df_a91e_f81478fafbca --> n_5eb5c012_814b_4f25_a95a_530fe9c3d4b4
+  a7fc5ea0_ac78_43fb_b615_1550106b1d30 --> n_12d51c74_7921_4061_95a2_d7be44859c03
+  n_3abb8ce1_d2a0_4bab_b3ac_b06ae93f2ac6 --> n_90da9f8d_aea2_4ebb_b7de_bbcd5dcda403
+  a09d35d5_b853_46be_a992_82da5903bafe --> n_240db4c3_f7f9_4f41_8fa5_446de7aef048
+  n_3e55bb3c_5850_4f55_9724_71d0d9a2b583 --> n_5eb5c012_814b_4f25_a95a_530fe9c3d4b4
+  e49f185c_47b8_4ccb_8272_da3425b1c0b5 -- "[populiarumas == maxpopuliarumui]" --> n_2abb84da_bc7d_40df_a91e_f81478fafbca
+  f8d3e030_85b5_42de_8696_0bd83c5a3c70 -- "[RoundUp( vidutinis vietu kiekis) == pasiulymo vietu kiekis]" --> n_616eb42f_67ea_4ddf_9299_5f94bf375637
+  e9a998c0_49b7_4eb2_a823_c4befdb7df2c --> n_59ed1332_d89e_4f81_b111_90c91f0b8c6c
+  ffaf067d_4e78_402c_acf9_3bc6c009c414 -- "[nebera kelioniu]" --> fb3d118c_3f72_4f6d_a28e_cb175e3e431d
+  a962e032_34aa_4b93_94aa_74ccba53c6f5 --> cc1cd7c3_9f48_4c0f_8243_d0252758da5c
+  f3735765_1c8c_4696_ba1e_0f8e763b5893 -- "[nebera pasiulymu]" --> n_800e27f3_271e_4b3a_9c60_b3b20d4d7c39
+  cc1cd7c3_9f48_4c0f_8243_d0252758da5c -- "[vartototjas prisijunges]" --> n_05a81fe6_40e4_4381_9349_f5b4a89a729c
+  eeb055b4_315a_4bba_9199_362052cd9955 -- "[rating average >= 4]" --> a09d35d5_b853_46be_a992_82da5903bafe
+  fb3d118c_3f72_4f6d_a28e_cb175e3e431d --> n_4e8d8d9e_ad93_4e06_a0d9_3b7d7dbb41d9
+  ebba92cd_2e71_4b38_bce6_ee0b9756a517 --> n_59ed1332_d89e_4f81_b111_90c91f0b8c6c
+  n_969480c8_f249_4ebd_978f_27fc2b651a92 --> e94dbe57_293f_43e1_a13b_e8c296ff4377
+  d7ea58b4_4d99_4f86_a855_b3ddb40c3575 --> n_2d674d94_9a12_4f02_8b90_3fce075012a4
+  ffaf067d_4e78_402c_acf9_3bc6c009c414 -- "[yra kelione]" --> cce92526_0efe_4b2d_97a4_334a96c14c51
+  n_53563680_084e_47be_aa92_99ccd709ec18 --> n_12d51c74_7921_4061_95a2_d7be44859c03
+  n_5ee05788_de7c_4dbf_a2eb_99568a712ae1 -- "[parinktyse yra pazymeta masina]" --> n_53563680_084e_47be_aa92_99ccd709ec18
+  n_5ee05788_de7c_4dbf_a2eb_99568a712ae1 -- "[else]" --> a7fc5ea0_ac78_43fb_b615_1550106b1d30
+  n_90da9f8d_aea2_4ebb_b7de_bbcd5dcda403 -- "[kelias <= maxkelias]" --> da68725e_4eb4_4ce0_812b_15efcb722318
+  ea7a67d4_3887_4a68_8d10_4c140c1c590d --> d7ea58b4_4d99_4f86_a855_b3ddb40c3575
+  c6a69550_0f8e_4124_ab71_9d38e905fffb --> n_49b1ff5a_6d7e_4537_a1cd_c096fde6713d
+  a0fcab69_615b_432e_a00b_a2c50925f265 --> n_240db4c3_f7f9_4f41_8fa5_446de7aef048
+  cfc7d907_a4e2_43dc_a458_73327dab96cf --> n_12d51c74_7921_4061_95a2_d7be44859c03
+  e94dbe57_293f_43e1_a13b_e8c296ff4377 --> n_5ee05788_de7c_4dbf_a2eb_99568a712ae1
+  c0077237_8d99_49da_b616_4594a74c0812 -. "[else]" .-> ffaf067d_4e78_402c_acf9_3bc6c009c414
+  n_0d4b9d29_d876_4ea1_9f33_7fbc94217365 -. "[neturi]" .-> a7fa0e88_92da_4d40_a31a_8e169c01b49e
+  n_59ed1332_d89e_4f81_b111_90c91f0b8c6c -.-> a7fa0e88_92da_4d40_a31a_8e169c01b49e
+  linkStyle 59,60,61 stroke:#C62828,stroke-width:2px

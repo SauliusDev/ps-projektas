@@ -1,0 +1,50 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_2eeee128_acb7_4e15_a31a_da274e5dcf59(( )):::terminal
+  ce5e35ec_9923_431d_a0c3_fafa29f0a9b4((( ))):::terminal
+
+  subgraph Naudotojo_posistem["Naudotojo posistemė"]
+    direction TB
+    eadf4805_1e12_4216_8038_4aa907b31fe9{"?"}:::decision
+    n_399965ed_3584_43a6_bf85_b0c4c714fc49["Tikrinti ar prisijunges"]:::action
+    n_1745b302_ce3c_43cf_803a_53d0fe45cb1b(( )):::decision
+    n_50bfd8ec_7a88_4901_8246_14fc25ab9bee["Pateikti pasiulymo detales"]:::action
+    n_2056eafd_c2e7_4571_a7e4_63b61747b6b3["ispejimo langas"]:::action
+    n_827dd8fc_a95b_459d_82fb_15fdd6d65356["Pasiulimas pridedamas prie issaugotu"]:::action
+    a8d53237_5469_44a4_8864_1423553853b5["Generuoti pasiūlymus"]:::action
+  end
+
+  subgraph Svecias["Svecias"]
+    direction TB
+    d543ef26_5eac_438d_b5c2_5f916af63476["Grįžti į pasiūlymų pežiūrą"]:::action
+    c4683a1d_279b_48b1_9328_7b3f02cac52f["Pasirinkti pasiulyma"]:::action
+    n_1f8fc9e2_31fa_4ab8_9165_d779dcf94e08["Pasirinkti pasiulymu perziurejima"]:::action
+    e53a0808_cb33_4cf0_8ea9_1f141f7935ec{"?"}:::decision
+    n_75d1e3a7_9091_4702_9095_11da72f9ed72{"?"}:::decision
+    n_7195ffe8_58bd_492b_960d_faa5ee570aa3["Issaugot pasiulyma"]:::action
+    fcf369b0_ffdb_4e04_9eef_ad28a6e15ab0(( )):::decision
+  end
+
+  eadf4805_1e12_4216_8038_4aa907b31fe9 -- "[neprisijunges]" --> n_2056eafd_c2e7_4571_a7e4_63b61747b6b3
+  n_50bfd8ec_7a88_4901_8246_14fc25ab9bee --> e53a0808_cb33_4cf0_8ea9_1f141f7935ec
+  e53a0808_cb33_4cf0_8ea9_1f141f7935ec -- "[norint issaugot pasiulyma]" --> n_7195ffe8_58bd_492b_960d_faa5ee570aa3
+  a8d53237_5469_44a4_8864_1423553853b5 --> n_75d1e3a7_9091_4702_9095_11da72f9ed72
+  eadf4805_1e12_4216_8038_4aa907b31fe9 -- "[prisijunges]" --> n_827dd8fc_a95b_459d_82fb_15fdd6d65356
+  n_2eeee128_acb7_4e15_a31a_da274e5dcf59 --> n_1f8fc9e2_31fa_4ab8_9165_d779dcf94e08
+  n_7195ffe8_58bd_492b_960d_faa5ee570aa3 --> n_399965ed_3584_43a6_bf85_b0c4c714fc49
+  n_1f8fc9e2_31fa_4ab8_9165_d779dcf94e08 --> n_1745b302_ce3c_43cf_803a_53d0fe45cb1b
+  e53a0808_cb33_4cf0_8ea9_1f141f7935ec --> fcf369b0_ffdb_4e04_9eef_ad28a6e15ab0
+  n_2056eafd_c2e7_4571_a7e4_63b61747b6b3 --> fcf369b0_ffdb_4e04_9eef_ad28a6e15ab0
+  fcf369b0_ffdb_4e04_9eef_ad28a6e15ab0 -- "[norint iseiti is detalaus lango]" --> d543ef26_5eac_438d_b5c2_5f916af63476
+  n_75d1e3a7_9091_4702_9095_11da72f9ed72 -- "[else]" --> ce5e35ec_9923_431d_a0c3_fafa29f0a9b4
+  n_399965ed_3584_43a6_bf85_b0c4c714fc49 --> eadf4805_1e12_4216_8038_4aa907b31fe9
+  c4683a1d_279b_48b1_9328_7b3f02cac52f --> n_50bfd8ec_7a88_4901_8246_14fc25ab9bee
+  n_75d1e3a7_9091_4702_9095_11da72f9ed72 -- "[Nori perziureti pasiulyma]" --> c4683a1d_279b_48b1_9328_7b3f02cac52f
+  n_1745b302_ce3c_43cf_803a_53d0fe45cb1b --> a8d53237_5469_44a4_8864_1423553853b5
+  d543ef26_5eac_438d_b5c2_5f916af63476 -.-> n_1745b302_ce3c_43cf_803a_53d0fe45cb1b
+  n_827dd8fc_a95b_459d_82fb_15fdd6d65356 -.-> n_1745b302_ce3c_43cf_803a_53d0fe45cb1b
+  linkStyle 16,17 stroke:#C62828,stroke-width:2px

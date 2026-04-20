@@ -1,0 +1,41 @@
+%%{init: {'flowchart': {'defaultRenderer': 'elk', 'htmlLabels': true, 'curve': 'linear'}}}%%
+flowchart TB
+  classDef pkg fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef cls fill:#FFE0B2,stroke:#E65100,color:#000
+
+  subgraph Frontend["Frontend"]
+    direction LR
+    FControls["Controls"]:::pkg
+    FView["View"]:::pkg
+  end
+
+  subgraph Backend["Backend"]
+    direction LR
+    BControls["Controls"]:::pkg
+    subgraph Models["Models"]
+      Admin["Admin"]:::cls
+      Deal["Deal"]:::cls
+      Dish["Dish"]:::cls
+      FoodPlan["FoodPlan"]:::cls
+      Group["Group"]:::cls
+      Menu["Menu"]:::cls
+      Preferences["Preferences"]:::cls
+      Route["Route"]:::cls
+      RouteAttraction["RouteAttraction"]:::cls
+      RouteFoodPlace["RouteFoodPlace"]:::cls
+      RoutePlace["RoutePlace"]:::cls
+      Traveler["Traveler"]:::cls
+      Trip["Trip"]:::cls
+      User["User"]:::cls
+      VisitedPlace["VisitedPlace"]:::cls
+      Dieta["Dieta"]:::cls
+
+      Admin ~~~ Deal ~~~ Dish ~~~ FoodPlan
+      Group ~~~ Menu ~~~ Preferences ~~~ Route
+      RouteAttraction ~~~ RouteFoodPlace ~~~ RoutePlace ~~~ Traveler
+      Trip ~~~ User ~~~ VisitedPlace ~~~ Dieta
+    end
+  end
+
+  Frontend -.-> BControls
+  BControls -.-> Models

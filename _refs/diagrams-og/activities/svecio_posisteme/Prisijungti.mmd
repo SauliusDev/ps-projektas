@@ -1,0 +1,42 @@
+%%{init: {'flowchart': {'htmlLabels': true, 'curve': 'linear', 'nodeSpacing': 55, 'rankSpacing': 70, 'padding': 15}}}%%
+flowchart TB
+  classDef action fill:#FFFDE7,stroke:#F9A825,color:#000
+  classDef decision fill:#E3F2FD,stroke:#1565C0,color:#000
+  classDef terminal fill:#000,color:#fff,stroke:#000
+
+  n_547d1636_c9a2_4155_bfdc_4d2681f0865d((( ))):::terminal
+  a5493201_72ee_4599_8e0e_014134f36888(( )):::terminal
+
+  subgraph Sve_io_posistem["Svečio posistemė"]
+    direction TB
+    a2bdd681_1290_47f4_a91f_92656229aa06["Pateikti pagrindinį langą"]:::action
+    d4ea261e_79eb_4b0a_af4f_fe2d589354a9["Pateikti prisijungimo langą"]:::action
+    n_4912691c_9506_4fd1_ba80_c8b470e90b5e["Sukurti naudotojo sesiją"]:::action
+    c1a46d74_1843_4068_ad8a_294067299b4c(( )):::decision
+    n_36798da7_c602_4691_b6e9_56f6902c16e2["Validuoti prisijungimo duomenis"]:::action
+    n_5034de01_35b3_48e9_a741_df2f1fbbc477["Rodyti klaidos pranešimą"]:::action
+    n_0f77a087_c0d8_4cae_8bd6_161d1a7d4e0e{"?"}:::decision
+  end
+
+  subgraph Svecias["Svecias"]
+    direction TB
+    n_4046f33a_b647_4543_afc8_4c2d7c5fdc78{"?"}:::decision
+    n_13760b3b_70ab_40c8_b7e1_e25e63c750f8["Pasirinkti prisijungti"]:::action
+    n_0736e859_5e7c_4717_a01b_48701b1ef295["Suvesti prisijungimo duomenis"]:::action
+    dfbdecf6_5161_46e8_94bd_30a18fee9afe["Priminti slaptažodį"]:::action
+  end
+
+  d4ea261e_79eb_4b0a_af4f_fe2d589354a9 --> n_4046f33a_b647_4543_afc8_4c2d7c5fdc78
+  n_4912691c_9506_4fd1_ba80_c8b470e90b5e --> a2bdd681_1290_47f4_a91f_92656229aa06
+  n_0f77a087_c0d8_4cae_8bd6_161d1a7d4e0e -- "[Netinkami duomenys]" --> n_5034de01_35b3_48e9_a741_df2f1fbbc477
+  a5493201_72ee_4599_8e0e_014134f36888 --> n_13760b3b_70ab_40c8_b7e1_e25e63c750f8
+  n_0736e859_5e7c_4717_a01b_48701b1ef295 --> n_36798da7_c602_4691_b6e9_56f6902c16e2
+  n_4046f33a_b647_4543_afc8_4c2d7c5fdc78 -- "[else]" --> n_0736e859_5e7c_4717_a01b_48701b1ef295
+  c1a46d74_1843_4068_ad8a_294067299b4c --> d4ea261e_79eb_4b0a_af4f_fe2d589354a9
+  n_0f77a087_c0d8_4cae_8bd6_161d1a7d4e0e -- "[Duomenys tinkami]" --> n_4912691c_9506_4fd1_ba80_c8b470e90b5e
+  n_36798da7_c602_4691_b6e9_56f6902c16e2 --> n_0f77a087_c0d8_4cae_8bd6_161d1a7d4e0e
+  dfbdecf6_5161_46e8_94bd_30a18fee9afe --> c1a46d74_1843_4068_ad8a_294067299b4c
+  a2bdd681_1290_47f4_a91f_92656229aa06 --> n_547d1636_c9a2_4155_bfdc_4d2681f0865d
+  n_13760b3b_70ab_40c8_b7e1_e25e63c750f8 --> c1a46d74_1843_4068_ad8a_294067299b4c
+  n_5034de01_35b3_48e9_a741_df2f1fbbc477 -.-> c1a46d74_1843_4068_ad8a_294067299b4c
+  linkStyle 12 stroke:#C62828,stroke-width:2px

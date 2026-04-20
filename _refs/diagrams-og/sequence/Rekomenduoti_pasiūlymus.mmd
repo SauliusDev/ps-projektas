@@ -1,0 +1,34 @@
+---
+title: Rekomenduoti pasiūlymus — sequence diagram
+---
+sequenceDiagram
+  actor N as Naudotojas
+
+  participant MV as MainView<br/>«boundary»
+  participant RDV as RecommendedDealsView<br/>«boundary»
+
+  participant DC as DealController<br/>«control»
+  participant UC as UserController<br/>«control»
+
+  participant Prefs as Preferences<br/>«entity»
+  participant Deal as Deal<br/>«entity»
+
+  participant DB as DB
+
+  N->>MV: gauti rekomenduojamus pasiūlymus
+  MV->>UC: getUserProfile(userId)
+  UC->>DB: query(User + Preferences)
+  DB-->>UC: profileData
+  UC-->>DC: recommendDeals(profileData)
+
+  DC->>Prefs: extractCriteria(profileData)
+  Prefs-->>DC: criteria
+  DC->>DB: query(Deal candidates by criteria)
+  DB-->>DC: dealCandidates
+  DC->>DC: scoreByPreferences(candidates, criteria)
+  DC->>DC: rankByScore()
+  DC->>Deal: markTop(N)
+  Deal-->>DC: topDeals
+
+  DC-->>RDV: showRecommendations(topDeals)
+  RDV-->>N: rodyti rekomenduojamus pasiūlymus
